@@ -1,6 +1,5 @@
 <template>
   <v-card-title>
-
     <span class="md-title">F</span>
     <span class="md-title">u</span>
     <span class="md-title">n</span>

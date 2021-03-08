@@ -19,7 +19,7 @@
       <div class="md-title">Create your Account</div>
         </md-card-header>
  
-        <md-card-content>
+       <!-- <md-card-content>
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field :class="getValidationClass('firstName')">
@@ -28,7 +28,24 @@
                 <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
                 <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
               </md-field>
+            </div> -->
+
+
+
+<md-card-content>
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+              <md-field :class="getValidationClass('firstName')">
+                <label for="first-name">First Name</label>
+                <md-input name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" :disabled="sending" />
+                <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
+                <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
+              </md-field>
             </div>
+
+
+
+
 
             <div class="md-layout-item md-small-size-100">
               <md-field :class="getValidationClass('lastName')">
@@ -72,16 +89,14 @@
                 <span class="md-error" v-else-if="!$v.form.cpassword.minlength">Confirm Password should contain minimum 4 charecters </span>
               </md-field>
             </div>
-          </div>
-
-          
+          </div> 
         </md-card-content>
-
-        <md-progress-bar md-mode="indeterminate" v-if="sending" />
+      <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
 <md-card-content>
         <md-card-actions>
            <md-button type="submit" class="md-primary" :disabled="sending" >sign in instead </md-button>
+           <v-spacer> </v-spacer>
           <md-button type="submit" class="md-raised md-primary" :disabled="sending">Next</md-button>
        
         </md-card-actions>
@@ -96,7 +111,9 @@
 </template>
 
 <script>
+import router from '../router/route.js'
 import fundooTitle from '../components/fundooTitle.vue';
+
 //import title from "../../components/title.vue";
   import { validationMixin } from 'vuelidate'
  
@@ -108,14 +125,14 @@ import fundooTitle from '../components/fundooTitle.vue';
     // password
   } from 'vuelidate/lib/validators'
  // import userApi from '@/services/api/user'
+import user from '../services/user.js';
+
   export default {
 
 
  components: {
  fundooTitle
   },
-
-
 
     name: 'signUp',
     mixins: [validationMixin],
@@ -181,24 +198,24 @@ import fundooTitle from '../components/fundooTitle.vue';
         this.form.firstName = null
         this.form.lastName = null
         this.form.email = null
-        this.form.phone = null
         this.form.password = null
         this.form.cpassword = null 
-      
+       window.setTimeout(() => {
+          router.push({ name:"register" });
+        }, 2000)
       },
       saveUser () {
         this.sending = true
         let data = {
             firstName: this.form.firstName,
             lastName: this.form.lastName,
-            phone: this.form.phone,
             email: this.form.email,
             password: this.form.password
    
    }
         // Instead of this timeout, here you can call your API
         console.log("signup details: ",data)
-     //   userApi.registerUser(data)
+        user.registerUser(data)
         .then(result => {
           console.log("Success", result)
           window.setTimeout(() => {
