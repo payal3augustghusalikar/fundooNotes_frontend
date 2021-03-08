@@ -1,11 +1,19 @@
 <template>
   <div>
 
+  
     <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
+
       <md-card class="md-layout-item md-size-50 md-small-size-100 overflow-x">
+
+         
         <md-card-header>
-      <div class="md-title" v-bind:style="styleObject" id="fundooNotes">
-      fundooNotes
+        
+      <div class="md-title" v-bind:style="styleObject" >
+     
+      <v-card-title>
+  </v-card-title>
+    <fundooTitle />
       </div>
      
       <div class="md-title">Create your Account</div>
@@ -16,7 +24,7 @@
             <div class="md-layout-item md-small-size-100">
               <md-field :class="getValidationClass('firstName')">
                 <label for="first-name">First Name</label>
-                <md-input name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" :disabled="sending" />
+                <md-input-box name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
                 <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
               </md-field>
@@ -34,10 +42,10 @@
 
         <!--  <md-field :class="getValidationClass('email')">
             <label for="phone">Phone Number</label>
-            <md-input type="number" name="phone" id="phone" autocomplete="phone" v-model="form.phone" :disabled="sending" />
+            <md-input  outlined dense type="number" name="phone" id="phone" autocomplete="phone" v-model="form.phone" :disabled="sending" />
             <span class="md-error" v-if="!$v.form.phone.required">The phone number is required</span>
             <span class="md-error" v-else-if="!$v.form.phone.maxLength">Invalid Phone Number</span>
-          </md-field>--> 
+          </md-field>-->
 
           <md-field :class="getValidationClass('email')">
             <label for="email">Email</label>
@@ -71,18 +79,25 @@
 
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
+<md-card-content>
         <md-card-actions>
-          <md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button>
-        </md-card-actions>
-      </md-card>
-
-      <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
+           <md-button type="submit" class="md-primary" :disabled="sending" >sign in instead </md-button>
+          <md-button type="submit" class="md-raised md-primary" :disabled="sending">Next</md-button>
        
+        </md-card-actions>
+</md-card-content> 
+
+       </md-card>
+      <figure class="OFqWT"><img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc"><figcaption class="oEvHdd">One account. All of Google working for you.</figcaption></figure>
+ 
+      <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>  
     </form>
   </div>
 </template>
 
 <script>
+import fundooTitle from '../components/fundooTitle.vue';
+//import title from "../../components/title.vue";
   import { validationMixin } from 'vuelidate'
  
   import {
@@ -94,6 +109,14 @@
   } from 'vuelidate/lib/validators'
  // import userApi from '@/services/api/user'
   export default {
+
+
+ components: {
+ fundooTitle
+  },
+
+
+
     name: 'signUp',
     mixins: [validationMixin],
     data: () => ({
