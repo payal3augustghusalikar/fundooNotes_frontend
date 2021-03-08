@@ -1,3 +1,5 @@
+
+
 <template>
   <div>
 
@@ -65,7 +67,7 @@
           </md-field>-->
 
           <md-field :class="getValidationClass('email')">
-            <label for="email">Email</label>
+            <label for="email">email</label>
             <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email" :disabled="sending" />
             <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
             <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
@@ -134,7 +136,7 @@ import user from '../services/user.js';
  fundooTitle
   },
 
-    name: 'signUp',
+    name: 'register',
     mixins: [validationMixin],
     data: () => ({
       form: {
@@ -209,9 +211,8 @@ import user from '../services/user.js';
         let data = {
             firstName: this.form.firstName,
             lastName: this.form.lastName,
-            email: this.form.email,
+            emailId: this.form.email,
             password: this.form.password
-   
    }
         // Instead of this timeout, here you can call your API
         console.log("signup details: ",data)
@@ -236,9 +237,10 @@ import user from '../services/user.js';
     }
   }
 </script>
-
 <style scoped>
 
 @import url("../scss/register.scss");
     
 </style>
+
+
