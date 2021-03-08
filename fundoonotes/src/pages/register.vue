@@ -21,17 +21,7 @@
       <div class="md-title">Create your Account</div>
         </md-card-header>
  
-       <!-- <md-card-content>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('firstName')">
-                <label for="first-name">First Name</label>
-                <md-input-box name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" :disabled="sending" />
-                <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
-                <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
-              </md-field>
-            </div> -->
-
+      
 
 
 <md-card-content>
@@ -59,12 +49,7 @@
             </div>
           </div>
 
-        <!--  <md-field :class="getValidationClass('email')">
-            <label for="phone">Phone Number</label>
-            <md-input  outlined dense type="number" name="phone" id="phone" autocomplete="phone" v-model="form.phone" :disabled="sending" />
-            <span class="md-error" v-if="!$v.form.phone.required">The phone number is required</span>
-            <span class="md-error" v-else-if="!$v.form.phone.maxLength">Invalid Phone Number</span>
-          </md-field>-->
+      
 
           <md-field :class="getValidationClass('email')">
             <label for="email">email</label>
@@ -116,17 +101,15 @@
 import router from '../router/route.js'
 import fundooTitle from '../components/fundooTitle.vue';
 
-//import title from "../../components/title.vue";
   import { validationMixin } from 'vuelidate'
  
   import {
     required,
     email,
     minLength,
-    // maxLength,
-    // password
+   
   } from 'vuelidate/lib/validators'
- // import userApi from '@/services/api/user'
+
 import user from '../services/user.js';
 
   export default {
