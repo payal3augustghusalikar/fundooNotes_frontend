@@ -3,10 +3,30 @@
     top: 0;
     right: 0;
     left: 0;
-
 }
+
+.md-title,
+.card {
+    padding-top: -50px;
+    padding-bottom: 0px;
+}
+
+.password-hint {
+    margin-top: -25px;
+    font-size: 13px;
+    justify-content: left;
+    color: rgb(109, 107, 107);
+}
+
+.account-img {
+    margin-left: 50px;
+    margin-top: 70px;
+    max-width: 220px !important;
+}
+
 .md-layout {
-    height: 60px
+    height: 80%;
+    padding-top: 15px;
 }
 
 .jc-center {
@@ -15,4 +35,12 @@
 
 .overflow-x {
     overflow-x: hidden
+}
+
+.md-field {
+    padding-top: 10px;
+}
+
+.md-card {
+    padding-top: 20px;
 }

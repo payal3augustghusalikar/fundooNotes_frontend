@@ -1,149 +1,169 @@
 <template>
   <div>
     <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-50 md-small-size-100 overflow-x">
-        <md-card-header>
-          <div class="md-title" v-bind:style="styleObject">
+      <md-card class="md-layout-item md-size-55 md-small-size-140 overflow-x">
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item md-small-size-100">
+            <md-card-header>
+            <md-card-title>
            
-            <fundooTitle />
-          </div>
+              <fundooTitle />
+             
+        </md-card-title>
+          <v-card-title>
+              Create your Account
+                    </v-card-title>
+                </md-card-header>
+            <md-card-content>
+              <div class="md-layout md-gutter">
+                <div class="md-layout-item md-small-size-100">
+                  <md-field :class="getValidationClass('firstName')">
+                    <label for="first-name">First Name</label>
+                    <md-input
+                      id="first-name"
+                      v-model="form.firstName"
+                      label="First name"
+                      :disabled="sending"
+                    />
 
-          <div class="md-title">Create your Account</div>
-        </md-card-header>
+                    <span class="md-error" v-if="!$v.form.firstName.required"
+                      >The first name is required</span
+                    >
+                    <span
+                      class="md-error"
+                      v-else-if="!$v.form.firstName.minlength"
+                      >Invalid first name</span
+                    >
+                  </md-field>
+                </div>
 
-        <md-card-content>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('firstName')">
-               <label for="last-name">Last Name</label>
+                <div class="md-layout-item md-small-size-50">
+                  <md-field :class="getValidationClass('lastName')">
+                    <label for="last-name">Last Name</label>
+                    <md-input
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      v-model="form.lastName"
+                      outline
+                      dense
+                      :disabled="sending"
+                    />
+                    <span class="md-error" v-if="!$v.form.lastName.required"
+                      >The last name is required</span
+                    >
+                    <span
+                      class="md-error"
+                      v-else-if="!$v.form.lastName.minlength"
+                      >Invalid last name</span
+                    >
+                  </md-field>
+                </div>
+              </div>
+
+              <md-field :class="getValidationClass('email')">
+                <label for="email">email</label>
                 <md-input
-                  id="first-name"
-                  v-model="form.firstName"
-                  label="First name"
-                  :disabled="sending"
-                />
-
-                <span class="md-error" v-if="!$v.form.firstName.required"
-                  >The first name is required</span
-                >
-                <span class="md-error" v-else-if="!$v.form.firstName.minlength"
-                  >Invalid first name</span
-                >
-              </md-field>
-            </div>
-
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('lastName')">
-                <label for="last-name">Last Name</label>
-                <md-input
-                  name="last-name"
-                  id="last-name"
-                  autocomplete="family-name"
-                  v-model="form.lastName"
                   outline
                   dense
+                  type="email"
+                  name="email"
+                  id="email"
+                  autocomplete="email"
+                  v-model="form.email"
                   :disabled="sending"
                 />
-                <span class="md-error" v-if="!$v.form.lastName.required"
-                  >The last name is required</span
+                <span class="md-error" v-if="!$v.form.email.required"
+                  >The email is required</span
                 >
-                <span class="md-error" v-else-if="!$v.form.lastName.minlength"
-                  >Invalid last name</span
+                <span class="md-error" v-else-if="!$v.form.email.email"
+                  >Invalid email</span
                 >
               </md-field>
-            </div>
+
+              <div class="md-layout md-gutter">
+                <div class="md-layout-item md-small-size-100">
+                  <md-field :class="getValidationClass('password')">
+                    <label for="password">Password</label>
+                    <md-input
+                      name="password"
+                      type="password"
+                      id="password"
+                      v-model="form.password"
+                      :disabled="sending"
+                    />
+                    <span class="md-error" v-if="!$v.form.password.required"
+                      >The password is required</span
+                    >
+                    <span
+                      class="md-error"
+                      v-else-if="!$v.form.password.minlength"
+                      >Password should contain minimum 4 charecters
+                    </span>
+                  </md-field>
+                </div>
+
+                <div class="md-layout-item md-small-size-100">
+                  <md-field :class="getValidationClass('password')">
+                    <label for="cpassword">Confirm</label>
+                    <md-input
+                      name="cpassword"
+                      type="password"
+                      id="cpassword"
+                      v-model="form.cpassword"
+                      :disabled="sending"
+                    />
+                    <span class="md-error" v-if="!$v.form.cpassword.required"
+                      >The confirm password is required</span
+                    >
+                    <span
+                      class="md-error"
+                      v-else-if="!$v.form.cpassword.minlength"
+                      >Confirm Password should contain minimum 4 charecters
+                    </span>
+                  </md-field>
+                </div>
+              </div>
+              <p class="password-hint">
+                Use 8 or more characters with a mix of letters, numbers &
+                symbols
+              </p>
+            </md-card-content>
+            <md-progress-bar md-mode="indeterminate" v-if="sending" />
+
+            <md-card-content>
+              <md-card-actions>
+                <span>
+                  <router-link to="/login">sign in instead</router-link>
+                </span>
+
+                <v-spacer> </v-spacer>
+                <md-button
+                  type="submit"
+                  class="md-raised md-primary"
+                  :disabled="sending"
+                  >Next</md-button
+                >
+              </md-card-actions>
+            </md-card-content>
           </div>
 
-          <md-field :class="getValidationClass('email')">
-            <label for="email">email</label>
-            <md-input
-              outline
-              dense
-              type="email"
-              name="email"
-              id="email"
-              autocomplete="email"
-              v-model="form.email"
-              :disabled="sending"
-            />
-            <span class="md-error" v-if="!$v.form.email.required"
-              >The email is required</span
-            >
-            <span class="md-error" v-else-if="!$v.form.email.email"
-              >Invalid email</span
-            >
-          </md-field>
-
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('password')">
-                <label for="password">Password</label>
-                <md-input
-                  name="password"
-                  type="password"
-                  id="password"
-                  v-model="form.password"
-                  :disabled="sending"
-                />
-                <span class="md-error" v-if="!$v.form.password.required"
-                  >The password is required</span
-                >
-                <span class="md-error" v-else-if="!$v.form.password.minlength"
-                  >Password should contain minimum 4 charecters
-                </span>
-              </md-field>
-            </div>
-
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('password')">
-                <label for="cpassword">Confirm Password</label>
-                <md-input
-                  name="cpassword"
-                  type="password"
-                  id="cpassword"
-                  v-model="form.cpassword"
-                  :disabled="sending"
-                />
-                <span class="md-error" v-if="!$v.form.cpassword.required"
-                  >The confirm password is required</span
-                >
-                <span class="md-error" v-else-if="!$v.form.cpassword.minlength"
-                  >Confirm Password should contain minimum 4 charecters
-                </span>
-              </md-field>
-            </div>
+          <div class="md-layout-item md-small-size-100">
+            <figure class="account-img">
+              <img
+                src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
+                alt=""
+                width="244"
+                height="244"
+                class="j9NuTc TrZEUc"
+              />
+              <figcaption class="oEvHdd">
+                One account. All of Google working for you.
+              </figcaption>
+            </figure>
           </div>
-        </md-card-content>
-        <md-progress-bar md-mode="indeterminate" v-if="sending" />
-
-        <md-card-content>
-          <md-card-actions>
-            <span>
-              <router-link to="/login">sign in instead</router-link>
-            </span>
-
-            <v-spacer> </v-spacer>
-            <md-button
-              type="submit"
-              class="md-raised md-primary"
-              :disabled="sending"
-              >Next</md-button
-            >
-          </md-card-actions>
-        </md-card-content>
+        </div>
       </md-card>
-      <figure class="OFqWT">
-        <img
-          src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
-          alt=""
-          width="244"
-          height="244"
-          class="j9NuTc TrZEUc"
-        />
-        <figcaption class="oEvHdd">
-          One account. All of Google working for you.
-        </figcaption>
-      </figure>
 
       <md-snackbar :md-active.sync="userSaved"
         >The user {{ lastUser }} was saved with success!</md-snackbar
@@ -243,7 +263,8 @@ export default {
       };
       // Instead of this timeout, here you can call your API
       console.log("signup details: ", data);
-      user.registerUser(data)
+      user
+        .registerUser(data)
         .then((result) => {
           console.log("Success", result);
           window.setTimeout(() => {

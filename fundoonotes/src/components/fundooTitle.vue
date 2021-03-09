@@ -1,7 +1,7 @@
 <template>
-  <v-card-title>
+  <v-card-title class="md-title">
  
-    <span class="md-title"  id="col">F</span>
+    <span  class="text-family-size"  id="col">F</span>
     <span class="md-title" id="col1">u</span>
     <span class="md-title"  id="col2">n</span>
     <span class="md-title"  id="col3">d</span>
