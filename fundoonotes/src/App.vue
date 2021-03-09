@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-  
-    <register />
+   <router-view/>
   </div>
 </template>
 
 <script>
-import register from "./pages/register.vue";
+// import register from "./pages/register.vue";
 
 export default {
   name: "App",
-  components: {
-    register,
-  },
+  // components: {
+  //   register,
+  // },
 };
 </script>
 
@@ -24,5 +23,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height: 100%
 }
 </style>

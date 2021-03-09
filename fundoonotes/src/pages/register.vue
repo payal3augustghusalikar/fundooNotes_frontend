@@ -161,6 +161,7 @@ import { validationMixin } from "vuelidate";
 import { required, email, minLength } from "vuelidate/lib/validators";
 
 import user from "../services/user.js";
+//const user = require('../services/user.js')
 
 export default {
   components: {
@@ -242,8 +243,7 @@ export default {
       };
       // Instead of this timeout, here you can call your API
       console.log("signup details: ", data);
-      user
-        .registerUser(data)
+      user.registerUser(data)
         .then((result) => {
           console.log("Success", result);
           window.setTimeout(() => {
@@ -253,7 +253,7 @@ export default {
             this.clearForm();
           }, 1500);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.warn("error ", error));
     },
     validateUser() {
       this.$v.$touch();

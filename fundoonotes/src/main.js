@@ -13,6 +13,7 @@ import "vue-material/dist/theme/default.css";
 import router from './router/route.js'
 //axios.defaults.baseURL = process.env.VUE_BASEURL
 
+
 Vue.use(Vuetify);
 Vue.use(VueMaterial);
 Vue.config.productionTip = false
