@@ -5,30 +5,25 @@
 // import register from "./pages/register.vue";
 // Vue.use(Router)
 
-
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 import register from "../pages/register.vue";
 
-
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     routes: [{
-            path: '/',
-            name: 'register',
-            component: register
+            path: "/",
+            name: "register",
+            component: register,
         },
         {
-            path: '/register',
-            name: 'register',
-            component: register
-        }
-    ]
-
-})
-
-
+            path: "/register",
+            name: "register",
+            component: register,
+        },
+    ],
+});
 
 // export default new Router({
 //     routes: [{

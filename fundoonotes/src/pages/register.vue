@@ -5,15 +5,13 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item md-small-size-100">
             <md-card-header>
-            <md-card-title>
-           
-              <fundooTitle />
-             
-        </md-card-title>
-          <v-card-title>
-              Create your Account
-                    </v-card-title>
-                </md-card-header>
+              <md-card-title>
+                <fundooTitle />
+              </md-card-title>
+              <v-card-title>
+                Create your Account
+              </v-card-title>
+            </md-card-header>
             <md-card-content>
               <div class="md-layout md-gutter">
                 <div class="md-layout-item md-small-size-100">
@@ -25,7 +23,6 @@
                       label="First name"
                       :disabled="sending"
                     />
-
                     <span class="md-error" v-if="!$v.form.firstName.required"
                       >The first name is required</span
                     >

@@ -1,20 +1,19 @@
-import axios from 'axios'
+import axios from "axios";
 
-const URL = process.env.VUE_BASEURL
+const URL = process.env.VUE_BASEURL;
 
 export default {
     registerUser(data) {
-        console.warn("saving start", data)
-        console.warn("saving start data")
-        console.warn("saving url1", URL)
-        const url = 'http://localhost:2001' + '/register'
-        console.warn("saving url", url)
-        console.warn("axios", axios)
-            // return axios.post(url, data)
-        return axios.post(url, data)
-
-    }
-}
+        console.warn("saving start", data);
+        console.warn("saving start data");
+        console.warn("saving url1", URL);
+        const url = "http://localhost:2001" + "/register";
+        console.warn("saving url", url);
+        console.warn("axios", axios);
+        // return axios.post(url, data)
+        return axios.post(url, data);
+    },
+};
 
 // class User {
 //     registerUser = async(data) => {
@@ -34,6 +33,5 @@ export default {
 
 //     }
 // }
-
 
 //module.exports = new User();
