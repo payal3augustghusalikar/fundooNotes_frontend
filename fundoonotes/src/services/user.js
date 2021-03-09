@@ -16,7 +16,7 @@ export default {
 }
 
 // class User {
-//     userRegistration = (data) => {
+//     registerUser = (data) => {
 //         const url = process.env.VUE_BASEURL + '/register'
 //         return axios.post(url, data)
 
