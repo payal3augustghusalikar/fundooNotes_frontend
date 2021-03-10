@@ -1,7 +1,9 @@
 <template>
   <div>
     <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-55 md-small-size-140 overflow-y overflow-x ">
+      <md-card
+        class="md-layout-item md-size-50 md-small-size-120 overflow-y overflow-x "
+      >
         <div class="md-layout md-gutter">
           <div class="md-layout-item md-small-size-100">
             <md-card-header>
@@ -59,7 +61,7 @@
               </div>
 
               <md-field :class="getValidationClass('email')">
-                <label for="email">email</label>
+                <label for="email">Email</label>
                 <md-input
                   outline
                   dense
@@ -145,7 +147,7 @@
             </md-card-content>
           </div>
 
-          <div class="md-layout-item md-small-size-100">
+          <div class="md-layout md-small-size-50">
             <figure class="account-img">
               <img
                 src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
@@ -160,12 +162,11 @@
             </figure>
           </div>
         </div>
-      </md-card>
-
-      <md-snackbar :md-active.sync="userSaved"
+         <md-snackbar :md-active.sync="userSaved"
         >The user {{ lastUser }} was saved with success please
         login!</md-snackbar
       >
+      </md-card>
     </form>
   </div>
 </template>
@@ -248,7 +249,8 @@ export default {
       this.form.password = null;
       this.form.cpassword = null;
       window.setTimeout(() => {
-        router.push({ name: "register" });
+       // router.push({ name: "register" });
+         router.push({ name:"login" });
       }, 2000);
     },
     saveUser() {
@@ -269,6 +271,7 @@ export default {
             this.lastUser = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
             this.sending = false;
+            alert("user registered successfullly")
             this.clearForm();
           }, 1500);
         })
@@ -279,6 +282,12 @@ export default {
       if (!this.$v.$invalid) {
         this.saveUser();
       }
+    },
+    beforeMount() {
+      console.warn("url is  before:::",process.env.VUE_BASEURL)
+    },
+    mounted() {
+      console.warn("url is :::",process.env.VUE_BASEURL)
     },
   },
 };

@@ -13,7 +13,33 @@
     overflow-x: hidden
 }
 
-body {
-    overflow: hidden;
-    /* Hide scrollbars */
+.login {
+    width: 70%;
+    padding-left: 400px;
+    height: 450px;
+}
+
+.md-card.mdlayout {
+    padding-top: 0px;
+    width: 50%;
+    .overflow-y::-webkit-scrollbar {
+        display: none;
+    }
+    body {
+        overflow: hidden;
+        overflow-y: hidden;
+        /* Hide scrollbars */
+    }
+}
+
+form {
+    padding-top: 0px;
+    .overflow-y::-webkit-scrollbar {
+        display: none;
+    }
+    body {
+        overflow: hidden;
+        overflow-y: hidden;
+        /* Hide scrollbars */
+    }
 }

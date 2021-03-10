@@ -1,7 +1,7 @@
 <template>
   <div>
-    <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-50 md-small-size-80 overflow-x">
+    <form novalidate class="md-layout jc-center login" @submit.prevent="validateUser">
+      <md-card class="md-layout-item md-size-60 md-small-size-70 overflow-x overflow-y">
         <md-card-header>
           <md-card-title>
             <fundooTitle />
@@ -13,10 +13,9 @@
         <md-card-content>
          
           <md-field :class="getValidationClass('email')">
-            <label for="email">email</label>
+            <label for="email">Email</label>
             <md-input
-              outline
-              dense
+             
               type="email"
               name="email"
               id="email"
@@ -62,7 +61,7 @@
               type="submit"
               class="md-raised md-primary"
               :disabled="sending"
-              >Next</md-button
+              >Login</md-button
             >
           </md-card-actions>
         </md-card-content>
@@ -148,20 +147,18 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-      this.form.firstName = null;
-      this.form.lastName = null;
+     
       this.form.email = null;
       this.form.password = null;
-      this.form.cpassword = null;
+ 
       window.setTimeout(() => {
-        router.push({ name: "register" });
+        router.push({ name: "dashboard" });
       }, 2000);
     },
     saveUser() {
       this.sending = true;
       let data = {
-        firstName: this.form.firstName,
-        lastName: this.form.lastName,
+       
         emailId: this.form.email,
         password: this.form.password,
       };

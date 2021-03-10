@@ -23,10 +23,10 @@
 }
 
 .account-img {
-    margin-left: 20px;
+    margin-left: 0px;
     margin-top: 70px;
-    max-width: 220px !important;
     padding-left: 0px;
+    padding-right: 0px;
 }
 
 .md-layout {
@@ -39,10 +39,6 @@
 
 .overflow-x {
     overflow-x: hidden
-}
-
-.md-field {
-    padding-top: 10px;
 }
 
 .md-card {
@@ -59,4 +55,8 @@
 
 .overflow-y {
     overflow-x: hidden
+}
+
+md-snackbar {
+    padding-bottom: 20px;
 }
