@@ -7,26 +7,30 @@
 
 .md-title,
 .card {
-    padding-top: -50px;
+    padding-top: 0px;
     padding-bottom: 0px;
 }
 
 .password-hint {
     margin-top: -25px;
-    font-size: 13px;
+    font-size: 11px;
     justify-content: left;
     color: rgb(109, 107, 107);
+    margin-top: -25px;
+    position: absolute;
+    margin-left: 0px;
+    font-size: 11px;
 }
 
 .account-img {
-    margin-left: 50px;
+    margin-left: 20px;
     margin-top: 70px;
     max-width: 220px !important;
+    padding-left: 0px;
 }
 
 .md-layout {
-    height: 80%;
-    padding-top: 15px;
+    padding-top: 20px;
 }
 
 .jc-center {
@@ -42,5 +46,17 @@
 }
 
 .md-card {
-    padding-top: 20px;
+    padding-top: 0px;
+    .overflow-y::-webkit-scrollbar {
+        display: none;
+    }
+    body {
+        overflow: hidden;
+        overflow-y: hidden;
+        /* Hide scrollbars */
+    }
+}
+
+.overflow-y {
+    overflow-x: hidden
 }

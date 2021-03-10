@@ -1,34 +1,17 @@
 <template>
   <div>
     <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-55 md-small-size-140 overflow-x">
+      <md-card class="md-layout-item md-size-50 md-small-size-80 overflow-x">
         <md-card-header>
           <md-card-title>
             <fundooTitle />
           </md-card-title>
           <v-card-title>
-            Use Your Account
+           Sign in
           </v-card-title>
         </md-card-header>
         <md-card-content>
-
-<md-field :class="getValidationClass('email')">
          
-             <v-text-field
-                      v-model="firstName"
-                      outlined
-                      dense
-                      label="First name"
-                    
-                    />
-            <span class="md-error" v-if="!$v.form.email.required"
-              >The email is required</span
-            >
-            <span class="md-error" v-else-if="!$v.form.email.email"
-              >Invalid email</span
-            >
-          </md-field>
-       
           <md-field :class="getValidationClass('email')">
             <label for="email">email</label>
             <md-input
@@ -183,11 +166,11 @@ export default {
         password: this.form.password,
       };
       // Instead of this timeout, here you can call your API
-     
+
       user
         .registerUser(data)
         .then((result) => {
-        
+          console.warn(result)
           window.setTimeout(() => {
             this.lastUser = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
