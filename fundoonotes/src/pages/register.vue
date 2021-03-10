@@ -11,7 +11,7 @@
               <v-card-title>
                 Create your Account
               </v-card-title>
-            </md-card-header>
+                </md-card-header>
             <md-card-content>
               <div class="md-layout md-gutter">
                 <div class="md-layout-item md-small-size-100">
@@ -163,7 +163,7 @@
       </md-card>
 
       <md-snackbar :md-active.sync="userSaved"
-        >The user {{ lastUser }} was saved with success!</md-snackbar
+        >The user {{ lastUser }} was saved with success please login!</md-snackbar
       >
     </form>
   </div>

@@ -8,10 +8,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import register from "../pages/register.vue";
-
+import login from "../pages/login.vue";
 Vue.use(Router);
 
 export default new Router({
+    mode: 'history',
     routes: [{
             path: "/",
             name: "register",
@@ -21,6 +22,11 @@ export default new Router({
             path: "/register",
             name: "register",
             component: register,
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: login,
         },
     ],
 });

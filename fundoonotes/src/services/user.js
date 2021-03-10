@@ -1,17 +1,14 @@
-import axios from "axios";
+const axios = require('axios');
 
 const URL = process.env.VUE_BASEURL;
 
 export default {
     registerUser(data) {
-        console.warn("saving start", data);
-        console.warn("saving start data");
-        console.warn("saving url1", URL);
+
         const url = "http://localhost:2001" + "/register";
-        console.warn("saving url", url);
-        console.warn("axios", axios);
+
         // return axios.post(url, data)
-        return axios.post(url, data);
+        return axios.post('/register', data);
     },
 };
 
