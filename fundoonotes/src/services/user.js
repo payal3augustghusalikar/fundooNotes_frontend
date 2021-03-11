@@ -4,16 +4,10 @@ const axios = require("axios");
 
 export default {
     registerUser(data) {
-        //  const url = "http://localhost:2001" + "/register";
-        // return axios.post(url, data)
         return axios.post("/register", data);
     },
-
-
-
 
     loginUser(data) {
         return axios.post("/login", data);
     }
 };
-

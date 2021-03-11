@@ -22,24 +22,8 @@
 .md-card.mdlayout {
     padding-top: 0px;
     width: 50%;
-    .overflow-y::-webkit-scrollbar {
-        display: none;
-    }
-    body {
-        overflow: hidden;
-        overflow-y: hidden;
-        /* Hide scrollbars */
-    }
 }
 
-form {
-    padding-top: 0px;
-    .overflow-y::-webkit-scrollbar {
-        display: none;
-    }
-    body {
-        overflow: hidden;
-        overflow-y: hidden;
-        /* Hide scrollbars */
-    }
+::-webkit-scrollbar {
+    display: none;
 }

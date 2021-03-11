@@ -1,7 +1,7 @@
 <template>
   <div>
     <form novalidate class="md-layout jc-center login" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-60 md-small-size-70 overflow-x overflow-y">
+      <md-card class="md-layout-item md-size-60 md-small-size-100 overflow-x overflow-y">
         <md-card-header>
           <md-card-title>
             <fundooTitle />
@@ -73,13 +73,14 @@
         </md-card-content>
       </md-card>
 
-      <md-snackbar :md-active.sync="userSaved"
+      <md-snackbar :md-active.sync="userLoggedIn"
         >The user {{ lastUser }} was saved with success please
         login!</md-snackbar
       >
     </form>
   </div>
 </template>
+
 
 <script>
 import router from "../router/route.js";
@@ -91,7 +92,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 
 import user from "../services/user.js";
 //const user = require('../services/user.js')
-
+//import axios from 'axios'
 export default {
   components: {
     fundooTitle,
@@ -107,7 +108,7 @@ export default {
      
     },
 
-    userSaved: false,
+    userLoggedIn: false,
     sending: false,
     lastUser: null,
   }),
@@ -119,10 +120,6 @@ export default {
         required,
         email,
       },
-      //  phone: {
-      //   required,
-      //    minLength: minLength(10)
-      // },
       password: {
         required,
         minLength: minLength(4),
@@ -153,24 +150,30 @@ export default {
     loginUser() {
       this.sending = true;
       let data = {
-       
         emailId: this.form.email,
         password: this.form.password,
       };
       // Instead of this timeout, here you can call your API
-
-      user
-        .loginUser(data)
-        .then((result) => {
-          console.warn("login detatils ", result)
-          window.setTimeout(() => {
-            //this.lastUser = `${data.firstName} ${data.lastName}`;
-            this.userSaved = true;
+//console.warn("login userdata in login page: ",data)
+      user.loginUser(data)
+        .then((data) => {
+          console.warn("login detatils result is ", data)
+            console.warn("login detatils result is ",   data.data.token)
+         
+          console.log(JSON.stringify(data));
+          console.warn("login detatils  name is ", data.data.name, data.data.name,data.data.data.name )
+         
+               window.setTimeout(() => {
+           // this.lastUser = `${data.firstName} ${data.lastName}`;
+            this.userLoggedIn = true;
             this.sending = false;
+            alert("user logged in successfullly")
             this.clearForm();
           }, 1500);
+        //  console.warn("login detatils  name is ", data.name, data.data[0].name,data.data.data.name )
+         
         })
-        .catch((error) => console.warn("error ", error));
+        .catch((error) => console.warn("error for login is ", error));
     },
     validateUser() {
       this.$v.$touch();

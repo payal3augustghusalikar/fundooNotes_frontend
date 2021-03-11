@@ -10,10 +10,10 @@ import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
 //import register from "./pages/register.vue";
 import router from "./router/route.js";
-import axios from "axios";
+//import axios from "axios";
 //axios.defaults.baseURL = process.env.VUE_BASEURL
-axios.defaults.baseURL = "http://localhost:2001/";
-
+//axios.defaults.baseURL = "http://localhost:2001/";
+import './services/axios'
 Vue.use(Vuetify);
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
