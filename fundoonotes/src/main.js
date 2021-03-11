@@ -12,7 +12,7 @@ import "vue-material/dist/theme/default.css";
 import router from "./router/route.js";
 import axios from "axios";
 //axios.defaults.baseURL = process.env.VUE_BASEURL
-axios.defaults.baseURL = "http://localhost:2001";
+axios.defaults.baseURL = "http://localhost:2001/";
 
 Vue.use(Vuetify);
 Vue.use(VueMaterial);

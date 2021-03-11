@@ -8,4 +8,12 @@ export default {
         // return axios.post(url, data)
         return axios.post("/register", data);
     },
+
+
+
+
+    loginUser(data) {
+        return axios.post("/login", data);
+    }
 };
+

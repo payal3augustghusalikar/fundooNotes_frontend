@@ -49,7 +49,13 @@
           </md-field>
         </md-card-content>
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
-
+<md-card-content>
+          <md-card-actions>
+            <span>
+              <router-link to="/register">Forgot Password</router-link>
+            </span>
+          </md-card-actions>
+             </md-card-content>
         <md-card-content>
           <md-card-actions>
             <span>
@@ -95,11 +101,10 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     form: {
-      firstName: null,
-      lastName: null,
+     
       email: null,
       password: null,
-      cpassword: null,
+     
     },
 
     userSaved: false,
@@ -109,14 +114,7 @@ export default {
 
   validations: {
     form: {
-      firstName: {
-        required,
-        minLength: minLength(3),
-      },
-      lastName: {
-        required,
-        minLength: minLength(3),
-      },
+     
       email: {
         required,
         email,
@@ -129,10 +127,7 @@ export default {
         required,
         minLength: minLength(4),
       },
-      cpassword: {
-        required,
-        minLength: minLength(4),
-      },
+     
     },
   },
 
@@ -155,7 +150,7 @@ export default {
         router.push({ name: "dashboard" });
       }, 2000);
     },
-    saveUser() {
+    loginUser() {
       this.sending = true;
       let data = {
        
@@ -165,11 +160,11 @@ export default {
       // Instead of this timeout, here you can call your API
 
       user
-        .registerUser(data)
+        .loginUser(data)
         .then((result) => {
-          console.warn(result)
+          console.warn("login detatils ", result)
           window.setTimeout(() => {
-            this.lastUser = `${data.firstName} ${data.lastName}`;
+            //this.lastUser = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
             this.sending = false;
             this.clearForm();
@@ -180,7 +175,7 @@ export default {
     validateUser() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.saveUser();
+        this.loginUser();
       }
     },
   },
