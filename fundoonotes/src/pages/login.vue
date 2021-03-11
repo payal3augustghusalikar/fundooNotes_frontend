@@ -152,18 +152,17 @@ export default {
         emailId: this.form.email,
         password: this.form.password,
       };
-      // Instead of this timeout, here you can call your API
-//console.warn("login userdata in login page: ",data)
+   
       user.loginUser(data)
         .then((data) => {
           console.warn("login detatils result is1 ", data)
-            console.warn("login detatils token is ",   data.data.token)
-             // console.warn("userdetatils result is ", data.data.user[0])
-             console.warn("userdetails name is ", data.data.user[0].name)
+         
+          
                sessionStorage.setItem('name',  data.data.user[0].name);
-           sessionStorage.setItem('token', data.data.token);
+            sessionStorage.setItem('token', data.data.token);
              sessionStorage.setItem('firstName', data.data.user[0].firstName);
               sessionStorage.setItem('lastName', data.data.user[0].lastName);
+              sessionStorage.setItem('lastName', data.data.user[0].emailId);
                window.setTimeout(() => {
            // this.lastUser = `${data.firstName} ${data.lastName}`;
             this.userLoggedIn = true;

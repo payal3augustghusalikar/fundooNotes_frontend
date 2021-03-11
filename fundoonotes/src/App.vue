@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view :user="user" />
   </div>
 </template>
 
@@ -9,9 +9,7 @@
 
 export default {
   name: "App",
-  // components: {
-  //   register,
-  // },
+    
 };
 </script>
 
