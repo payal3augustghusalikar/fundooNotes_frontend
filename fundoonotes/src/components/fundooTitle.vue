@@ -15,7 +15,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+};
 </script>
 <style scoped>
 @import url("../scss/fundooTitle.scss");
