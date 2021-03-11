@@ -162,10 +162,10 @@
             </figure>
           </div>
         </div>
-         <md-snackbar :md-active.sync="userSaved"
-        >The user {{ lastUser }} was saved with success please
-        login!</md-snackbar
-      >
+        <md-snackbar :md-active.sync="userSaved"
+          >The user {{ lastUser }} was saved with success please
+          login!</md-snackbar
+        >
       </md-card>
     </form>
   </div>
@@ -217,10 +217,6 @@ export default {
         required,
         email,
       },
-      //  phone: {
-      //   required,
-      //    minLength: minLength(10)
-      // },
       password: {
         required,
         minLength: minLength(4),
@@ -249,8 +245,7 @@ export default {
       this.form.password = null;
       this.form.cpassword = null;
       window.setTimeout(() => {
-       // router.push({ name: "register" });
-         router.push({ name:"login" });
+        router.push({ name: "login" });
       }, 2000);
     },
     saveUser() {
@@ -261,7 +256,7 @@ export default {
         emailId: this.form.email,
         password: this.form.password,
       };
-      // Instead of this timeout, here you can call your API
+      
       console.log("signup details: ", data);
       user
         .registerUser(data)
@@ -271,7 +266,7 @@ export default {
             this.lastUser = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
             this.sending = false;
-            alert("user registered successfullly")
+            alert("user registered successfullly");
             this.clearForm();
           }, 1500);
         })
@@ -282,12 +277,6 @@ export default {
       if (!this.$v.$invalid) {
         this.saveUser();
       }
-    },
-    beforeMount() {
-      console.warn("url is  before:::",process.env.VUE_BASEURL)
-    },
-    mounted() {
-      console.warn("url is :::",process.env.VUE_BASEURL)
     },
   },
 };

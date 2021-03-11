@@ -1,21 +1,25 @@
 <template>
   <div>
-    <form novalidate class="md-layout jc-center login" @submit.prevent="validateUser">
-      <md-card class="md-layout-item md-size-60 md-small-size-100 overflow-x overflow-y">
+    <form
+      novalidate
+      class="md-layout jc-center login"
+      @submit.prevent="validateUser"
+    >
+      <md-card
+        class="md-layout-item md-size-60 md-small-size-100 overflow-x overflow-y"
+      >
         <md-card-header>
           <md-card-title>
             <fundooTitle />
           </md-card-title>
           <v-card-title>
-           Sign in
+            Sign in
           </v-card-title>
         </md-card-header>
         <md-card-content>
-         
           <md-field :class="getValidationClass('email')">
             <label for="email">Email</label>
             <md-input
-             
               type="email"
               name="email"
               id="email"
@@ -49,13 +53,13 @@
           </md-field>
         </md-card-content>
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
-<md-card-content>
+        <md-card-content>
           <md-card-actions>
             <span>
               <router-link to="/register">Forgot Password</router-link>
             </span>
           </md-card-actions>
-             </md-card-content>
+        </md-card-content>
         <md-card-content>
           <md-card-actions>
             <span>
@@ -74,25 +78,18 @@
       </md-card>
 
       <md-snackbar :md-active.sync="userLoggedIn"
-        >The user {{ lastUser }} was saved with success please
-        login!</md-snackbar
+        >The user {{ lastUser }} is logged in!</md-snackbar
       >
     </form>
   </div>
 </template>
 
-
 <script>
 import router from "../router/route.js";
 import fundooTitle from "../components/fundooTitle.vue";
-
 import { validationMixin } from "vuelidate";
-
 import { required, email, minLength } from "vuelidate/lib/validators";
-
 import user from "../services/user.js";
-//const user = require('../services/user.js')
-//import axios from 'axios'
 export default {
   components: {
     fundooTitle,
@@ -102,10 +99,8 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     form: {
-     
       email: null,
       password: null,
-     
     },
 
     userLoggedIn: false,
@@ -115,7 +110,6 @@ export default {
 
   validations: {
     form: {
-     
       email: {
         required,
         email,
@@ -124,7 +118,6 @@ export default {
         required,
         minLength: minLength(4),
       },
-     
     },
   },
 
@@ -141,7 +134,6 @@ export default {
       this.$v.$reset();
       this.form.email = null;
       this.form.password = null;
- 
       window.setTimeout(() => {
         router.push({ name: "dashboard" });
       }, 2000);
@@ -152,26 +144,21 @@ export default {
         emailId: this.form.email,
         password: this.form.password,
       };
-   
-      user.loginUser(data)
+      user
+        .loginUser(data)
         .then((data) => {
-          console.warn("login detatils result is1 ", data)
-         
-          
-               sessionStorage.setItem('name',  data.data.user[0].name);
-            sessionStorage.setItem('token', data.data.token);
-             sessionStorage.setItem('firstName', data.data.user[0].firstName);
-              sessionStorage.setItem('lastName', data.data.user[0].lastName);
-              sessionStorage.setItem('lastName', data.data.user[0].emailId);
-               window.setTimeout(() => {
-           // this.lastUser = `${data.firstName} ${data.lastName}`;
+          console.warn("login detatils result is1 ", data);
+          sessionStorage.setItem("name", data.data.user[0].name);
+          sessionStorage.setItem("token", data.data.token);
+          sessionStorage.setItem("firstName", data.data.user[0].firstName);
+          sessionStorage.setItem("lastName", data.data.user[0].lastName);
+          sessionStorage.setItem("lastName", data.data.user[0].emailId);
+          window.setTimeout(() => {
             this.userLoggedIn = true;
             this.sending = false;
-            alert("user logged in successfullly")
+            alert("user logged in successfullly");
             this.clearForm();
           }, 1500);
-        //  console.warn("login detatils  name is ", data.name, data.data[0].name,data.data.data.name )
-         
         })
         .catch((error) => console.warn("error for login is ", error));
     },
