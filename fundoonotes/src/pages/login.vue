@@ -55,7 +55,6 @@
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
         <md-card-content>
           <md-card-actions>
-
             <span>
             <h5>
               <router-link to="/forgotpassword">Forgot Password</router-link>

@@ -157,7 +157,7 @@ export default {
       let data = {
 
         newPassword: this.form.password,
-         confirmPassword:this.form.cpassword,
+         confirmPassword:this.form.password,
         token : this.$route.params.token
       };
       user

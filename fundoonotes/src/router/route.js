@@ -12,6 +12,8 @@ import login from "../pages/login.vue";
 import forgotpassword from "../pages/forgotpassword.vue";
 import resetpassword from "../pages/resetpassword.vue";
 import dashboard from "../components/dashboard.vue";
+import verifyemail from "../pages/verifyemail.vue";
+
 Vue.use(Router);
 
 
@@ -48,5 +50,11 @@ export default new Router({
             name: "resetpassword",
             component: resetpassword,
         },
+        {
+            path: "/verifyemail",
+            name: "verifyemail",
+            component: verifyemail,
+        },
     ],
+
 });
