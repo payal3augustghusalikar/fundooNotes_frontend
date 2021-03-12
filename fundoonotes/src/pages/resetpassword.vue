@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
+    <form novalidate class="md-layout jc-center reset" @submit.prevent="validateUser">
       <md-card
         class="md-layout-item md-size-50 md-small-size-120 overflow-y overflow-x "
       >
@@ -11,76 +11,11 @@
                 <fundooTitle />
               </md-card-title>
               <v-card-title>
-                Create your Account
+                Reset Password
               </v-card-title>
             </md-card-header>
             <md-card-content>
-              <div class="md-layout md-gutter">
-                <div class="md-layout-item md-small-size-100">
-                  <md-field :class="getValidationClass('firstName')">
-                    <label for="first-name">First Name</label>
-                    <md-input
-                      id="first-name"
-                      v-model="form.firstName"
-                      label="First name"
-                      :disabled="sending"
-                    />
-                    <span class="md-error" v-if="!$v.form.firstName.required"
-                      >The first name is required</span
-                    >
-                    <span
-                      class="md-error"
-                      v-else-if="!$v.form.firstName.minlength"
-                      >Invalid first name</span
-                    >
-                  </md-field>
-                </div>
-
-                <div class="md-layout-item md-small-size-50">
-                  <md-field :class="getValidationClass('lastName')">
-                    <label for="last-name">Last Name</label>
-                    <md-input
-                      name="last-name"
-                      id="last-name"
-                      autocomplete="family-name"
-                      v-model="form.lastName"
-                      outline
-                      dense
-                      :disabled="sending"
-                    />
-                    <span class="md-error" v-if="!$v.form.lastName.required"
-                      >The last name is required</span
-                    >
-                    <span
-                      class="md-error"
-                      v-else-if="!$v.form.lastName.minlength"
-                      >Invalid last name</span
-                    >
-                  </md-field>
-                </div>
-              </div>
-
-              <md-field :class="getValidationClass('email')">
-                <label for="email">Email</label>
-                <md-input
-                  outline
-                  dense
-                  type="email"
-                  name="email"
-                  id="email"
-                  autocomplete="email"
-                  v-model="form.email"
-                  :disabled="sending"
-                />
-                <span class="md-error" v-if="!$v.form.email.required"
-                  >The email is required</span
-                >
-                <span class="md-error" v-else-if="!$v.form.email.email"
-                  >Invalid email</span
-                >
-              </md-field>
-
-              <div class="md-layout md-gutter">
+             
                 <div class="md-layout-item md-small-size-100">
                   <md-field :class="getValidationClass('password')">
                     <label for="password">Password</label>
@@ -122,7 +57,7 @@
                     </span>
                   </md-field>
                 </div>
-              </div>
+         
               <p class="password-hint">
                 Use 8 or more characters with a mix of letters, numbers &
                 symbols
@@ -133,8 +68,9 @@
             <md-card-content>
               <md-card-actions>
                 <span>
-                <h5>
-                  <router-link to="/login">sign in instead</router-link></h5>
+                  <h5>
+                    <router-link to="/login">sign in instead</router-link>
+                  </h5>
                 </span>
 
                 <v-spacer> </v-spacer>
@@ -142,25 +78,10 @@
                   type="submit"
                   class="md-raised md-primary"
                   :disabled="sending"
-                  >Next</md-button
+                  >Reset</md-button
                 >
               </md-card-actions>
             </md-card-content>
-          </div>
-
-          <div class="md-layout md-small-size-50">
-            <figure class="account-img">
-              <img
-                src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
-                alt=""
-                width="244"
-                height="244"
-                class="j9NuTc TrZEUc"
-              />
-              <figcaption class="oEvHdd">
-                One account. All of Google working for you.
-              </figcaption>
-            </figure>
           </div>
         </div>
         <md-snackbar :md-active.sync="userSaved"
@@ -178,10 +99,9 @@ import fundooTitle from "../components/fundooTitle.vue";
 
 import { validationMixin } from "vuelidate";
 
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, minLength } from "vuelidate/lib/validators";
 
 import user from "../services/user.js";
-//const user = require('../services/user.js')
 
 export default {
   components: {
@@ -192,9 +112,6 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     form: {
-      firstName: null,
-      lastName: null,
-      email: null,
       password: null,
       cpassword: null,
     },
@@ -206,18 +123,6 @@ export default {
 
   validations: {
     form: {
-      firstName: {
-        required,
-        minLength: minLength(3),
-      },
-      lastName: {
-        required,
-        minLength: minLength(3),
-      },
-      email: {
-        required,
-        email,
-      },
       password: {
         required,
         minLength: minLength(4),
@@ -240,34 +145,30 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-      this.form.firstName = null;
-      this.form.lastName = null;
-      this.form.email = null;
+
       this.form.password = null;
       this.form.cpassword = null;
       window.setTimeout(() => {
         router.push({ name: "login" });
       }, 2000);
     },
-    saveUser() {
+    resetPassword() {
       this.sending = true;
       let data = {
-        firstName: this.form.firstName,
-        lastName: this.form.lastName,
-        emailId: this.form.email,
-        password: this.form.password,
+
+        newPassword: this.form.password,
+         confirmPassword:this.form.cpassword,
+        token : this.$route.params.token
       };
-      
-      console.log("signup details: ", data);
       user
-        .registerUser(data)
+        .resetPassword(data)
         .then((result) => {
           console.log("Success", result);
           window.setTimeout(() => {
             this.lastUser = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
             this.sending = false;
-            alert("user registered successfullly");
+            alert("password reset successfullly, please login.");
             this.clearForm();
           }, 1500);
         })
@@ -276,12 +177,12 @@ export default {
     validateUser() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.saveUser();
+        this.resetPassword();
       }
     },
   },
 };
 </script>
 <style scoped>
-@import url("../scss/register.scss");
+@import url("../scss/resetpassword.scss");
 </style>

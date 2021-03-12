@@ -9,5 +9,15 @@ export default {
 
     loginUser(data) {
         return axios.post("/login", data);
-    }
+    },
+
+    forgotPassword(data) {
+        return axios.post("/forgotpassword", data);
+    },
+    resetPassword(data) {
+        console.log("reset :  ")
+        const token = data.token
+        console.log("token is :", token)
+        return axios.put("/resetpassword", data);
+    },
 };

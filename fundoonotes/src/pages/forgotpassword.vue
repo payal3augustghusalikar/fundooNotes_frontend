@@ -34,40 +34,14 @@
               >Invalid email</span
             >
           </md-field>
-
-          <md-field :class="getValidationClass('password')">
-            <label for="password">Password</label>
-            <md-input
-              name="password"
-              type="password"
-              id="password"
-              v-model="form.password"
-              :disabled="sending"
-            />
-            <span class="md-error" v-if="!$v.form.password.required"
-              >The password is required</span
-            >
-            <span class="md-error" v-else-if="!$v.form.password.minlength"
-              >Password should contain minimum 4 charecters
-            </span>
-          </md-field>
         </md-card-content>
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
-        <md-card-content>
-          <md-card-actions>
-
-            <span>
-            <h5>
-              <router-link to="/forgotpassword">Forgot Password</router-link>
-              </h5>
-            </span>
-          </md-card-actions>
-        </md-card-content>
+        <md-card-content> </md-card-content>
         <md-card-content>
           <md-card-actions>
             <span>
-            <h5>
-              <router-link to="/register">create account</router-link>
+              <h5>
+                <router-link to="/register">create account</router-link>
               </h5>
             </span>
 
@@ -76,7 +50,7 @@
               type="submit"
               class="md-raised md-primary"
               :disabled="sending"
-              >Login</md-button
+              >Next</md-button
             >
           </md-card-actions>
         </md-card-content>
@@ -90,11 +64,12 @@
 </template>
 
 <script>
-import router from "../router/route.js";
+//import router from "../router/route.js";
 import fundooTitle from "../components/fundooTitle.vue";
 import { validationMixin } from "vuelidate";
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 import user from "../services/user.js";
+
 export default {
   components: {
     fundooTitle,
@@ -105,7 +80,6 @@ export default {
   data: () => ({
     form: {
       email: null,
-      password: null,
     },
 
     userLoggedIn: false,
@@ -119,10 +93,6 @@ export default {
         required,
         email,
       },
-      password: {
-        required,
-        minLength: minLength(4),
-      },
     },
   },
 
@@ -135,34 +105,20 @@ export default {
         };
       }
     },
-    clearForm() {
-      this.$v.$reset();
-      this.form.email = null;
-      this.form.password = null;
-      window.setTimeout(() => {
-        router.push({ name: "dashboard" });
-      }, 2000);
-    },
-    loginUser() {
+    
+    forgotPassword() {
       this.sending = true;
       let data = {
         emailId: this.form.email,
-        password: this.form.password,
       };
       user
-        .loginUser(data)
+        .forgotPassword(data)
         .then((data) => {
           console.warn("login detatils result is1 ", data);
-          sessionStorage.setItem("name", data.data.user[0].name);
-          sessionStorage.setItem("token", data.data.token);
-          sessionStorage.setItem("firstName", data.data.user[0].firstName);
-          sessionStorage.setItem("lastName", data.data.user[0].lastName);
-          sessionStorage.setItem("emailId", data.data.user[0].emailId);
           window.setTimeout(() => {
             this.userLoggedIn = true;
             this.sending = false;
-            alert("user logged in successfullly");
-            this.clearForm();
+            alert("email has been sent to you please verify!");
           }, 1500);
         })
         .catch((error) => console.warn("error for login is ", error));
@@ -170,7 +126,7 @@ export default {
     validateUser() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.loginUser();
+        this.forgotPassword();
       }
     },
   },

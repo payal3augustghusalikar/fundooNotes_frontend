@@ -9,6 +9,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import register from "../pages/register.vue";
 import login from "../pages/login.vue";
+import forgotpassword from "../pages/forgotpassword.vue";
+import resetpassword from "../pages/resetpassword.vue";
 import dashboard from "../components/dashboard.vue";
 Vue.use(Router);
 
@@ -35,19 +37,16 @@ export default new Router({
             name: "dashboard",
             component: dashboard,
         },
+
+        {
+            path: "/forgotpassword",
+            name: "forgotpassword",
+            component: forgotpassword,
+        },
+        {
+            path: "/resetpassword/:token",
+            name: "resetpassword",
+            component: resetpassword,
+        },
     ],
 });
-
-// export default new Router({
-//     routes: [{
-//             path: '/',
-//             name: 'register',
-//             component: register
-//         },
-//         {
-//             path: '/register',
-//             name: 'Register',
-//             component: register
-//         }
-//     ]
-// })
