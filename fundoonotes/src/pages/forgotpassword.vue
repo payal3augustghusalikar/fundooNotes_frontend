@@ -22,7 +22,6 @@
             <md-input
               type="email"
               name="email"
-              id="email"
               autocomplete="email"
               v-model="form.email"
               :disabled="sending"
@@ -40,9 +39,9 @@
         <md-card-content>
           <md-card-actions>
             <span>
-              <h5>
+             
                 <router-link to="/register">create account</router-link>
-              </h5>
+              
             </span>
 
             <v-spacer> </v-spacer>
@@ -121,7 +120,7 @@ export default {
             alert("email has been sent to you please verify!");
           }, 1500);
         })
-        .catch((error) => console.warn("error for login is ", error));
+        .catch((error) => console.warn("error for forgetpassword is ", error));
     },
     validateUser() {
       this.$v.$touch();

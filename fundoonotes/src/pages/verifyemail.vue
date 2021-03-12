@@ -1,9 +1,9 @@
 
 <template>
   <div>
-    <form novalidate class="md-layout jc-center reset"  @submit.prevent="verifyAndLogin">
+    <form novalidate class="md-layout jc-center verify"  @submit.prevent="verifyAndLogin">
       <md-card
-        class="md-layout-item md-size-50 md-small-size-120 overflow-y overflow-x "
+        class="md-layout-item md-size-80 md-small-size-100 overflow-y overflow-x "
       >
         <div class="md-layout md-gutter">
           <div class="md-layout-item md-small-size-100">
@@ -20,7 +20,7 @@
                 <h4>
             <md-button
               type="submit"
-              class="md-raised md-primary"
+              class="md-raised md-primary verify-button"
               :disabled="sending"
               >Verify Here</md-button
             >
@@ -45,7 +45,6 @@ export default {
   name: "App",
   methods: {
     verifyAndLogin() {
-      alert("Email Verifies Successfullly, please login.");
       router.push({ name: "login" });
     },
   },

@@ -1,29 +1,32 @@
-.md-progress-bar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-}
-
-.jc-center {
-    justify-content: center;
-}
-
-.overflow-x {
-    overflow-x: hidden
-}
-
-.login {
-    width: 70%;
-    padding-left: 400px;
-    height: 450px;
-}
-
-.md-card.mdlayout {
-    padding-top: 0px;
-    width: 50%;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
+    .md-progress-bar {
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    
+    .jc-center {
+        justify-content: center;
+    }
+    
+    .login {
+        height: 450px;
+        padding-top: 100px;
+        padding-right: 500px;
+        padding-left: 500px;
+    }
+    
+    .md-card {
+        padding-top: 90px;
+    }
+    
+    .md-layout-item {
+        padding-top: 0px
+    }
+    
+    #field-size {
+        size: 10px;
+    }
+    
+     ::-webkit-scrollbar {
+        display: none;
+    }

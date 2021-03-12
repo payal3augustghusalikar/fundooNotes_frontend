@@ -8,7 +8,7 @@
 </template>
 
 <script>
-//import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -18,9 +18,6 @@ export default {
   },
   name: "dashboard",
   async created() {
-    //   console.log("created")
-    //    const responce = await axios.get(' data.data.user[0]')
-    //    console.log(responce)
     const firstName = sessionStorage.getItem("firstName");
     const lastName = sessionStorage.getItem("lastName");
     const token = sessionStorage.getItem("token");

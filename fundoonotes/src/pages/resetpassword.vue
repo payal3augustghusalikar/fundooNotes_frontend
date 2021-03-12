@@ -68,9 +68,9 @@
             <md-card-content>
               <md-card-actions>
                 <span>
-                  <h5>
+                 
                     <router-link to="/login">sign in instead</router-link>
-                  </h5>
+                
                 </span>
 
                 <v-spacer> </v-spacer>

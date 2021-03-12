@@ -1,6 +1,10 @@
 <template>
   <div>
-    <form novalidate class="md-layout jc-center" @submit.prevent="validateUser">
+    <form
+      novalidate
+      class="md-layout jc-center register"
+      @submit.prevent="validateUser"
+    >
       <md-card
         class="md-layout-item md-size-50 md-small-size-120 overflow-y overflow-x "
       >
@@ -20,7 +24,6 @@
                   <md-field :class="getValidationClass('firstName')">
                     <label for="first-name">First Name</label>
                     <md-input
-                      id="first-name"
                       v-model="form.firstName"
                       label="First name"
                       :disabled="sending"
@@ -35,13 +38,11 @@
                     >
                   </md-field>
                 </div>
-
                 <div class="md-layout-item md-small-size-50">
                   <md-field :class="getValidationClass('lastName')">
                     <label for="last-name">Last Name</label>
                     <md-input
                       name="last-name"
-                      id="last-name"
                       autocomplete="family-name"
                       v-model="form.lastName"
                       outline
@@ -59,15 +60,11 @@
                   </md-field>
                 </div>
               </div>
-
               <md-field :class="getValidationClass('email')">
                 <label for="email">Email</label>
                 <md-input
-                  outline
-                  dense
                   type="email"
                   name="email"
-                  id="email"
                   autocomplete="email"
                   v-model="form.email"
                   :disabled="sending"
@@ -87,7 +84,6 @@
                     <md-input
                       name="password"
                       type="password"
-                      id="password"
                       v-model="form.password"
                       :disabled="sending"
                     />
@@ -108,7 +104,6 @@
                     <md-input
                       name="cpassword"
                       type="password"
-                      id="cpassword"
                       v-model="form.cpassword"
                       :disabled="sending"
                     />
@@ -133,10 +128,8 @@
             <md-card-content>
               <md-card-actions>
                 <span>
-                <h5>
-                  <router-link to="/login">sign in instead</router-link></h5>
+                  <router-link to="/login">sign in instead</router-link>
                 </span>
-
                 <v-spacer> </v-spacer>
                 <md-button
                   type="submit"
@@ -147,7 +140,6 @@
               </md-card-actions>
             </md-card-content>
           </div>
-
           <div class="md-layout md-small-size-50">
             <figure class="account-img">
               <img
@@ -257,7 +249,7 @@ export default {
         emailId: this.form.email,
         password: this.form.password,
       };
-      
+
       console.log("signup details: ", data);
       user
         .registerUser(data)

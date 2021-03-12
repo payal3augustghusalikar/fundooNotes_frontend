@@ -29,8 +29,13 @@
     padding-right: 0px;
 }
 
+.md-layout-item {
+    padding-top: 0px
+}
+
 .md-layout {
-    padding-top: 20px;
+    justify-self: center;
+    padding-top: 0px;
 }
 
 .jc-center {
@@ -47,4 +52,9 @@
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+.register {
+    padding-top: 100px;
+    padding-right: 10 px;
 }

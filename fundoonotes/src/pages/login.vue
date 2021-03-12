@@ -6,7 +6,7 @@
       @submit.prevent="validateUser"
     >
       <md-card
-        class="md-layout-item md-size-60 md-small-size-100 overflow-x overflow-y"
+        class="md-layout-item md-size-70 md-small-size-100 overflow-x overflow-y"
       >
         <md-card-header>
           <md-card-title>
@@ -17,12 +17,12 @@
           </v-card-title>
         </md-card-header>
         <md-card-content>
-          <md-field :class="getValidationClass('email')">
+          <md-field :class="getValidationClass('email')" id="
+          field-size">
             <label for="email">Email</label>
             <md-input
               type="email"
               name="email"
-              id="email"
               autocomplete="email"
               v-model="form.email"
               :disabled="sending"
@@ -40,7 +40,6 @@
             <md-input
               name="password"
               type="password"
-              id="password"
               v-model="form.password"
               :disabled="sending"
             />
@@ -48,26 +47,22 @@
               >The password is required</span
             >
             <span class="md-error" v-else-if="!$v.form.password.minlength"
-              >Password should contain minimum 4 charecters
+              >Password should contain minimum 4 characters
             </span>
           </md-field>
         </md-card-content>
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
         <md-card-content>
           <md-card-actions>
-            <span>
-            <h5>
+            <span >
               <router-link to="/forgotpassword">Forgot Password</router-link>
-              </h5>
             </span>
           </md-card-actions>
         </md-card-content>
         <md-card-content>
           <md-card-actions>
             <span>
-            <h5>
-              <router-link to="/register">create account</router-link>
-              </h5>
+              <router-link to="/register">Create Account</router-link>
             </span>
 
             <v-spacer> </v-spacer>
@@ -152,7 +147,6 @@ export default {
         .loginUser(data)
         .then((data) => {
           console.warn("login detatils result is1 ", data);
-          sessionStorage.setItem("name", data.data.user[0].name);
           sessionStorage.setItem("token", data.data.token);
           sessionStorage.setItem("firstName", data.data.user[0].firstName);
           sessionStorage.setItem("lastName", data.data.user[0].lastName);
