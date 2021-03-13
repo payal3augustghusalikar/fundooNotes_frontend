@@ -9,10 +9,10 @@ import Vue from "vue";
 import Router from "vue-router";
 import register from "../pages/register.vue";
 import login from "../pages/login.vue";
-import forgotpassword from "../pages/forgotpassword.vue";
-import resetpassword from "../pages/resetpassword.vue";
+import forgotPassword from "../pages/forgotPassword.vue";
+import resetPassword from "../pages/resetPassword.vue";
 import dashboard from "../components/dashboard.vue";
-import verifyemail from "../pages/verifyemail.vue";
+import verifyEmail from "../pages/verifyEmail.vue";
 
 Vue.use(Router);
 
@@ -42,18 +42,18 @@ export default new Router({
 
         {
             path: "/forgotpassword",
-            name: "forgotpassword",
-            component: forgotpassword,
+            name: "forgotPassword",
+            component: forgotPassword,
         },
         {
             path: "/resetpassword/:token",
-            name: "resetpassword",
-            component: resetpassword,
+            name: "resetPassword",
+            component: resetPassword,
         },
         {
             path: "/verifyemail",
-            name: "verifyemail",
-            component: verifyemail,
+            name: "verifyEmail",
+            component: verifyEmail,
         },
     ],
 

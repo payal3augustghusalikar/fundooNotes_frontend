@@ -6,13 +6,13 @@ axios.defaults.headers.common["Authorization"] =
 
 export default {
     post(postUrl, data) {
-        console.warn("inside post")
-        console.warn("inside post url ", postUrl)
-        console.warn("inside post data ", data)
         return axios.post(postUrl, data);
     },
-    put(putUrl, data) {
-        return axios.post(putUrl, data);
+
+    put(putUrl, userData) {
+        const token = userData.token
+        return axios.put(putUrl, userData.userData, token);
+
     }
 
 }

@@ -9,7 +9,7 @@ import "vue-material/dist/theme/default.css";
 import router from "./router/route.js";
 
 
-Vue.use(Vuetify);
+Vue.use(Vuetify)
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 

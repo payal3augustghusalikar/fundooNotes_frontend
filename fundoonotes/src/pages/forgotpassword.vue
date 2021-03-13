@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <form
       novalidate
       class="md-layout jc-center login"
@@ -22,7 +23,7 @@
             <md-input
               type="email"
               name="email"
-              autocomplete="email"
+              autocomplete="off"
               v-model="form.email"
               :disabled="sending"
             />
@@ -39,11 +40,8 @@
         <md-card-content>
           <md-card-actions>
             <span>
-             
-                <router-link to="/register">create account</router-link>
-              
+              <router-link to="/register">create account</router-link>
             </span>
-
             <v-spacer> </v-spacer>
             <md-button
               type="submit"
@@ -53,11 +51,10 @@
             >
           </md-card-actions>
         </md-card-content>
+        <md-snackbar :md-active.sync="isLinkSent"
+      >The reset password link is sent to your emailId please reset yopur password</md-snackbar
+    >
       </md-card>
-
-      <md-snackbar :md-active.sync="userLoggedIn"
-        >The user {{ lastUser }} is logged in!</md-snackbar
-      >
     </form>
   </div>
 </template>
@@ -81,9 +78,8 @@ export default {
       email: null,
     },
 
-    userLoggedIn: false,
+    isLinkSent: false,
     sending: false,
-    lastUser: null,
   }),
 
   validations: {
@@ -104,7 +100,7 @@ export default {
         };
       }
     },
-    
+
     forgotPassword() {
       this.sending = true;
       let data = {
@@ -112,13 +108,10 @@ export default {
       };
       user
         .forgotPassword(data)
-        .then((data) => {
-          console.warn("login detatils result is1 ", data);
-          window.setTimeout(() => {
-            this.userLoggedIn = true;
-            this.sending = false;
-            alert("email has been sent to you please verify!");
-          }, 1500);
+        .then((result) => {
+          console.log("Success", result);
+          this.isLinkSent = true;
+          this.sending = false;
         })
         .catch((error) => console.warn("error for forgetpassword is ", error));
     },

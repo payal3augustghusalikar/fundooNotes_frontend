@@ -24,8 +24,10 @@
                   <md-field :class="getValidationClass('firstName')">
                     <label for="first-name">First Name</label>
                     <md-input
+                      autocomplete="off"
                       v-model="form.firstName"
                       label="First name"
+
                       :disabled="sending"
                     />
                     <span class="md-error" v-if="!$v.form.firstName.required"
@@ -43,7 +45,7 @@
                     <label for="last-name">Last Name</label>
                     <md-input
                       name="last-name"
-                      autocomplete="family-name"
+                      autocomplete="off"
                       v-model="form.lastName"
                       outline
                       dense
@@ -65,7 +67,7 @@
                 <md-input
                   type="email"
                   name="email"
-                  autocomplete="email"
+                   autocomplete="off"
                   v-model="form.email"
                   :disabled="sending"
                 />
@@ -156,7 +158,7 @@
           </div>
         </div>
         <md-snackbar :md-active.sync="userSaved"
-          >The user {{ lastUser }} was saved with success please
+          >The user {{ user }} was saved with success please
           login!</md-snackbar
         >
       </md-card>
@@ -193,7 +195,7 @@ export default {
 
     userSaved: false,
     sending: false,
-    lastUser: null,
+    user: null,
   }),
 
   validations: {
@@ -237,9 +239,9 @@ export default {
       this.form.email = null;
       this.form.password = null;
       this.form.cpassword = null;
-      window.setTimeout(() => {
+     
         router.push({ name: "login" });
-      }, 2000);
+    
     },
     saveUser() {
       this.sending = true;
@@ -255,13 +257,13 @@ export default {
         .registerUser(data)
         .then((result) => {
           console.log("Success", result);
-          window.setTimeout(() => {
-            this.lastUser = `${data.firstName} ${data.lastName}`;
+        
+            this.user = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
             this.sending = false;
-            alert("user registered successfullly");
+          
             this.clearForm();
-          }, 1500);
+        
         })
         .catch((error) => console.warn("error ", error));
     },

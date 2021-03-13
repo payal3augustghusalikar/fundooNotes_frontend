@@ -6,7 +6,7 @@
       @submit.prevent="validateUser"
     >
       <md-card
-        class="md-layout-item md-size-70 md-small-size-100 overflow-x overflow-y"
+        class="md-layout-item md-size-60 md-small-size-100 overflow-x overflow-y"
       >
         <md-card-header>
           <md-card-title>
@@ -17,13 +17,13 @@
           </v-card-title>
         </md-card-header>
         <md-card-content>
-          <md-field :class="getValidationClass('email')" id="
-          field-size">
+          <md-field :class="getValidationClass('email')">
             <label for="email">Email</label>
             <md-input
               type="email"
               name="email"
-              autocomplete="email"
+             
+             autocomplete="off"
               v-model="form.email"
               :disabled="sending"
             />
@@ -40,6 +40,7 @@
             <md-input
               name="password"
               type="password"
+          
               v-model="form.password"
               :disabled="sending"
             />
@@ -47,24 +48,23 @@
               >The password is required</span
             >
             <span class="md-error" v-else-if="!$v.form.password.minlength"
-              >Password should contain minimum 4 characters
+              >Password should contain minimum 4 charecters
             </span>
           </md-field>
         </md-card-content>
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
         <md-card-content>
           <md-card-actions>
-            <span >
-              <router-link to="/forgotpassword">Forgot Password</router-link>
+            <span>
+              <router-link to="/forgotpassword">Forgot Password</router-link>  
             </span>
           </md-card-actions>
         </md-card-content>
         <md-card-content>
           <md-card-actions>
             <span>
-              <router-link to="/register">Create Account</router-link>
+              <router-link to="/register">Create account</router-link>
             </span>
-
             <v-spacer> </v-spacer>
             <md-button
               type="submit"
@@ -75,9 +75,8 @@
           </md-card-actions>
         </md-card-content>
       </md-card>
-
       <md-snackbar :md-active.sync="userLoggedIn"
-        >The user {{ lastUser }} is logged in!</md-snackbar
+        >The user {{ User }} is logged in!</md-snackbar
       >
     </form>
   </div>
@@ -93,7 +92,6 @@ export default {
   components: {
     fundooTitle,
   },
-
   name: "register",
   mixins: [validationMixin],
   data: () => ({
@@ -101,12 +99,10 @@ export default {
       email: null,
       password: null,
     },
-
     userLoggedIn: false,
     sending: false,
-    lastUser: null,
+    User: null,
   }),
-
   validations: {
     form: {
       email: {
@@ -119,7 +115,6 @@ export default {
       },
     },
   },
-
   methods: {
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
@@ -133,9 +128,7 @@ export default {
       this.$v.$reset();
       this.form.email = null;
       this.form.password = null;
-      window.setTimeout(() => {
         router.push({ name: "dashboard" });
-      }, 2000);
     },
     loginUser() {
       this.sending = true;
@@ -151,12 +144,9 @@ export default {
           sessionStorage.setItem("firstName", data.data.user[0].firstName);
           sessionStorage.setItem("lastName", data.data.user[0].lastName);
           sessionStorage.setItem("emailId", data.data.user[0].emailId);
-          window.setTimeout(() => {
             this.userLoggedIn = true;
             this.sending = false;
-            alert("user logged in successfullly");
             this.clearForm();
-          }, 1500);
         })
         .catch((error) => console.warn("error for login is ", error));
     },

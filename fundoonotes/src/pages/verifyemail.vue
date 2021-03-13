@@ -8,28 +8,33 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item md-small-size-100">
             <md-card-header>
-              <h4>
+             
             <md-card-title class="title">
               <fundooTitle />
             </md-card-title>
-          </h4>
+         
             </md-card-header>
        <br>
             <md-card-content>
               <md-card-actions>
-                <h4>
+               
             <md-button
               type="submit"
               class="md-raised md-primary verify-button"
-              :disabled="sending"
+              
               >Verify Here</md-button
             >
-          </h4>
+          
               </md-card-actions>
             </md-card-content>
           </div>
         </div> 
+         <md-snackbar :md-active.sync="isVerified"
+          >Email has been verified, please
+          login!</md-snackbar
+        >
       </md-card>
+      
     </form>
   </div>
 </template>
@@ -43,8 +48,14 @@ export default {
     fundooTitle,
   },
   name: "App",
+   data: () => ({
+   
+    isVerified: false,
+  }),
+
   methods: {
     verifyAndLogin() {
+    this.userSaved = true;
       router.push({ name: "login" });
     },
   },
@@ -52,5 +63,5 @@ export default {
 </script>
 
 <style scoped>
-@import url("../scss/verifyemail.scss");
+@import url("../scss/verifyEmail.scss");
 </style>

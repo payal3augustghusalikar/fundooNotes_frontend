@@ -22,7 +22,7 @@
                     <md-input
                       name="password"
                       type="password"
-                      id="password"
+                    
                       v-model="form.password"
                       :disabled="sending"
                     />
@@ -43,7 +43,7 @@
                     <md-input
                       name="cpassword"
                       type="password"
-                      id="cpassword"
+                   
                       v-model="form.cpassword"
                       :disabled="sending"
                     />
@@ -68,11 +68,8 @@
             <md-card-content>
               <md-card-actions>
                 <span>
-                 
                     <router-link to="/login">sign in instead</router-link>
-                
                 </span>
-
                 <v-spacer> </v-spacer>
                 <md-button
                   type="submit"
@@ -84,8 +81,8 @@
             </md-card-content>
           </div>
         </div>
-        <md-snackbar :md-active.sync="userSaved"
-          >The user {{ lastUser }} was saved with success please
+        <md-snackbar :md-active.sync="isPasswordReset"
+          >Password has been reset, please
           login!</md-snackbar
         >
       </md-card>
@@ -116,9 +113,9 @@ export default {
       cpassword: null,
     },
 
-    userSaved: false,
+   isPasswordReset: false,
     sending: false,
-    lastUser: null,
+   
   }),
 
   validations: {
@@ -145,32 +142,26 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-
       this.form.password = null;
       this.form.cpassword = null;
-      window.setTimeout(() => {
-        router.push({ name: "login" });
-      }, 2000);
+        router.push({ name: "login" })
     },
     resetPassword() {
       this.sending = true;
       let data = {
-
         newPassword: this.form.password,
-         confirmPassword:this.form.password,
-        token : this.$route.params.token
+        confirmPassword:this.form.cpassword,
+       
       };
+       const  token = this.$route.params.token
+       console.log("token 1",token )
       user
-        .resetPassword(data)
+        .resetPassword(data, token)
         .then((result) => {
-          console.log("Success", result);
-          window.setTimeout(() => {
-            this.lastUser = `${data.firstName} ${data.lastName}`;
-            this.userSaved = true;
+          console.log("Success", result)
+            this.isPasswordReset = true;
             this.sending = false;
-            alert("password reset successfullly, please login.");
             this.clearForm();
-          }, 1500);
         })
         .catch((error) => console.warn("error ", error));
     },
@@ -184,5 +175,5 @@ export default {
 };
 </script>
 <style scoped>
-@import url("../scss/resetpassword.scss");
+@import url("../scss/resetPassword.scss");
 </style>
