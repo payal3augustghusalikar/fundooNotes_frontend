@@ -51,7 +51,7 @@ export default new Router({
             component: resetPassword,
         },
         {
-            path: '/verifyemail',
+            path: '/activateemail/:token',
             name: 'verifyEmail',
             component: verifyEmail,
         },

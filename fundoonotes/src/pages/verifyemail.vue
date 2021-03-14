@@ -55,12 +55,12 @@ export default {
   methods: {
    verifyAndLogin() {
    const  token = this.$route.params.token;
+   console.log('verify ');
    user.verifyAndLogin(token)
         .then((result) => {
           console.log('Success', result);
             window.setTimeout(() => {
             this.isVerified = true;
-            this.clearForm();
             router.push({ name: 'login' });
              }, 4000);
         }).catch((error) => {

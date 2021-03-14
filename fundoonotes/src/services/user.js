@@ -27,8 +27,12 @@ export default {
     },
 
     verifyAndLogin(token) {
-        const putUrl = '/verifyemail';
-        return apiCall.put(putUrl, token);
+        const verifydData = {
+            token: token
+        };
+        console.log('verify email');
+        const putUrl = '/activateemail';
+        return apiCall.put(putUrl, verifydData);
     }
 
 };

@@ -16,7 +16,7 @@ export default {
         console.warn('insideput');
         const token = userData.token;
         console.warn('token is ', token);
-        return axios.put(putUrl, userData.userData, {
+        return axios.put(putUrl, userData.token, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -24,16 +24,16 @@ export default {
 
     },
 
-    putVerifyEmail(putUrl, token) {
-        console.warn('insideput');
-            // const token = userData.token
-        console.warn('token is ', token);
-        return axios.put(putUrl, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+    // putVerifyEmail(putUrl, token) {
+    //     console.warn('insideput');
+    //     // const token = userData.token
+    //     console.warn('token is ', token);
+    //     return axios.put(putUrl, {
+    //         headers: {
+    //             'Authorization': `Bearer ${token}`
+    //         }
+    //     });
 
-    }
+    // }
 
 };
