@@ -85,34 +85,37 @@
           >Password has been reset, please
           login!</md-snackbar
         >
+         <md-snackbar :md-active.sync="isPasswordReset"
+          >Error occured, Please try again!</md-snackbar
+        >
       </md-card>
     </form>
   </div>
 </template>
 
 <script>
-import router from "../router/route.js";
-import fundooTitle from "../components/fundooTitle.vue";
+import router from '../router/route.js';
+import fundooTitle from '../components/fundooTitle.vue';
 
-import { validationMixin } from "vuelidate";
+import { validationMixin } from 'vuelidate';
 
-import { required, minLength } from "vuelidate/lib/validators";
+import { required, minLength } from 'vuelidate/lib/validators';
 
-import user from "../services/user.js";
+import user from '../services/user.js';
 
 export default {
   components: {
     fundooTitle,
   },
 
-  name: "register",
+  name: 'register',
   mixins: [validationMixin],
   data: () => ({
     form: {
       password: null,
       cpassword: null,
     },
-
+isPasswordNotReset: false,
    isPasswordReset: false,
     sending: false,
    
@@ -136,7 +139,7 @@ export default {
       const field = this.$v.form[fieldName];
       if (field) {
         return {
-          "md-invalid": field.$invalid && field.$dirty,
+          'md-invalid': field.$invalid && field.$dirty,
         };
       }
     },
@@ -144,7 +147,7 @@ export default {
       this.$v.$reset();
       this.form.password = null;
       this.form.cpassword = null;
-        router.push({ name: "login" })
+        router.push({ name: 'login' });
     },
     resetPassword() {
       this.sending = true;
@@ -153,17 +156,22 @@ export default {
         confirmPassword:this.form.cpassword,
        
       };
-       const  token = this.$route.params.token
-       console.log("token 1",token )
+       const  token = this.$route.params.token;
+       console.log('token 1',token );
       user
         .resetPassword(data, token)
         .then((result) => {
-          console.log("Success", result)
+          console.log('Success', result);
+             window.setTimeout(() => {
             this.isPasswordReset = true;
             this.sending = false;
             this.clearForm();
-        })
-        .catch((error) => console.warn("error ", error));
+             }, 4000);
+        }).catch((error) => {
+          this.isPasswordNotReset = true;
+           console.warn('error ', error);
+        } );
+        
     },
     validateUser() {
       this.$v.$touch();

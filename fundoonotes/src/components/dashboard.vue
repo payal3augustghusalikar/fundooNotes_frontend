@@ -16,12 +16,12 @@ export default {
       token: null,
     };
   },
-  name: "dashboard",
+  name: 'dashboard',
   async created() {
-    const firstName = sessionStorage.getItem("firstName");
-    const lastName = sessionStorage.getItem("lastName");
-    const token = sessionStorage.getItem("token");
-    const emailId = sessionStorage.getItem("emailId");
+    const firstName = sessionStorage.getItem('firstName');
+    const lastName = sessionStorage.getItem('lastName');
+    const token = sessionStorage.getItem('token');
+    const emailId = sessionStorage.getItem('emailId');
     this.firstName = firstName;
     this.lastName = lastName;
     this.token = token;

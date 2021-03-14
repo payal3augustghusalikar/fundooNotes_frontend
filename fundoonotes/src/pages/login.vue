@@ -78,21 +78,24 @@
       <md-snackbar :md-active.sync="userLoggedIn"
         >The user {{ User }} is logged in!</md-snackbar
       >
+       <md-snackbar :md-active.sync="userNotLoggedIn"
+        >Could not login, Please try again!</md-snackbar
+      >
     </form>
   </div>
 </template>
 
 <script>
-import router from "../router/route.js";
-import fundooTitle from "../components/fundooTitle.vue";
-import { validationMixin } from "vuelidate";
-import { required, email, minLength } from "vuelidate/lib/validators";
-import user from "../services/user.js";
+import router from '../router/route.js';
+import fundooTitle from '../components/fundooTitle.vue';
+import { validationMixin } from 'vuelidate';
+import { required, email, minLength } from 'vuelidate/lib/validators';
+import user from '../services/user.js';
 export default {
   components: {
     fundooTitle,
   },
-  name: "register",
+  name: 'register',
   mixins: [validationMixin],
   data: () => ({
     form: {
@@ -100,6 +103,7 @@ export default {
       password: null,
     },
     userLoggedIn: false,
+    userNotLoggedIn: false,
     sending: false,
     User: null,
   }),
@@ -120,7 +124,7 @@ export default {
       const field = this.$v.form[fieldName];
       if (field) {
         return {
-          "md-invalid": field.$invalid && field.$dirty,
+          'md-invalid': field.$invalid && field.$dirty,
         };
       }
     },
@@ -128,7 +132,7 @@ export default {
       this.$v.$reset();
       this.form.email = null;
       this.form.password = null;
-        router.push({ name: "dashboard" });
+        router.push({ name: 'dashboard' });
     },
     loginUser() {
       this.sending = true;
@@ -139,16 +143,19 @@ export default {
       user
         .loginUser(data)
         .then((data) => {
-          console.warn("login detatils result is1 ", data);
-          sessionStorage.setItem("token", data.data.token);
-          sessionStorage.setItem("firstName", data.data.user[0].firstName);
-          sessionStorage.setItem("lastName", data.data.user[0].lastName);
-          sessionStorage.setItem("emailId", data.data.user[0].emailId);
+          console.warn('login detatils result is1 ', data);
+          sessionStorage.setItem('token', data.data.token);
+          sessionStorage.setItem('firstName', data.data.user[0].firstName);
+          sessionStorage.setItem('lastName', data.data.user[0].lastName);
+          sessionStorage.setItem('emailId', data.data.user[0].emailId);
+             window.setTimeout(() => {
             this.userLoggedIn = true;
             this.sending = false;
             this.clearForm();
+                }, 4000);
         })
-        .catch((error) => console.warn("error for login is ", error));
+        .catch((error) => {this.userNotLoggedIn = true;
+        console.warn('error for login is ', error);});
     },
     validateUser() {
       this.$v.$touch();

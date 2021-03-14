@@ -161,20 +161,23 @@
           >The user {{ user }} was saved with success please
           login!</md-snackbar
         >
+         <md-snackbar :md-active.sync="userNotSaved"
+          >Error Occured please try again!</md-snackbar
+        >
       </md-card>
     </form>
   </div>
 </template>
 
 <script>
-import router from "../router/route.js";
-import fundooTitle from "../components/fundooTitle.vue";
+import router from '../router/route.js';
+import fundooTitle from '../components/fundooTitle.vue';
 
-import { validationMixin } from "vuelidate";
+import { validationMixin } from 'vuelidate';
 
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength } from 'vuelidate/lib/validators';
 
-import user from "../services/user.js";
+import user from '../services/user.js';
 //const user = require('../services/user.js')
 
 export default {
@@ -182,7 +185,7 @@ export default {
     fundooTitle,
   },
 
-  name: "register",
+  name: 'register',
   mixins: [validationMixin],
   data: () => ({
     form: {
@@ -192,7 +195,7 @@ export default {
       password: null,
       cpassword: null,
     },
-
+userNotSaved: false,
     userSaved: false,
     sending: false,
     user: null,
@@ -228,7 +231,7 @@ export default {
       const field = this.$v.form[fieldName];
       if (field) {
         return {
-          "md-invalid": field.$invalid && field.$dirty,
+          'md-invalid': field.$invalid && field.$dirty,
         };
       }
     },
@@ -240,7 +243,7 @@ export default {
       this.form.password = null;
       this.form.cpassword = null;
      
-        router.push({ name: "login" });
+        router.push({ name: 'login' });
     
     },
     saveUser() {
@@ -250,22 +253,26 @@ export default {
         lastName: this.form.lastName,
         emailId: this.form.email,
         password: this.form.password,
+        confirmPassword: this.form.cpassword,
       };
 
-      console.log("signup details: ", data);
+      console.log('signup details: ', data);
       user
         .registerUser(data)
         .then((result) => {
-          console.log("Success", result);
-        
+          console.log('Success', result);
+           window.setTimeout(() => {
             this.user = `${data.firstName} ${data.lastName}`;
             this.userSaved = true;
             this.sending = false;
-          
             this.clearForm();
-        
+          }, 4000);
         })
-        .catch((error) => console.warn("error ", error));
+         .catch((error) => {
+          this.userNotSaved = true;
+           console.warn('error ', error);
+        } );
+       
     },
     validateUser() {
       this.$v.$touch();

@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <form
       novalidate
       class="md-layout jc-center login"
@@ -52,8 +51,13 @@
           </md-card-actions>
         </md-card-content>
         <md-snackbar :md-active.sync="isLinkSent"
-      >The reset password link is sent to your emailId please reset yopur password</md-snackbar
-    >
+          >The reset password link is sent to your emailId please reset your
+          password</md-snackbar
+        >
+        <md-snackbar :md-active.sync="isLinkNotSent"
+          >Error Occured, please try again!</md-snackbar
+        >
+
       </md-card>
     </form>
   </div>
@@ -61,17 +65,17 @@
 
 <script>
 //import router from "../router/route.js";
-import fundooTitle from "../components/fundooTitle.vue";
-import { validationMixin } from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
-import user from "../services/user.js";
+import fundooTitle from '../components/fundooTitle.vue';
+import { validationMixin } from 'vuelidate';
+import { required, email } from 'vuelidate/lib/validators';
+import user from '../services/user.js';
 
 export default {
   components: {
     fundooTitle,
   },
 
-  name: "register",
+  name: 'register',
   mixins: [validationMixin],
   data: () => ({
     form: {
@@ -79,6 +83,7 @@ export default {
     },
 
     isLinkSent: false,
+    isLinkNotSent: false,
     sending: false,
   }),
 
@@ -96,11 +101,14 @@ export default {
       const field = this.$v.form[fieldName];
       if (field) {
         return {
-          "md-invalid": field.$invalid && field.$dirty,
+          'md-invalid': field.$invalid && field.$dirty,
         };
       }
     },
-
+    clearForm() {
+      this.$v.$reset();
+      this.form.email = null;
+    },
     forgotPassword() {
       this.sending = true;
       let data = {
@@ -109,11 +117,17 @@ export default {
       user
         .forgotPassword(data)
         .then((result) => {
-          console.log("Success", result);
-          this.isLinkSent = true;
-          this.sending = false;
+          console.log('Success', result);
+          window.setTimeout(() => {
+            this.isLinkSent = true;
+            this.sending = false;
+            this.clearForm();
+          }, 4000);
         })
-        .catch((error) => console.warn("error for forgetpassword is ", error));
+        .catch((error) => {
+          this.isLinkNotSent = true;
+          console.warn('error for forget password is ', error);
+        } );
     },
     validateUser() {
       this.$v.$touch();
