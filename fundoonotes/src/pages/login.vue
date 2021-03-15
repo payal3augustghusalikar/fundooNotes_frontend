@@ -129,8 +129,7 @@ export default {
     clearForm() {
       this.$v.$reset();
       this.form.email = null;
-      this.form.password = null;
-       
+      this.form.password = null;   
     },
     loginUser() {
       this.sending = true;
@@ -140,11 +139,7 @@ export default {
       };
       user
         .loginUser(data)
-        .then((data) => {
-           console.warn('login detatils result isactivated ',  data.data.user[0].isActivated);
-          if( data.data.user[0].isActivated == true) {
-          console.warn('login detatils result is1 ', data);
-           console.warn('login detatils result is2', data.data.token);
+        .then((data) => { 
           sessionStorage.setItem('token', data.data.token);
           sessionStorage.setItem('firstName', data.data.user[0].firstName);
           sessionStorage.setItem('lastName', data.data.user[0].lastName);
@@ -155,13 +150,11 @@ export default {
             this.clearForm();
              router.push({ name: 'dashboard' });
                 }, 4000);
-         } 
-          else {
+        
           this.userNotLoggedIn = true;
            this.sending = false;
             console.warn('Email is not verified');
-                router.push({ name: 'login' });
-          } 
+                router.push({ name: 'login' });  
         })
         .catch((error) => {this.userNotLoggedIn = true;
          this.sending = false;
