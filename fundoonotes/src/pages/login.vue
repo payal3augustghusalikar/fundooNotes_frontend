@@ -22,8 +22,7 @@
             <md-input
               type="email"
               name="email"
-             
-             autocomplete="off"
+              autocomplete="off"
               v-model="form.email"
               :disabled="sending"
             />
@@ -40,7 +39,6 @@
             <md-input
               name="password"
               type="password"
-          
               v-model="form.password"
               :disabled="sending"
             />
@@ -56,7 +54,7 @@
         <md-card-content>
           <md-card-actions>
             <span>
-              <router-link to="/forgotpassword">Forgot Password</router-link>  
+              <router-link to="/forgotpassword">Forgot Password</router-link>
             </span>
           </md-card-actions>
         </md-card-content>
@@ -78,8 +76,8 @@
       <md-snackbar :md-active.sync="userLoggedIn"
         >The user {{ User }} is logged in!</md-snackbar
       >
-       <md-snackbar :md-active.sync="userNotLoggedIn"
-        >Could not login, Please try again!</md-snackbar
+      <md-snackbar :md-active.sync="userNotLoggedIn"
+        >Could not login, Please verify your emailId and try again!</md-snackbar
       >
     </form>
   </div>
@@ -132,7 +130,7 @@ export default {
       this.$v.$reset();
       this.form.email = null;
       this.form.password = null;
-        router.push({ name: 'dashboard' });
+       
     },
     loginUser() {
       this.sending = true;
@@ -143,19 +141,32 @@ export default {
       user
         .loginUser(data)
         .then((data) => {
+           console.warn('login detatils result isactivated ',  data.data.user[0].isActivated);
+          if( data.data.user[0].isActivated == true) {
           console.warn('login detatils result is1 ', data);
+           console.warn('login detatils result is2', data.data.token);
           sessionStorage.setItem('token', data.data.token);
           sessionStorage.setItem('firstName', data.data.user[0].firstName);
           sessionStorage.setItem('lastName', data.data.user[0].lastName);
           sessionStorage.setItem('emailId', data.data.user[0].emailId);
-             window.setTimeout(() => {
+            window.setTimeout(() => {
             this.userLoggedIn = true;
             this.sending = false;
             this.clearForm();
+             router.push({ name: 'dashboard' });
                 }, 4000);
+         } 
+          else {
+          this.userNotLoggedIn = true;
+           this.sending = false;
+            console.warn('Email is not verified');
+                router.push({ name: 'login' });
+          } 
         })
         .catch((error) => {this.userNotLoggedIn = true;
+         this.sending = false;
         console.warn('error for login is ', error);});
+            router.push({ name: 'login' });
     },
     validateUser() {
       this.$v.$touch();

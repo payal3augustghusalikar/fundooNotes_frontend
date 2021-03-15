@@ -19,11 +19,12 @@ Vue.use(Router);
 
 export default new Router({
     mode: 'history',
-    routes: [{
-            path: '/',
-            name: 'register',
-            component: register,
-        },
+    routes: [
+        // {
+        //     path: '/',
+        //     name: 'register',
+        //     component: register,
+        // },
         {
             path: '/register',
             name: 'register',
