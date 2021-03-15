@@ -228,8 +228,14 @@ export default {
 
   methods: {
     getValidationClass(fieldName) {
+     // console.log('1');
+     // console.log('fieldName', fieldName);
       const field = this.$v.form[fieldName];
+     // console.log('field', field);
+       // console.log('formField', this.form[fieldName]);
+     // console.log('$v : ',this.$v);
       if (field) {
+         // console.log('3');
         return {
           'md-invalid': field.$invalid && field.$dirty,
         };
@@ -275,6 +281,7 @@ export default {
        
     },
     validateUser() {
+    //  console.log('2');
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.saveUser();

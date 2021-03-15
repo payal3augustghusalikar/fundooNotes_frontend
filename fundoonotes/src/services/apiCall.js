@@ -24,16 +24,5 @@ export default {
 
     },
 
-    // putVerifyEmail(putUrl, token) {
-    //     console.warn('insideput');
-    //     // const token = userData.token
-    //     console.warn('token is ', token);
-    //     return axios.put(putUrl, {
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`
-    //         }
-    //     });
-
-    // }
 
 };
