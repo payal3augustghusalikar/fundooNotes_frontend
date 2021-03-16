@@ -10,6 +10,7 @@ describe('register.vue', () => {
     beforeEach(() => {
         const localVue = createLocalVue();
         localVue.use(Vuetify);
+        localVue.use(VueMaterial);
         localVue.use(Vuelidate);
         wrapper = shallowMount(register, localVue);
     });
@@ -35,20 +36,20 @@ describe('register.vue', () => {
 
 
 
-    it('firstName should evaluate to false when it contains les than 2 characters', () => {
-        // wrapper.vm.firstName = 'p';
-        let fieldName = 'firstName'
-            // field = this.$v.form[fieldName];
-            //  const field ='p'
-        wrapper.vm.field = 'p'
-        expect(wrapper.vm.$v.field.$invalid).toBe(true);
-    });
-
-
-    // it('emailId should evaluate to false when "@" is missed', () => {
-    //     wrapper.vm.emailId = 'payalghusalikar9gmail.com';
-    //     expect(wrapper.vm.$v.emailId.email).toBe(false);
+    // it('firstName should evaluate to false when it contains les than 2 characters', () => {
+    //     // wrapper.vm.firstName = 'p';
+    //     let fieldName = 'firstName';
+    //         // field = this.$v.form[fieldName];
+    //         //  const field ='p'
+    //     wrapper.vm.field = 'p';
+    //     expect(wrapper.vm.$v.field.$invalid).toBe(true);
     // });
+
+
+    it('inGivenEmail_when"@"isNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.emailId = 'payalghusalikar9gmail.com';
+        expect(wrapper.vm.$v.emailId.email).toBe(false);
+    });
 
 
     // it('it will add the md-error class for invalid email', () => {

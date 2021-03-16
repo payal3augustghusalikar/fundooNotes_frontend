@@ -154,12 +154,10 @@ isPasswordNotReset: false,
       let data = {
         newPassword: this.form.password,
         confirmPassword:this.form.cpassword,
-       
+       token: this.$route.params.token
       };
-       const  token = this.$route.params.token;
-       console.log('token 1',token );
       user
-        .resetPassword(data, token)
+        .resetPassword(data)
         .then((result) => {
           console.log('Success', result);
              window.setTimeout(() => {

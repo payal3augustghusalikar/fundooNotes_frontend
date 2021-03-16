@@ -149,12 +149,7 @@ export default {
             this.sending = false;
             this.clearForm();
              router.push({ name: 'dashboard' });
-                }, 4000);
-        
-          this.userNotLoggedIn = true;
-           this.sending = false;
-            console.warn('Email is not verified');
-                router.push({ name: 'login' });  
+                }, 4000);  
         })
         .catch((error) => {this.userNotLoggedIn = true;
          this.sending = false;

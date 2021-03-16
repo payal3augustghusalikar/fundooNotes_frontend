@@ -13,7 +13,7 @@
             <fundooTitle />
           </md-card-title>
           <v-card-title>
-            Sign in
+           Enter Your Email
           </v-card-title>
         </md-card-header>
         <md-card-content>
