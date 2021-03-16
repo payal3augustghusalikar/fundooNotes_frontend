@@ -215,11 +215,11 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
       cpassword: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
     },
   },

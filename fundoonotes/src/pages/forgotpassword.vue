@@ -132,6 +132,7 @@ export default {
     validateUser() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        
         this.forgotPassword();
       }
     },

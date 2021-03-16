@@ -9,20 +9,15 @@ describe('login.vue', () => {
     let wrapper;
     beforeEach(() => {
         const localVue = createLocalVue();
-        console.log('localVue', localVue);
         localVue.use(Vuetify);
         localVue.use(Vuelidate);
+        localVue.use(VueMaterial);
         wrapper = shallowMount(login, localVue);
         console.log('localVue', wrapper);
     });
 
     it('givenPage_ifFundooTitleIsPresent_shouldReturnTrue', () => {
         expect(wrapper.contains(fundooTitle)).toBe(true);
-    });
-
-    it('givenEmailId_ifEmpty_shouldEvaluateFalse', () => {
-        wrapper.vm.emailId = '';
-        expect(wrapper.vm.$v.emailId.required).toBe(false);
     });
 
     // Inspect the raw component options
@@ -33,5 +28,53 @@ describe('login.vue', () => {
     it('has a button', () => {
         expect(wrapper.contains('md-button')).toBe(true);
     });
+
+
+    it('inGivenEmail_whenProper_shouldEvaluateTrue', () => {
+        wrapper.vm.form.email = 'payalghusalikar9655@gmail.com';
+        expect(wrapper.vm.$v.form.email.email).toBe(true);
+    });
+
+    it('givenEmailId_ifEmpty_shouldEvaluateFalse', () => {
+        wrapper.vm.form.email = '';
+        expect(wrapper.vm.$v.form.email.required).toBe(false);
+    });
+
+    it('inGivenEmail_whenImproper_shouldEvaluateFalse', () => {
+        wrapper.vm.form.email = ',,.,.,.@gmail.com';
+        expect(wrapper.vm.$v.form.email.email).toBe(false);
+    });
+
+    it('inGivenEmail_when"@"isNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.form.email = 'payalghusalikar9gmail.com';
+        expect(wrapper.vm.$v.form.email.email).toBe(false);
+    });
+
+    it('inGivenEmail_when".com"NotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.form.email = 'payalghusalikar9gmail';
+        expect(wrapper.vm.$v.form.email.email).toBe(false);
+    });
+
+    it('inGivenEmail_whenImproper_shouldEvaluateFalse', () => {
+        wrapper.vm.form.email = 'pl123&&&';
+        expect(wrapper.vm.$v.form.email.email).toBe(false);
+    });
+
+
+    it('inGivenPassword_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.form.password = '';
+        expect(wrapper.vm.$v.form.password.required).toBe(false);
+    });
+
+    it('inGivenPassword_whenGivenMoreThan6char_shouldEvaluate"$invalid"False', () => {
+        wrapper.vm.form.password = 'AAAAAAAA';
+        expect(wrapper.vm.$v.form.password.$invalid).toBe(false);
+    });
+
+    it('inGivenPassword_whenGivenLessThan3char_shouldEvaluate"$invalid"True', () => {
+        wrapper.vm.form.password = 'AAAAA';
+        expect(wrapper.vm.$v.form.password.$invalid).toBe(true);
+    });
+
 
 });
