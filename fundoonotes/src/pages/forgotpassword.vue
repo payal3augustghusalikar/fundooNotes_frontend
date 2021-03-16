@@ -138,6 +138,6 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 @import url("../scss/login.scss");
 </style>
