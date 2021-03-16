@@ -1,3 +1,11 @@
+/**
+ * @module       services
+ * @file         apiCall.js
+ * @description  holds the methods calling from user.js
+ * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
+*  @since        05/03/2021  
+-----------------------------------------------------------------------------------------------*/
+
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:2001/';
 
@@ -5,47 +13,27 @@ axios.defaults.headers.common['Authorization'] =
     'Bearer' + sessionStorage.getItem('token');
 
 export default {
-    // post(postUrl, data) {
-    //     console.warn('inside post');
-    //     console.warn('inside post url ', postUrl);
-    //     console.warn('inside post data ', data);
-    //     return axios.post(postUrl, data);
-    // },
 
-
+    /**
+     * @description takes the data from user.js file and call the axios post method and return response to user.js
+     * @param {*} data holds the userinput and endPoint
+     * @returns the response from axios methods
+     */
     post(userData) {
-        console.warn('inside post');
-        // console.warn('inside post url ', postUrl);
-        //   console.warn('inside post data ', data);
         return axios.post(userData.endPoint, userData.userInput);
     },
 
 
-    // put(putUrl, userData) {
-    //     console.warn('insideput');
-    //     const token = userData.token;
-    //     console.warn('token is ', token);
-    //     return axios.put(putUrl, userData.token, {
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`
-    //         }
-    //     });
-
-    // },
-
-
+    /**
+     * @description takes the data from user.js file and call the axios put method and return response to user.js
+     * @param {*} data holds the userinput and endPoint
+     * @returns the response from axios methods
+     */
     put(userData) {
-        console.warn('insideput');
-        //   console.warn('token is ', token);
         return axios.put(userData.endPoint, userData.userInput, {
             headers: {
                 'Authorization': `Bearer ${userData.token}`
             }
         });
-
     },
-
-
-
-
 };

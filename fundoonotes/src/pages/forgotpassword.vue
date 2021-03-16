@@ -64,7 +64,7 @@
 </template>
 
 <script>
-//import router from "../router/route.js";
+
 import fundooTitle from '../components/fundooTitle.vue';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';

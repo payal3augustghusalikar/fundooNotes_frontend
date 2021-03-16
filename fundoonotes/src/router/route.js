@@ -19,13 +19,7 @@ Vue.use(Router);
 
 export default new Router({
     mode: 'history',
-    routes: [
-        // {
-        //     path: '/',
-        //     name: 'register',
-        //     component: register,
-        // },
-        {
+    routes: [{
             path: '/register',
             name: 'register',
             component: register,
@@ -40,7 +34,6 @@ export default new Router({
             name: 'dashboard',
             component: dashboard,
         },
-
         {
             path: '/forgotpassword',
             name: 'forgotPassword',
