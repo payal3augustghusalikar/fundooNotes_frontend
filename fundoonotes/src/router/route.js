@@ -12,11 +12,8 @@ import login from '../pages/login.vue';
 import forgotPassword from '../pages/forgotPassword.vue';
 import resetPassword from '../pages/resetPassword.vue';
 import dashboard from '../components/dashboard.vue';
-import verifyEmail from '../pages/verifyEmail.vue';
 
 Vue.use(Router);
-
-
 export default new Router({
     mode: 'history',
     routes: [{
@@ -44,11 +41,7 @@ export default new Router({
             name: 'resetPassword',
             component: resetPassword,
         },
-        {
-            path: '/activateemail/:token',
-            name: 'verifyEmail',
-            component: verifyEmail,
-        },
+
     ],
 
 });
