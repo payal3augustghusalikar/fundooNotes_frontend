@@ -1,10 +1,3 @@
-// import Vue from 'vue'
-// import Router from 'vue-router'
-// //import HomePage from '@/components/HomePage';
-// //import SignUp from '@/components/SignUp';
-// import register from "./pages/register.vue";
-// Vue.use(Router)
-
 import Vue from 'vue';
 import Router from 'vue-router';
 import register from '../pages/register.vue';

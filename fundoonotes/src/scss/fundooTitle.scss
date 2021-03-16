@@ -1,10 +1,10 @@
-@use 'scss/colors';
+@import './colors.scss';
 .md-title #col {
-    color: colors.$myBlue;
+    color: $myBlue;
 }
 
 .md-title #col1 {
-    color: colors.$red;
+    color: $red;
 }
 
 .md-title #col2 {
