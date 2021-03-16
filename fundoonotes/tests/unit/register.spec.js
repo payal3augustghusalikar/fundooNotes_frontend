@@ -15,71 +15,82 @@ describe('register.vue', () => {
         wrapper = shallowMount(register, localVue);
     });
 
+    it('givenPage_ifFundooTitleIsPresent_shouldReturnTrue', () => {
+        expect(wrapper.contains(fundooTitle)).toBe(true);
+    });
 
-    // it('givenPage_ifFundooTitleIsPresent_shouldReturnTrue', () => {
-    //     expect(wrapper.contains(fundooTitle)).toBe(true);
-    // });
+    it('has data', () => {
+        expect(typeof register.data).toBe('function');
+    });
 
-    // it('has data', () => {
-    //     expect(typeof register.data).toBe('function');
-    // });
+    it('has a button', () => {
+        expect(wrapper.contains('md-button')).toBe(true);
+    });
 
-    // it('has a button', () => {
-    //     expect(wrapper.contains('md-button')).toBe(true);
-    // });
+    it('html should render correctly', () => {
+        expect(wrapper.html()).toMatchSnapshot()
+    })
 
-    // it('html should render correctly', () => {
-    //     expect(wrapper.html()).toMatchSnapshot()
-    // })
+    it('givenfirstName_whenContainsLessThan#characters_shouldEvaluateFalse', () => {
+        let fieldName = 'firstName';
+        field = this.$v.form[fieldName];
+        wrapper.vm.field = 'pq';
+        expect(wrapper.vm.$v.field.$invalid).toBe(False);
+    });
 
+    it('inGivenFirstName_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.firstName = '';
+        expect(wrapper.vm.$v.firstName.required).toBe(true);
+    });
 
+    it('givenLastName_whenContainsLessThan3characters_shouldEvaluateFalse', () => {
+        wrapper.vm.lastName = 'yt';
+        expect(wrapper.vm.$v.lastName.invalid).toBe(true);
+    });
 
+    it('inGivenlastName_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.lastName = '';
+        expect(wrapper.vm.$v.lastName.invalid).toBe(true);
+    });
 
+    it('inGivenpassword_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.password = '';
+        expect(wrapper.vm.$v.password.required).toBe(false);
+    });
 
-    // it('firstName should evaluate to false when it contains les than 2 characters', () => {
-    //     // wrapper.vm.firstName = 'p';
-    //     let fieldName = 'firstName';
-    //         // field = this.$v.form[fieldName];
-    //         //  const field ='p'
-    //     wrapper.vm.field = 'p';
-    //     expect(wrapper.vm.$v.field.$invalid).toBe(true);
-    // });
+    it('inGivenpassword_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.password = '';
+        expect(wrapper.vm.$v.password.invalid).toBe(true);
+    });
 
+    it('inGivenCpassword_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.Cpassword = '';
+        expect(wrapper.vm.$v.Cpassword.required).toBe(false);
+    });
+
+    it('inGivenCpassword_whenNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.Cpassword = '';
+        expect(wrapper.vm.$v.Cpassword.invalid).toBe(true);
+    });
+
+    it('inGivenEmail_whenImproperNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.emailId = 'payalghusalikar9@gmail.com';
+        expect(wrapper.vm.$v.emailId.email).toBe(true);
+    });
 
     it('inGivenEmail_when"@"isNotPresent_shouldEvaluateFalse', () => {
         wrapper.vm.emailId = 'payalghusalikar9gmail.com';
         expect(wrapper.vm.$v.emailId.email).toBe(false);
     });
 
+    it('inGivenEmail_when".com"NotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.emailId = 'payalghusalikar9gmail';
+        expect(wrapper.vm.$v.emailId.email).toBe(false);
+    });
 
-    // it('it will add the md-error class for invalid email', () => {
-    //     const emailId = wrapper.find('md-input')
-    //     expect(emailId.classes()).not.toContain('md-error') //Passes
-    // });
-
-
-    // it('it will add the red class for invalid email', () => {
-    //     const emailId = wrapper.find('md-input')
-    //     expect(emailId.classes()).toContain('md-error') //Passes
-
-    //     wrapper.find('md-input').setValue('hghghghg')
-
-    //     expect(wrapper.vm.$v.emailId.$invalid).toBe(true) //Passes
-    //         //   expect(emailId.classes()).toContain('md-error') //Fails
-    // })
-
-
-
-
-    // it(' for invalid email', () => {
-    //         // const emailId = wrapper.find('md-input').setValue('hghghghg')
-    //         // expect(emailId.classes()).toContain('md-error') //Passes
-
-    //         wrapper.find('md-input').setValue('hghghghg')
-
-    //         expect(wrapper.vm.$v.emailId.$invalid).toBe(true) //Passes
-    //             //   expect(emailId.classes()).toContain('md-error') //Fails
-    //     })
-    // Inspect the raw component options
+    it('inGivenEmail_whenImproperNotPresent_shouldEvaluateFalse', () => {
+        wrapper.vm.emailId = 'pl123&&&';
+        expect(wrapper.vm.$v.emailId.email).toBe(false);
+    });
 
 });

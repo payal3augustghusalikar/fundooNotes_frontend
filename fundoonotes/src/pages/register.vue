@@ -178,8 +178,6 @@ import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
 
 import user from '../services/user.js';
-//const user = require('../services/user.js')
-
 export default {
   components: {
     fundooTitle,

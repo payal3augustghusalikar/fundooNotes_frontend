@@ -55,7 +55,6 @@ export default {
   methods: {
    verifyAndLogin() {
    const  token = this.$route.params.token;
-   console.log('verify ');
    user.verifyAndLogin(token)
         .then((result) => {
           console.log('Success', result);
