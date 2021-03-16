@@ -1,4 +1,8 @@
 @import './colors.scss';
+.md-title {
+    font-weight: 10px;
+}
+
 .md-title #col {
     color: $myBlue;
 }
