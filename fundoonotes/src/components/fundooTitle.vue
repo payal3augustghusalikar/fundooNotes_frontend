@@ -20,7 +20,7 @@
 
 <script>
 
-import '@/scss/colors.scss';
+
 export default {
 
 };
