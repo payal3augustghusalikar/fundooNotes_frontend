@@ -23,12 +23,7 @@
               </div>
 
               <v-spacer> </v-spacer>
-              <span class="FundooNotes_img" id="settings"
-                ><img src="../assets/settings.png"
-              /></span>
-              <span class="FundooNotes_img" id="allApps"
-                ><img src="../assets/allApps.png"
-              /></span>
+             
               <md-avatar class="md-avatar-icon">P</md-avatar>
             </v-app-bar>
           </v-col>
