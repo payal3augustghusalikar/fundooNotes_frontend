@@ -28,8 +28,8 @@ describe('register.vue', () => {
     });
 
     it('html should render correctly', () => {
-        expect(wrapper.html()).toMatchSnapshot()
-    })
+        expect(wrapper.html()).toMatchSnapshot();
+    });
 
     it('inGivenFirstName_whenNotPresent_shouldEvaluateFalse', () => {
         wrapper.vm.form.firstName = '';

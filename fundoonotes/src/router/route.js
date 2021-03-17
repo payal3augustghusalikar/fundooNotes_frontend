@@ -9,7 +9,9 @@ import dashboard from '../components/dashboard.vue';
 Vue.use(Router);
 export default new Router({
     mode: 'history',
-    routes: [{
+    routes: [
+
+        {
             path: '/register',
             name: 'register',
             component: register,
