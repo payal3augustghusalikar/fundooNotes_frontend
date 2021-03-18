@@ -1,40 +1,51 @@
-@mixin padding-top($val1) {
-    padding-top: $val1;
-}
-
-@mixin height($val) {
-    height: $val;
-}
-
-.mx-auto {
-    height: 100%;
-    width: 100%;
-    box-shadow: none;
-}
-
-.topBar {
-    box-shadow: none;
-}
-
-.md-avatar-icon {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-.FundooNotes_img {
-    @include height(46px);
-    width: 46px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-#top-search-bar {
-    margin-top: 22px;
-    padding-left: 70px;
-    width: 900px;
-}
-
-.sideNavBar {
-    margin-top: 6px;
-    padding-right: 40px;
-}
+        @mixin padding-top($val1) {
+            padding-top: $val1;
+        }
+        
+        @mixin height($val) {
+            height: $val;
+        }
+        
+        .mx-auto {
+            height: 100%;
+            width: 100%;
+            box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)
+        }
+        
+        .main-bar {
+            box-shadow: 0px 0px 0px 0px;
+        }
+        
+        .md-avatar-icon {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        
+        .FundooNotes_img {
+            @include height(46px);
+            width: 46px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        #top-search-bar {
+            margin-top: 22px;
+            padding-left: 80px;
+            width: 800px;
+        }
+        
+        .sideNavBar {
+            margin-top: 6px;
+            padding-right: 40px;
+            @include height(100%);
+        }
+        
+        .icon-name {
+            text-align: left;
+            margin-left: 10px;
+        }
+        
+        .note-card {
+            max-width: 700px;
+            border-radius: 30px;
+        }
