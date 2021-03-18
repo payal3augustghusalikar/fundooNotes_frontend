@@ -34,17 +34,6 @@
             width: 800px;
         }
         
-        .sideNavBar {
-            margin-top: 6px;
-            padding-right: 40px;
-            @include height(100%);
-        }
-        
-        .icon-name {
-            text-align: left;
-            margin-left: 10px;
-        }
-        
         .note-card {
             max-width: 600px;
             border-radius: 50px;

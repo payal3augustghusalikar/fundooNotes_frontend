@@ -5,7 +5,9 @@
         <v-row>
           <v-col>
             <v-app-bar color="white" class="main-bar" elevation="1">
-              <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
+              <v-app-bar-nav-icon
+                @click="drawer"
+              ></v-app-bar-nav-icon>
 
               <span class="FundooNotes_img">
                 <img src="../assets/googleKeep.png" />
@@ -30,23 +32,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-navigation-drawer class="sideNavBar" permanent hide-overlay>
-              <v-list nav dense>
-                <v-list-item-group
-                  v-model="group"
-                  active-class="deep-purple--text text--accent-4"
-                >
-                  <v-list-item v-for="item in sideNavBar" :key="item.icon">
-                    <v-list-item-icon>
-                      <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title v-if="showIconName">
-                      <div class="icon-name">{{ item.title }}</div>
-                    </v-list-item-title>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-navigation-drawer>
+            <sidenavBar  :showIconName="showIconName" />
           </v-col>
           <v-col>
             <v-card
@@ -55,7 +41,13 @@
               elevation="8"
               @click="expandCard"
             >
-              <v-text-field v-model="title" autocomplete="off" placeholder="take a Note" flat solo>
+              <v-text-field
+                v-model="title"
+                autocomplete="off"
+                placeholder="take a Note"
+                flat
+                solo
+              >
                 <template v-slot:append>
                   <v-icon>mdi-checkbox-marked</v-icon>
                   <v-icon>mdi-brush</v-icon>
@@ -64,19 +56,24 @@
                 </template>
               </v-text-field>
 
-              <v-text-field v-model="title" placeholder="take a Note" flat solo  v-if="showBottomCard" >
+              <v-text-field
+                v-model="title"
+                placeholder="take a Note"
+                flat
+                solo
+                v-if="showBottomCard"
+              >
                 <template>
-                
-                <v-chip-group
-                  v-model="selection"
-                  active-class="deep-purple accent-4 white--text"
-                  column
-                > 
-                  <v-icon>mdi-checkbox-marked</v-icon>
-                  <v-icon>mdi-brush</v-icon>
-                  <v-icon>mdi-image</v-icon>
-                </v-chip-group>
-                 </template>
+                  <v-chip-group
+                    v-model="selection"
+                    active-class="deep-purple accent-4 white--text"
+                    column
+                  >
+                    <v-icon>mdi-checkbox-marked</v-icon>
+                    <v-icon>mdi-brush</v-icon>
+                    <v-icon>mdi-image</v-icon>
+                  </v-chip-group>
+                </template>
               </v-text-field>
 
               <v-card-actions>
@@ -99,38 +96,51 @@
 </template>
 
 <script>
+import sidenavBar from '../components/sidenavBar.vue';
 export default {
+  components: {
+    sidenavBar,
+  },
   data: () => ({
     showIconName: true,
-showBottomCard:false,
+    showBottomCard: false,
     sideNavBar: [
       {
-        title: "Note",
-        icon: "mdi-lightbulb",
+        title: 'Note',
+        icon: 'mdi-lightbulb',
       },
       {
-        title: "Reminders",
-        icon: " mdi-bell",
+        title: 'Reminders',
+        icon: ' mdi-bell',
       },
 
       {
-        title: "Edit labels",
-        icon: "mdi-pencil",
+        title: 'Edit labels',
+        icon: 'mdi-pencil',
       },
       {
-        title: "Archieve",
-        icon: "mdi-download",
+        title: 'Archieve',
+        icon: 'mdi-download',
       },
       {
-        title: "Trash",
-        icon: "mdi-delete",
+        title: 'Trash',
+        icon: 'mdi-delete',
       },
     ],
   }),
+
+  // props: {
+  //   drawer: Function,
+  // },
   methods: {
     drawer() {
+      console.warn("parent called")
       this.showIconName = !this.showIconName;
     },
+
+    // drawer(showIconName) {
+    //   this.showIconName = !this.showIconName;
+    // },
     expandCard() {
       this.showBottomCard = !this.showBottomCard;
     },
