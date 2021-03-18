@@ -53,14 +53,6 @@ export default {
     ],
   }),
   methods: {
-
-    //     drawer() {
-    //         console.warn('called ');
-    //   this.showIconName = !this.showIconName;
-    // },
-    // fromParentCall(showIconName) {
-    //   this.showIconName = !this.showIconName;
-    // },
   }
 };
 </script>

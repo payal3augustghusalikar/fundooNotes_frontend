@@ -23,7 +23,6 @@
                   solo
                 ></v-text-field>
               </div>
-
               <v-spacer> </v-spacer>
 
               <md-avatar class="md-avatar-icon">P</md-avatar>
@@ -104,43 +103,15 @@ export default {
   data: () => ({
     showIconName: true,
     showBottomCard: false,
-    sideNavBar: [
-      {
-        title: 'Note',
-        icon: 'mdi-lightbulb',
-      },
-      {
-        title: 'Reminders',
-        icon: ' mdi-bell',
-      },
-
-      {
-        title: 'Edit labels',
-        icon: 'mdi-pencil',
-      },
-      {
-        title: 'Archieve',
-        icon: 'mdi-download',
-      },
-      {
-        title: 'Trash',
-        icon: 'mdi-delete',
-      },
-    ],
+    
   }),
 
-  // props: {
-  //   drawer: Function,
-  // },
   methods: {
     drawer() {
       console.warn("parent called")
       this.showIconName = !this.showIconName;
     },
 
-    // drawer(showIconName) {
-    //   this.showIconName = !this.showIconName;
-    // },
     expandCard() {
       this.showBottomCard = !this.showBottomCard;
     },
