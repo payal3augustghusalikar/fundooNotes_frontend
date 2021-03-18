@@ -5,9 +5,7 @@
         <v-row>
           <v-col>
             <v-app-bar color="white" class="main-bar" elevation="1">
-              <v-app-bar-nav-icon
-                @click="drawer"
-              ></v-app-bar-nav-icon>
+              <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
 
               <span class="FundooNotes_img">
                 <img src="../assets/googleKeep.png" />
@@ -31,63 +29,80 @@
         </v-row>
         <v-row>
           <v-col>
-            <sidenavBar  :showIconName="showIconName" />
+            <sidenavBar :showIconName="showIconName" />
           </v-col>
           <v-col>
             <v-card
-              :loading="loading"
-              class="mx-auto my-12 note-card"
+              class="mx-auto my-12 note-card window"
               elevation="8"
               @click="expandCard"
+              :height="cardHeight"
+             v-click-outside="hide" v-bind:class="{active: showBottomCard}"
             >
               <v-text-field
                 v-model="title"
                 autocomplete="off"
-                placeholder="take a Note"
+                :placeholder="text"
                 flat
                 solo
               >
                 <template v-slot:append>
-                  <v-icon>mdi-checkbox-marked</v-icon>
-                  <v-icon>mdi-brush</v-icon>
-                  <v-icon>mdi-image</v-icon>
-                  <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi</v-icon> v-if="item.title != 'Edit labels'"-->
+                  <v-icon v-if="!showBottomCard">mdi-checkbox-marked</v-icon>
+                  <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
+                  <v-icon v-if="!showBottomCard">mdi-image</v-icon>
+
+                  <v-icon v-show="showBottomCard">mdi-pin</v-icon>
                 </template>
               </v-text-field>
 
               <v-text-field
                 v-model="title"
-                placeholder="take a Note"
+                placeholder="take a Notee"
                 flat
                 solo
                 v-if="showBottomCard"
-              >
-                <template>
-                  <v-chip-group
-                    v-model="selection"
-                    active-class="deep-purple accent-4 white--text"
-                    column
-                  >
-                    <v-icon>mdi-checkbox-marked</v-icon>
-                    <v-icon>mdi-brush</v-icon>
-                    <v-icon>mdi-image</v-icon>
-                  </v-chip-group>
-                </template>
-              </v-text-field>
-
-              <v-card-actions>
-                <v-row>
-                  <v-icon>mdi-bell</v-icon>
-                  <v-icon>mdi-account</v-icon>
-                  <v-icon>mdi-brush</v-icon>
-                  <v-icon>mdi-image</v-icon>
-                  <v-icon>mdi-download</v-icon>
+             />
+    
+       <v-group class="cardBottomIcon" v-if="showBottomCard">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
+                    </template>
+                    <span> Remind me </span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon v-bind="attrs" v-on="on">mdi-account</v-icon>
+                    </template>
+                    <span> Collaborator </span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon v-bind="attrs" v-on="on">mdi-brush</v-icon>
+                    </template>
+                    <span> Change color</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon v-bind="attrs" v-on="on">mdi-image</v-icon>
+                    </template>
+                    <span>Change image</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon v-bind="attrs" v-on="on">mdi-download</v-icon>
+                    </template>
+                    <span>Archieve</span>
+                  </v-tooltip>
                   <v-spacer />
                   <a>Close</a>
-                </v-row>
-              </v-card-actions>
+               
+    
+      </v-group >
+         
             </v-card>
           </v-col>
+        
         </v-row>
       </v-card>
     </v-app>
@@ -103,17 +118,31 @@ export default {
   data: () => ({
     showIconName: true,
     showBottomCard: false,
-    
+    text: 'take a note',
+   cardHeight:50,
+   isActive:true
   }),
-
   methods: {
     drawer() {
-      console.warn("parent called")
+      console.warn('parent called');
       this.showIconName = !this.showIconName;
     },
+     hide: function() {
+    	this.showBottomCard = false;
+    }, 
 
+//     away() {
+//  this.isPopup = false;
+// },
+// mounted() {
+//    this.cardHeight=50,
+//      this.text="take a note"
+// },
     expandCard() {
       this.showBottomCard = !this.showBottomCard;
+      console.warn(' this.showBottomCard', this.showBottomCard);
+      this.text = 'title';
+      this.cardHeight=250;
     },
   },
 };
