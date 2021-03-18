@@ -37,7 +37,8 @@
               elevation="8"
               @click="expandCard"
               :height="cardHeight"
-             v-click-outside="hide" v-bind:class="{active: showBottomCard}"
+              v-click-outside="hide"
+              v-bind:class="{ active: showBottomCard }"
             >
               <v-text-field
                 v-model="title"
@@ -50,20 +51,14 @@
                   <v-icon v-if="!showBottomCard">mdi-checkbox-marked</v-icon>
                   <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
                   <v-icon v-if="!showBottomCard">mdi-image</v-icon>
-
-                
-
-
-
- <v-tooltip bottom>
+                  <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
-                       <v-icon v-bind="attrs" v-on="on" v-show="showBottomCard">mdi-pin</v-icon>
+                      <v-icon v-bind="attrs" v-on="on" v-show="showBottomCard"
+                        >mdi-pin</v-icon
+                      >
                     </template>
                     <span>Pin note</span>
                   </v-tooltip>
-                
-
-
                 </template>
               </v-text-field>
 
@@ -73,48 +68,44 @@
                 flat
                 solo
                 v-if="showBottomCard"
-             />
-    
-       <v-group class="cardBottomIcon" v-if="showBottomCard">
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
-                    </template>
-                    <span> Remind me </span>
-                  </v-tooltip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon v-bind="attrs" v-on="on">mdi-account</v-icon>
-                    </template>
-                    <span> Collaborator </span>
-                  </v-tooltip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon v-bind="attrs" v-on="on">mdi-brush</v-icon>
-                    </template>
-                    <span> Change color</span>
-                  </v-tooltip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon v-bind="attrs" v-on="on">mdi-image</v-icon>
-                    </template>
-                    <span>Change image</span>
-                  </v-tooltip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon v-bind="attrs" v-on="on">mdi-download</v-icon>
-                    </template>
-                    <span>Archieve</span>
-                  </v-tooltip>
-                  <v-spacer />
-                  <a>Close</a>
-               
-    
-      </v-group >
-         
+              />
+
+              <v-group class="cardBottomIcon" v-if="showBottomCard">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
+                  </template>
+                  <span> Remind me </span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon v-bind="attrs" v-on="on">mdi-account</v-icon>
+                  </template>
+                  <span> Collaborator </span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon v-bind="attrs" v-on="on">mdi-brush</v-icon>
+                  </template>
+                  <span> Change color</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon v-bind="attrs" v-on="on">mdi-image</v-icon>
+                  </template>
+                  <span>Change image</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon v-bind="attrs" v-on="on">mdi-download</v-icon>
+                  </template>
+                  <span>Archieve</span>
+                </v-tooltip>
+                <v-spacer />
+                <a>Close</a>
+              </v-group>
             </v-card>
           </v-col>
-        
         </v-row>
       </v-card>
     </v-app>
@@ -122,7 +113,7 @@
 </template>
 
 <script>
-import sidenavBar from '../components/sidenavBar.vue';
+import sidenavBar from "../components/sidenavBar.vue";
 export default {
   components: {
     sidenavBar,
@@ -130,39 +121,30 @@ export default {
   data: () => ({
     showIconName: true,
     showBottomCard: false,
-    text: 'take a note',
-   cardHeight:50,
-   isActive:true
+    text: "take a note",
+    cardHeight: 50,
+    isActive: true,
   }),
   methods: {
-     resetCard: function() {
- this.cardHeight=50;
-      this.text='take a note';
-    } ,
-    drawer() {
-      console.warn('parent called');
-      this.showIconName = !this.showIconName;
-     // this.resetCard();
+    resetCard: function() {
+      this.cardHeight = 50;
+      this.text = "take a note";
     },
-  
+    drawer() {
+      console.warn("parent called");
+      this.showIconName = !this.showIconName;
+      // this.resetCard();
+    },
+
     hide: function() {
-    	this.showBottomCard = false;
+      this.showBottomCard = false;
       this.resetCard();
-    }, 
-
-
-//     away() {
-//  this.isPopup = false;
-// },
-// mounted() {
-//    this.cardHeight=50,
-//      this.text="take a note"
-// },
+    },
     expandCard() {
       this.showBottomCard = !this.showBottomCard;
-      console.warn(' this.showBottomCard', this.showBottomCard);
-      this.text = 'title';
-      this.cardHeight=200;
+      console.warn(" this.showBottomCard", this.showBottomCard);
+      this.text = "title";
+      this.cardHeight = 200;
     },
   },
 };
