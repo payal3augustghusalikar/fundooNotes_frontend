@@ -35,7 +35,7 @@
             <v-card
               class="mx-auto my-12 note-card window"
               elevation="8"
-              @click="expandCard"
+               @click="expandCard"
               :height="cardHeight"
               v-click-outside="hide"
               v-bind:class="{ active: showBottomCard }"
@@ -46,6 +46,8 @@
                 :placeholder="text"
                 flat
                 solo
+                 dense
+                
               >
                 <template v-slot:append>
                   <v-icon v-if="!showBottomCard">mdi-checkbox-marked</v-icon>
@@ -63,11 +65,12 @@
               </v-text-field>
 
               <v-text-field
-                v-model="title"
+                v-model="description"
                 placeholder="take a Notee"
                 flat
                 solo
-                v-if="showBottomCard"
+               dense
+                v-show="showBottomCard==true"
               />
 
               <v-group class="cardBottomIcon" v-if="showBottomCard">
@@ -128,7 +131,7 @@ export default {
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note";
+      this.text = "take a note...";
     },
     drawer() {
       console.warn("parent called");
@@ -141,10 +144,10 @@ export default {
       this.resetCard();
     },
     expandCard() {
-      this.showBottomCard = !this.showBottomCard;
+      this.showBottomCard = true;
       console.warn(" this.showBottomCard", this.showBottomCard);
       this.text = "title";
-      this.cardHeight = 200;
+      this.cardHeight = 150;
     },
   },
 };
