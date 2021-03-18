@@ -31,7 +31,8 @@
           <v-col>
             <sidenavBar :showIconName="showIconName" />
           </v-col>
-          <v-col>
+        
+          <v-col class="takeNote">
             <v-card
               class="mx-auto my-12 note-card window"
               elevation="8"
@@ -46,7 +47,7 @@
                 :placeholder="text"
                 flat
                 solo
-                 dense
+                dense
                 
               >
                 <template v-slot:append>
@@ -110,7 +111,7 @@
              </v-row>
             </v-card>
           </v-col>
-         
+        
         </v-row>
       </v-card>
     </v-app>
