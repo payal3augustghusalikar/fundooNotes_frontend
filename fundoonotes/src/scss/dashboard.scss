@@ -37,13 +37,20 @@
         .note-card {
             max-width: 600px;
             border-radius: 50px;
+            padding-left: 10px;
         }
         
         .v-icon {
-            padding-left: 10px;
+            padding-left: 12px;
             padding-right: 10px;
         }
         
-        .cardBottomIcon {
-            margin-left: 0px;
+        //card icons
+        template .v-icon {
+            padding-left: 200px;
+        }
+        
+        .close {
+            font-size: 18px;
+            padding-right: 25px;
         }

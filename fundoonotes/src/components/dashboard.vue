@@ -73,7 +73,8 @@
                 v-show="showBottomCard==true"
               />
 
-              <v-group class="cardBottomIcon" v-if="showBottomCard">
+              <v-row class="cardBottomIcon" v-if="showBottomCard">
+             
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
@@ -105,10 +106,11 @@
                   <span>Archieve</span>
                 </v-tooltip>
                 <v-spacer />
-                <a>Close</a>
-              </v-group>
+                <a class="close">Close</a>
+             </v-row>
             </v-card>
           </v-col>
+         
         </v-row>
       </v-card>
     </v-app>
