@@ -14,7 +14,7 @@ module.exports = {
         quotes: ['warn', 'single'],
         semi: ['warn', 'always'],
         'no-mixed-spaces-and-tabs': 'warn',
-        'no-unused-vars': ['error', { 'vars': 'all', 'args': 'none' }],
+        'no-unused-vars': ['warn', { 'vars': 'all', 'args': 'none' }],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'template-curly-spacing': 'off',

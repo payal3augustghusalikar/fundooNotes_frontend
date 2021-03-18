@@ -51,7 +51,19 @@
                   <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
                   <v-icon v-if="!showBottomCard">mdi-image</v-icon>
 
-                  <v-icon v-show="showBottomCard">mdi-pin</v-icon>
+                
+
+
+
+ <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                       <v-icon v-bind="attrs" v-on="on" v-show="showBottomCard">mdi-pin</v-icon>
+                    </template>
+                    <span>Pin note</span>
+                  </v-tooltip>
+                
+
+
                 </template>
               </v-text-field>
 
@@ -123,13 +135,21 @@ export default {
    isActive:true
   }),
   methods: {
+     resetCard: function() {
+ this.cardHeight=50;
+      this.text='take a note';
+    } ,
     drawer() {
       console.warn('parent called');
       this.showIconName = !this.showIconName;
+     // this.resetCard();
     },
-     hide: function() {
+  
+    hide: function() {
     	this.showBottomCard = false;
+      this.resetCard();
     }, 
+
 
 //     away() {
 //  this.isPopup = false;
@@ -142,7 +162,7 @@ export default {
       this.showBottomCard = !this.showBottomCard;
       console.warn(' this.showBottomCard', this.showBottomCard);
       this.text = 'title';
-      this.cardHeight=250;
+      this.cardHeight=200;
     },
   },
 };
