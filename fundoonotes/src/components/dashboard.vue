@@ -79,36 +79,6 @@
 
               <v-row class="cardBottomIcon" v-if="showBottomCard">
               <cardIcons />
-              <!--  <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
-                  </template>
-                  <span> Remind me </span>
-                </v-tooltip>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon v-bind="attrs" v-on="on">mdi-account</v-icon>
-                  </template>
-                  <span> Collaborator </span>
-                </v-tooltip>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon v-bind="attrs" v-on="on">mdi-brush</v-icon>
-                  </template>
-                  <span> Change color</span>
-                </v-tooltip>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon v-bind="attrs" v-on="on">mdi-image</v-icon>
-                  </template>
-                  <span>Change image</span>
-                </v-tooltip>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon v-bind="attrs" v-on="on">mdi-download</v-icon>
-                  </template>
-                  <span>Archieve</span>
-                </v-tooltip> -->
                 <v-spacer />
 
                 <v-button type="submit" class="close" @click="creatNewNote"
@@ -173,12 +143,9 @@ export default {
         .createNote(noteData)
         .then((result) => {
           console.warn('Success', result);
-           window.setTimeout(() => {
-           alert('note created');
-            this.clearForm();
-          }, 2000);
+               alert('note created ');
         })  .catch((error) => {
-          this.isLinkNotSent = true;
+        
            alert('Error');
           console.warn('error for forget password is ', error);
         } );
