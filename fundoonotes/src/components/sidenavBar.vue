@@ -3,7 +3,7 @@
             <v-navigation-drawer class="sideNavBar" permanent hide-overlay>
               <v-list nav dense>
                 <v-list-item-group
-                  v-model="group"
+                  v-model="group" shaped
                   active-class="deep-purple--text text--accent-4"
                 >
                   <v-list-item v-for="item in sideNavBar" :key="item.icon">

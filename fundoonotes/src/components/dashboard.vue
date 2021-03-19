@@ -83,27 +83,19 @@
                   >Close</v-button
                 >
               </v-row>
-            </v-card>        
-<v-main>
-
-    <!-- Provides the application the proper gutter -->
-    <v-container fluid>
-<v-content>
-          <div class="allCards">
-            <noteCards />
-          </div>
-          </v-content>
-     
-     
-    </v-container>
-  </v-main>
-
-
-
-</v-col>
-            </v-row>
-
-      
+            </v-card>
+            <v-main>
+              <!-- Provides the application the proper gutter -->
+              <v-container fluid>
+                <v-content>
+                  <div class="allCards">
+                    <noteCards ref="childNote" />
+                  </div>
+                </v-content>
+              </v-container>
+            </v-main>
+          </v-col>
+        </v-row>
       </v-card>
     </v-app>
   </div>
@@ -129,16 +121,38 @@ export default {
     cardHeight: 50,
     isActive: true,
   }),
+
+  beforeMount() {
+      console.warn("before Mount");
+      this.displayAllNotes();
+    },
+
   methods: {
+
     resetCard: function() {
       this.cardHeight = 50;
       this.text = "take a note...";
     },
+
     drawer() {
       console.warn("parent called");
       this.showIconName = !this.showIconName;
       // this.resetCard();
     },
+
+    displayAllNotes() {
+      console.warn("inside displayAllNotes");
+      note
+        .getNotes()
+        .then((result) => {
+         // console.warn("Success getNotes", result);
+           console.warn("Success for get notes", result.data.data );
+        })
+        .catch((error) => {
+          console.warn("error for note is ", error);
+        });
+    },
+    
 
     hide: function() {
       this.showBottomCard = false;
@@ -162,6 +176,10 @@ export default {
         .then((result) => {
           console.warn("Success", result);
           alert("note created ");
+          console.warn("Success", result.data.data);
+          //  this.$refs.childNote.displayAllNotes();
+
+          this.displayAllNotes();
         })
         .catch((error) => {
           alert("Error");

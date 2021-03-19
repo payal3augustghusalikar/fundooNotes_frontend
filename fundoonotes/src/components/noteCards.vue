@@ -45,6 +45,7 @@
 
 <script>
 import cardIcons from "../components/cardIcons.vue";
+import note from "../services/note.js";
 export default {
   components: {
     cardIcons,
@@ -55,6 +56,20 @@ export default {
       hide: function() {
         this.showBottomCard = false;
         this.resetCard();
+      },
+
+      displayAllNotes() {
+        console.warn("inside displayAllNotes");
+        note
+          .getNotes()
+          .then((result) => {
+            console.warn("Success getNotes", result.data.data);
+
+            //  console.warn("Success for get notes", result.data.data );
+          })
+          .catch((error) => {
+            console.warn("error for note is ", error);
+          });
       },
     },
   }),
