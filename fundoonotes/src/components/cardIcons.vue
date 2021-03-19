@@ -22,7 +22,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-icon v-bind="attrs" v-on="on">mdi-image</v-icon>
       </template>
-      <span>Change image</span>
+      <span>Add image</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -35,15 +35,7 @@
 
 <script>
 export default {
-  //     data: () => ({
-  //     title:"",
-  //       description:"",
-  //     showIconName: true,
-  //     showBottomCard: false,
-  //     text: "take a note",
-  //     cardHeight: 50,
-  //     isActive: true,
-  //   }),
+ 
 };
 </script>
 

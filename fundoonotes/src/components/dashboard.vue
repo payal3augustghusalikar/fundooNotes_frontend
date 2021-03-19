@@ -76,49 +76,66 @@
                 required
                 v-show="showBottomCard == true"
               />
-
               <v-row class="cardBottomIcon" v-if="showBottomCard">
-              <cardIcons />
+                <cardIcons />
                 <v-spacer />
-
                 <v-button type="submit" class="close" @click="creatNewNote"
                   >Close</v-button
                 >
               </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
+            </v-card>        
+<v-main>
+
+    <!-- Provides the application the proper gutter -->
+    <v-container >
+<v-content>
+          <div class="allCards">
+            <noteCards />
+          </div>
+          </v-content>
+     
+     
+    </v-container>
+  </v-main>
+
+
+
+</v-col>
+            </v-row>
+
+      
       </v-card>
     </v-app>
   </div>
 </template>
 
 <script>
-
-import note from '../services/note.js';
-import sidenavBar from '../components/sidenavBar.vue';
-import cardIcons from '../components/cardIcons.vue';
+import note from "../services/note.js";
+import sidenavBar from "../components/sidenavBar.vue";
+import cardIcons from "../components/cardIcons.vue";
+import noteCards from "../components/noteCards.vue";
 export default {
   components: {
     sidenavBar,
-    cardIcons
+    cardIcons,
+    noteCards,
   },
   data: () => ({
-    title:'',
-      description:'',
+    title: "",
+    description: "",
     showIconName: true,
     showBottomCard: false,
-    text: 'take a note',
+    text: "take a note",
     cardHeight: 50,
     isActive: true,
   }),
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = 'take a note...';
+      this.text = "take a note...";
     },
     drawer() {
-      console.warn('parent called');
+      console.warn("parent called");
       this.showIconName = !this.showIconName;
       // this.resetCard();
     },
@@ -129,29 +146,29 @@ export default {
     },
     expandCard() {
       this.showBottomCard = true;
-      console.warn(' this.showBottomCard', this.showBottomCard);
-      this.text = 'title';
+      console.warn(" this.showBottomCard", this.showBottomCard);
+      this.text = "title";
       this.cardHeight = 150;
     },
 
     creatNewNote() {
-      console.warn('inside' );
+      console.warn("inside");
       let noteData = {
         title: this.title,
-        description: this.description};
- note
+        description: this.description,
+      };
+      note
         .createNote(noteData)
         .then((result) => {
-          console.warn('Success', result);
-               alert('note created ');
-        })  .catch((error) => {
-        
-           alert('Error');
-          console.warn('error for forget password is ', error);
-        } );
-    }
-  }
-  
+          console.warn("Success", result);
+          alert("note created ");
+        })
+        .catch((error) => {
+          alert("Error");
+          console.warn("error for forget password is ", error);
+        });
+    },
+  },
 };
 </script>
 

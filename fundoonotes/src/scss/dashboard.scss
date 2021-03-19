@@ -45,18 +45,16 @@
             margin-right: 300px;
         }
         
-        //take a note ends
-        .v-icon {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
         //card icons
-        .template .v-icon {
-            padding-left: 20px;
+        .cardBottomIcon {
+            padding-left: 2 0px;
         }
         
         .close {
             font-size: 18px;
             padding-right: 25px;
+        }
+        
+        .allCards {
+            justify-content: center;
         }
