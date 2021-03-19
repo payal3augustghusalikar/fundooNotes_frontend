@@ -78,7 +78,8 @@
               />
 
               <v-row class="cardBottomIcon" v-if="showBottomCard">
-                <v-tooltip bottom>
+              <cardIcons />
+              <!--  <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
                   </template>
@@ -107,7 +108,7 @@
                     <v-icon v-bind="attrs" v-on="on">mdi-download</v-icon>
                   </template>
                   <span>Archieve</span>
-                </v-tooltip>
+                </v-tooltip> -->
                 <v-spacer />
 
                 <v-button type="submit" class="close" @click="creatNewNote"
@@ -125,27 +126,29 @@
 <script>
 
 import note from '../services/note.js';
-import sidenavBar from "../components/sidenavBar.vue";
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
 export default {
   components: {
     sidenavBar,
+    cardIcons
   },
   data: () => ({
-    title:"",
-      description:"",
+    title:'',
+      description:'',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note",
+    text: 'take a note',
     cardHeight: 50,
     isActive: true,
   }),
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
+      this.text = 'take a note...';
     },
     drawer() {
-      console.warn("parent called");
+      console.warn('parent called');
       this.showIconName = !this.showIconName;
       // this.resetCard();
     },
@@ -156,27 +159,27 @@ export default {
     },
     expandCard() {
       this.showBottomCard = true;
-      console.warn(" this.showBottomCard", this.showBottomCard);
-      this.text = "title";
+      console.warn(' this.showBottomCard', this.showBottomCard);
+      this.text = 'title';
       this.cardHeight = 150;
     },
 
     creatNewNote() {
-      console.warn("inside" )
+      console.warn('inside' );
       let noteData = {
         title: this.title,
-        description: this.description}
+        description: this.description};
  note
         .createNote(noteData)
         .then((result) => {
           console.warn('Success', result);
            window.setTimeout(() => {
-           alert("note created")
+           alert('note created');
             this.clearForm();
           }, 2000);
         })  .catch((error) => {
           this.isLinkNotSent = true;
-           alert("Error")
+           alert('Error');
           console.warn('error for forget password is ', error);
         } );
     }

@@ -29,12 +29,12 @@ export default {
      * @returns the response from axios methods
      */
     postWithToken(userData) {
-        console.warn("insuide apicall")
+        console.warn('insuide apicall');
         return axios.post(userData.endPoint, userData.userInput, {
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             }
-        })
+        });
     },
     /**
      * @description takes the data from user.js file and call the axios put method and return response to user.js

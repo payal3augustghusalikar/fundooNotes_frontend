@@ -14,11 +14,11 @@ export default {
      * @returns the response from api calling methods
      */
     createNote(data) {
-        console.warn("insuide note")
+        console.warn('inside note');
         const noteData = {
             userInput: data,
             endPoint: '/notes'
         };
         return apiCall.postWithToken(noteData);
     },
-}
+};
