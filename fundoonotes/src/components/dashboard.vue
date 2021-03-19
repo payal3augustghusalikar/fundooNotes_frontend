@@ -87,7 +87,7 @@
 <v-main>
 
     <!-- Provides the application the proper gutter -->
-    <v-container >
+    <v-container fluid>
 <v-content>
           <div class="allCards">
             <noteCards />
