@@ -31,12 +31,12 @@
           <v-col>
             <sidenavBar :showIconName="showIconName" />
           </v-col>
-        
+
           <v-col class="takeNote">
             <v-card
               class="mx-auto my-12 note-card window"
               elevation="8"
-               @click="expandCard"
+              @click="expandCard"
               :height="cardHeight"
               v-click-outside="hide"
               v-bind:class="{ active: showBottomCard }"
@@ -48,7 +48,8 @@
                 flat
                 solo
                 dense
-                
+                maxlength="50"
+                required
               >
                 <template v-slot:append>
                   <v-icon v-if="!showBottomCard">mdi-checkbox-marked</v-icon>
@@ -70,12 +71,13 @@
                 placeholder="take a Notee"
                 flat
                 solo
-               dense
-                v-show="showBottomCard==true"
+                dense
+                maxlength="400"
+                required
+                v-show="showBottomCard == true"
               />
 
               <v-row class="cardBottomIcon" v-if="showBottomCard">
-             
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
@@ -107,11 +109,13 @@
                   <span>Archieve</span>
                 </v-tooltip>
                 <v-spacer />
-                <a class="close">Close</a>
-             </v-row>
+
+                <v-button type="submit" class="close" @click="creatNewNote"
+                  >Close</v-button
+                >
+              </v-row>
             </v-card>
           </v-col>
-        
         </v-row>
       </v-card>
     </v-app>
@@ -119,12 +123,16 @@
 </template>
 
 <script>
+
+import note from '../services/note.js';
 import sidenavBar from "../components/sidenavBar.vue";
 export default {
   components: {
     sidenavBar,
   },
   data: () => ({
+    title:"",
+      description:"",
     showIconName: true,
     showBottomCard: false,
     text: "take a note",
@@ -152,7 +160,28 @@ export default {
       this.text = "title";
       this.cardHeight = 150;
     },
-  },
+
+    creatNewNote() {
+      console.warn("inside" )
+      let noteData = {
+        title: this.title,
+        description: this.description}
+ note
+        .createNote(noteData)
+        .then((result) => {
+          console.warn('Success', result);
+           window.setTimeout(() => {
+           alert("note created")
+            this.clearForm();
+          }, 2000);
+        })  .catch((error) => {
+          this.isLinkNotSent = true;
+           alert("Error")
+          console.warn('error for forget password is ', error);
+        } );
+    }
+  }
+  
 };
 </script>
 

@@ -15,7 +15,7 @@
         "bootstrap-vue": "^2.21.2",
         "core-js": "^3.6.5",
         "dotenv": "^8.2.0",
-        "node-sass": "^5.0.0",
+
         "vue": "^2.6.11",
         "vue-axios": "^3.2.4",
         "vue-material": "^1.0.0-beta-15",
@@ -38,9 +38,6 @@
         "mutationobserver-shim": "^0.3.7",
         "popper.js": "^1.16.1",
         "portal-vue": "^2.1.7",
-        "sass": "^1.32.0",
-        "sass-loader": "^10.1.1",
-        "vue-cli-plugin-bootstrap-vue": "~0.7.0",
         "vue-cli-plugin-vuetify": "~2.2.2",
         "vue-template-compiler": "^2.6.11",
         "vuetify-loader": "^1.7.0"
@@ -58,8 +55,7 @@
             "parser": "babel-eslint"
         },
         "rules": {},
-        "overrides": [
-            {
+        "overrides": [{
                 "files": [
                     "**/__tests__/*.{j,t}s?(x)",
                     "**/tests/unit/**/*.spec.{j,t}s?(x)"

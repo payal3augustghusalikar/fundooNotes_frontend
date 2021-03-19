@@ -61,18 +61,5 @@ export default {
         return apiCall.put(userData);
     },
 
-    /**
-     * @description takes the user input and call the axios put method and return response to resetPassword page
-     * @param {*} data holds the userinput 
-     * @returns the response from api calling methods
-     */
-    activateEmail(data) {
-        const userData = {
-            userInput: data,
-            token: data.token,
-            endPoint: '/activateemail'
-        };
-        return apiCall.put(userData);
-    }
 
 };

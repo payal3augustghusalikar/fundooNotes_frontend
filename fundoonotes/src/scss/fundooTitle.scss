@@ -1,13 +1,14 @@
+@import "common";
 .md-title {
     font-weight: 10px;
 }
 
 .md-title #col {
-    color: $myBlue;
+    color: $myred;
 }
 
 .md-title #col1 {
-    color: $red;
+    color: blue;
 }
 
 .md-title #col2 {
