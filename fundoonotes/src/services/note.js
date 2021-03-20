@@ -29,7 +29,6 @@ export default {
     getNotes() {
         console.warn('inside get note');
         const noteData = {
-
             endPoint: '/notes'
         };
         return apiCall.get(noteData);

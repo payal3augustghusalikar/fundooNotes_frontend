@@ -6,8 +6,8 @@
 *  @since        05/03/2021  
 -----------------------------------------------------------------------------------------------*/
 
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:2001/";
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:2001/';
 
 // axios.defaults.headers.common['Authorization'] =
 //     'Bearer' + sessionStorage.getItem('token');
@@ -28,10 +28,10 @@ export default {
      * @returns the response from axios methods
      */
     postWithToken(userData) {
-        console.warn("insuide apicall");
+        console.warn('insuide apicall');
         return axios.post(userData.endPoint, userData.userInput, {
             headers: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
         });
     },
@@ -53,10 +53,10 @@ export default {
      * @returns the response from axios methods
      */
     get(userData) {
-        console.warn("inside get ")
+        console.warn('inside get ');
         return axios.get(userData.endPoint, {
             headers: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
         });
     },

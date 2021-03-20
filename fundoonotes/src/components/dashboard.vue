@@ -31,8 +31,10 @@
           <v-col>
             <sidenavBar :showIconName="showIconName" />
           </v-col>
-
-          <v-col class="takeNote">
+ <v-main>
+      <v-container>
+        
+          <div class="takeNote">
             <v-card
               class="mx-auto my-12 note-card window"
               elevation="8"
@@ -84,28 +86,31 @@
                 >
               </v-row>
             </v-card>
-            <v-main>
-              <!-- Provides the application the proper gutter -->
-              <v-container fluid>
-                <v-content>
+
+            </div>
+             <br>
+           
+        
+            
+           
+              
                   <div class="allCards">
-                    <noteCards ref="childNote" />
+                    <noteCards ref="childNote" :allNotes="allNotes" />
                   </div>
-                </v-content>
-              </v-container>
-            </v-main>
-          </v-col>
-        </v-row>
+              
+          </v-container>
+    </v-main>
+     </v-row>
       </v-card>
     </v-app>
   </div>
 </template>
 
 <script>
-import note from "../services/note.js";
-import sidenavBar from "../components/sidenavBar.vue";
-import cardIcons from "../components/cardIcons.vue";
-import noteCards from "../components/noteCards.vue";
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
 export default {
   components: {
     sidenavBar,
@@ -113,43 +118,56 @@ export default {
     noteCards,
   },
   data: () => ({
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note",
+    text: 'take a note',
     cardHeight: 50,
     isActive: true,
+    allNotes: '',
   }),
 
   beforeMount() {
-      console.warn("before Mount");
+      console.warn('before Mount');
       this.displayAllNotes();
+       
     },
 
   methods: {
 
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
+      this.text = 'take a note...';
     },
 
     drawer() {
-      console.warn("parent called");
+      console.warn('parent called');
       this.showIconName = !this.showIconName;
       // this.resetCard();
     },
+    // displayAllNotes1() {
+    //   console.warn("inside displayAllNotes");
+    //   this.$refs.childNote.displayAllNotes();
+           
+    // },
+    
 
     displayAllNotes() {
-      console.warn("inside displayAllNotes");
+      console.warn('inside displayAllNotes');
       note
         .getNotes()
         .then((result) => {
          // console.warn("Success getNotes", result);
-           console.warn("Success for get notes", result.data.data );
+           console.warn('Success for get notes', result.data.data );
+
+          this.allNotes = result.data.data ;
+          
+           console.warn(' allNotes[0]._id',  this.allNotes[0]._id );
+         
         })
         .catch((error) => {
-          console.warn("error for note is ", error);
+          console.warn('error for note is ', error);
         });
     },
     
@@ -160,13 +178,13 @@ export default {
     },
     expandCard() {
       this.showBottomCard = true;
-      console.warn(" this.showBottomCard", this.showBottomCard);
-      this.text = "title";
+      console.warn(' this.showBottomCard', this.showBottomCard);
+      this.text = 'title';
       this.cardHeight = 150;
     },
 
     creatNewNote() {
-      console.warn("inside");
+      console.warn('inside');
       let noteData = {
         title: this.title,
         description: this.description,
@@ -174,16 +192,16 @@ export default {
       note
         .createNote(noteData)
         .then((result) => {
-          console.warn("Success", result);
-          alert("note created ");
-          console.warn("Success", result.data.data);
-          //  this.$refs.childNote.displayAllNotes();
+          console.warn('Success', result);
+          alert('note created ');
+          console.warn('Success', result.data.data);
+          this.$refs.childNote.displayAllNotes();
 
-          this.displayAllNotes();
+         // this.displayAllNotes();
         })
         .catch((error) => {
-          alert("Error");
-          console.warn("error for forget password is ", error);
+          alert('Error');
+          console.warn('error for forget password is ', error);
         });
     },
   },

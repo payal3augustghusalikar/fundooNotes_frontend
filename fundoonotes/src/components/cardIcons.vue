@@ -55,13 +55,13 @@ export default {
     dialog: false,
     items: [
       {
-        title: "Click Me",
+        title: 'Click Me',
       },
       {
-        title: "Click Me",
+        title: 'Click Me',
       },
       {
-        title: "Click Me",
+        title: 'Click Me',
       },
     ],
   }),
