@@ -14,7 +14,6 @@ export default {
      * @returns the response from api calling methods
      */
     createNote(data) {
-        console.warn('inside note');
         const noteData = {
             userInput: data,
             endPoint: '/notes'
@@ -27,7 +26,6 @@ export default {
      * @returns the response from api calling methods
      */
     getNotes() {
-        console.warn('inside get note');
         const noteData = {
             endPoint: '/notes'
         };

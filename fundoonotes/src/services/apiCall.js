@@ -9,9 +9,6 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:2001/';
 
-// axios.defaults.headers.common['Authorization'] =
-//     'Bearer' + sessionStorage.getItem('token');
-
 export default {
     /**
      * @description takes the data from user.js file and call the axios post method and return response to user.js
