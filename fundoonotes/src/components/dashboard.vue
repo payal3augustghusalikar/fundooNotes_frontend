@@ -78,6 +78,7 @@
                     placeholder="take a Notee"
                     flat
                     solo
+                      autocomplete="off"
                     dense
                     maxlength="400"
                     required
@@ -130,29 +131,7 @@ export default {
     allNotes: '',
   }),
 
-  // beforeMount() {
-  //   console.warn('before Mount');
-  //     console.warn('before Mount  this.$refs.childNote.displayAllNotes()');
-  //   //this.displayAllNotes();
-  //   try{ 
-  //     this.$refs.childNote.displayAllNotes()
-  //     }
-  //     catch(error){
-  //       console.log(error)
-  //     }
-      
-  // },
-
-//    beforeMount() {
-// console.warn(' Mounted'); 
-//     try{ 
-//       console.log("this.$refs.note", this.$refs.childNote.methods.displayAllNotes())
-//       // this.$refs.note.setNoteData(data);
-//       }
-//       catch(error){
-//         console.log(error.message)
-//       }  
-//    },
+  
 
   mounted() {
       this.displayAllNotes();
@@ -185,7 +164,7 @@ export default {
     //this.$refs.childNote.displayAllNotes("note")
     //  this.$refs.childNote.displayAllNotes();
 
-      this.Notes =this.$refs.childNote.methods.displayAllNotes()
+    //  this.allNotes =this.$refs.childNote.methods.displayAllNotes()
 console.log(" this.Notes",  this.Notes)
       note
         .getNotes()
@@ -193,7 +172,7 @@ console.log(" this.Notes",  this.Notes)
           this.allNotes = result.data.data;
           console.log('allNotes ', this.allNotes);
 
-          alert('success');
+       
         })
         .catch((error) => {
           alert('error', error);
@@ -204,6 +183,7 @@ console.log(" this.Notes",  this.Notes)
       this.showBottomCard = false;
       this.resetCard();
     },
+
     expandCard() {
       this.showBottomCard = true;
       this.text = 'title';
@@ -219,11 +199,12 @@ console.log(" this.Notes",  this.Notes)
         .createNote(noteData)
         .then((result) => {
           //this.$refs.childNote.displayAllNotes();
+          console.log("result", result)
           this.displayAllNotes();
           alert(':success');
         })
         .catch((error) => {
-          console.warn('error for create password is ', error);
+          console.warn('error for create note is ', error);
         });
     },
   },
