@@ -25,7 +25,7 @@ export default {
      * @returns the response from axios methods
      */
     postWithToken(userData) {
-        console.warn('insuide apicall');
+        console.warn('inside apicall');
         return axios.post(userData.endPoint, userData.userInput, {
             headers: {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),

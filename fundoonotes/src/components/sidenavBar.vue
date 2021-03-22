@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-navigation-drawer class="sideNavBar" permanent hide-overlay>
-      <v-list nav dense>
+      <v-list >
         <v-list-item-group
           v-model="group"
           shaped
@@ -29,25 +29,28 @@ export default {
   data: () => ({
     sideNavBar: [
       {
-        title: "Note",
-        icon: "mdi-lightbulb",
+        title: 'Note',
+        icon: 'mdi-lightbulb-outline',
       },
       {
-        title: "Reminders",
-        icon: " mdi-bell",
+        title: 'Reminders',
+        icon: 'mdi mdi-bell-outline',
       },
-
-      {
-        title: "Edit labels",
-        icon: "mdi-pencil",
-      },
-      {
-        title: "Archieve",
-        icon: "mdi-download",
+ {
+        title: 'Label',
+        icon: ' mdi-label-outline',
       },
       {
-        title: "Trash",
-        icon: "mdi-delete",
+        title: 'Edit labels',
+        icon: 'mdi-pencil-outline',
+      },
+      {
+        title: 'Archieve',
+        icon: 'mdi-download-outline',
+      },
+      {
+        title: 'Trash',
+        icon: 'mdi-delete-outline',
       },
     ],
   }),

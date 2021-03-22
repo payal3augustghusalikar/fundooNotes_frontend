@@ -36,7 +36,7 @@
         
         //take a note starts
         .note-card {
-            max-width: 700px;
+            max-width: 750px;
             border-radius: 50px;
             padding-left: 0px;
         }
@@ -47,7 +47,7 @@
         
         //card icons
         .cardBottomIcon {
-            padding-left: 2 0px;
+            padding-left: 200px;
         }
         
         .close {
@@ -57,4 +57,9 @@
         
         .allCards {
             justify-content: center;
+        }
+        
+        .v-icon {
+            margin-left: 0%;
+            color: blue;
         }

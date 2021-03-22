@@ -1,32 +1,33 @@
 <template>
-  <v-row>
+
+<v-group>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
+        <v-icon v-bind="attrs" v-on="on">mdi-bell-outline</v-icon>
       </template>
       <span> Remind me </span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-icon v-bind="attrs" v-on="on">mdi-account</v-icon>
+        <v-icon v-bind="attrs" v-on="on">mdi-account-outline</v-icon>
       </template>
       <span> Collaborator </span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-icon v-bind="attrs" v-on="on">mdi-brush</v-icon>
+        <v-icon v-bind="attrs" v-on="on">mdi-brush-outline</v-icon>
       </template>
       <span> Change color</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-icon v-bind="attrs" v-on="on">mdi-image</v-icon>
+        <v-icon v-bind="attrs" v-on="on">mdi-image-outline</v-icon>
       </template>
       <span>Add image</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-icon v-bind="attrs" v-on="on">mdi-download</v-icon>
+        <v-icon v-bind="attrs" v-on="on">mdi-download-outline</v-icon>
       </template>
       <span>Archieve</span>
     </v-tooltip>
@@ -42,10 +43,11 @@
     </v-tooltip>
     <v-list v-show="dialog">
       <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}" >
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
+        <v-list-item-title left>{{ item.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
-  </v-row>
+   </v-group>
+  
    
 </template>
 
@@ -69,5 +71,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("../scss/dashboard.scss");
+@import url("../scss/cardIcons.scss");
 </style>

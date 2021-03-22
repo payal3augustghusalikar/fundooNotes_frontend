@@ -17,6 +17,7 @@
                   prepend-inner-icon="mdi-magnify"
                   fixed
                   filled
+                   autocomplete="off"
                   dense
                   solo
                 ></v-text-field>
@@ -54,17 +55,17 @@
                   >
                     <template v-slot:append>
                       <v-icon v-if="!showBottomCard"
-                        >mdi-checkbox-marked</v-icon
+                        >mdi-checkbox-marked-outline</v-icon
                       >
                       <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
-                      <v-icon v-if="!showBottomCard">mdi-image</v-icon>
+                      <v-icon v-if="!showBottomCard">mdi-image-outline</v-icon>
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                           <v-icon
                             v-bind="attrs"
                             v-on="on"
                             v-show="showBottomCard"
-                            >mdi-pin</v-icon
+                            >mdi-pin-outline</v-icon
                           >
                         </template>
                         <span>Pin note</span>
@@ -82,16 +83,20 @@
                     required
                     v-show="showBottomCard == true"
                   />
-                  <v-row class="cardBottomIcon" v-if="showBottomCard">
-                    <cardIcons />
-                    <v-spacer />
-                    <v-button type="submit" class="close" @click="creatNewNote"
-                      >Close</v-button
-                    >
-                  </v-row>
+                  <v-span class="cardBottomIcon" v-if="showBottomCard">
+                    <v-row>
+                      <cardIcons />
+                      <v-spacer></v-spacer>
+                      <v-button
+                        type="submit"
+                        class="close"
+                        @click="creatNewNote"
+                        >Close</v-button
+                      >
+                    </v-row>
+                  </v-span>
                 </v-card>
               </div>
-
               <div class="allCards">
                 <noteCards ref="childNote" :allNotes="allNotes" />
               </div>
@@ -104,10 +109,10 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import sidenavBar from "../components/sidenavBar.vue";
-import cardIcons from "../components/cardIcons.vue";
-import noteCards from "../components/noteCards.vue";
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
 export default {
   components: {
     sidenavBar,
@@ -115,25 +120,60 @@ export default {
     noteCards,
   },
   data: () => ({
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note",
+    text: 'take a note...',
     cardHeight: 50,
     isActive: true,
-    allNotes: "",
+    allNotes: '',
   }),
 
-  beforeMount() {
-    console.warn("before Mount");
-    this.displayAllNotes();
+  // beforeMount() {
+  //   console.warn('before Mount');
+  //     console.warn('before Mount  this.$refs.childNote.displayAllNotes()');
+  //   //this.displayAllNotes();
+  //   try{ 
+  //     this.$refs.childNote.displayAllNotes()
+  //     }
+  //     catch(error){
+  //       console.log(error)
+  //     }
+      
+  // },
+
+//    beforeMount() {
+// console.warn(' Mounted'); 
+//     try{ 
+//       console.log("this.$refs.note", this.$refs.childNote.methods.displayAllNotes())
+//       // this.$refs.note.setNoteData(data);
+//       }
+//       catch(error){
+//         console.log(error.message)
+//       }  
+//    },
+
+  mounted() {
+      this.displayAllNotes();
+    console.warn(' Mounted'); 
+    try{ 
+    //  console.log("this.$refs.childNote.methods.displayAllNotes()", this.$refs.childNote.methods.displayAllNotes())
+         console.log("data from child")
+      // this.$refs.note.setNoteData(data);
+    
+      }
+      catch(error){
+        console.log(error.message)
+      }  
   },
 
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
+      this.text = 'take a note...';
+      this.title= '';
+    this.description= '';
     },
 
     drawer() {
@@ -142,12 +182,22 @@ export default {
     },
 
     displayAllNotes() {
+    //this.$refs.childNote.displayAllNotes("note")
+    //  this.$refs.childNote.displayAllNotes();
+
+      this.Notes =this.$refs.childNote.methods.displayAllNotes()
+console.log(" this.Notes",  this.Notes)
       note
         .getNotes()
         .then((result) => {
           this.allNotes = result.data.data;
+          console.log('allNotes ', this.allNotes);
+
+          alert('success');
         })
-        .catch((error) => {});
+        .catch((error) => {
+          alert('error', error);
+        });
     },
 
     hide: function() {
@@ -156,7 +206,7 @@ export default {
     },
     expandCard() {
       this.showBottomCard = true;
-      this.text = "title";
+      this.text = 'title';
       this.cardHeight = 150;
     },
 
@@ -168,10 +218,12 @@ export default {
       note
         .createNote(noteData)
         .then((result) => {
-          this.$refs.childNote.displayAllNotes();
+          //this.$refs.childNote.displayAllNotes();
+          this.displayAllNotes();
+          alert(':success');
         })
         .catch((error) => {
-          console.warn("error for forget password is ", error);
+          console.warn('error for create password is ', error);
         });
     },
   },
