@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer class="sideNavBar" permanent hide-overlay>
+    <v-navigation-drawer class="sideNavBar" permanent >
       <v-list >
         <v-list-item-group
           v-model="group"

@@ -58,24 +58,25 @@ export default {
    }),
     methods: {
      
-      // displayAllNotes() {
-      //   console.log("inside note com");
-      //   return note
-      //     .getNotes()
-      //     .then((result) => {
-      //       console.log("allNotes in notee ", result.data.data);
-      //       this.allNotes = result.data.data;
-      //       return result.data.data;
-      //     })
-      //     .catch((error) => {
-      //       alert("error", error);
-      //     });
-      // },
-
-      mounted() {
-        console.log("mount");
-        this.displayAllNotes();
+      displayAllNotes() {
+        console.log("inside note com");
+        return note
+          .getNotes()
+          .then((result) => {
+            console.log("allNotes in notee ", result.data.data);
+            this.allNotes = result.data.data;
+            console.log("this.allNotes", this.allNotes)
+            return result.data.data;
+          })
+          .catch((error) => {
+            alert("error", error);
+          });
       },
+
+      // mounted() {
+      //   console.log("mount");
+      //   this.displayAllNotes();
+      // },
     },
 
 }
