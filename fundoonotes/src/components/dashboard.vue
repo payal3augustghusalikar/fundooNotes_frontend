@@ -132,8 +132,7 @@ export default {
   }), 
 
   mounted() {
-     this.$refs.childNote.displayAllNotes();
-    
+     this.$refs.childNote.displayAllNotes(); 
   },
 
   methods: {
@@ -146,26 +145,10 @@ export default {
 
     drawer() {
       this.showIconName = !this.showIconName;
-      // this.resetCard();
     },
 
     displayAllNotes() {
-    //this.$refs.childNote.displayAllNotes("note")
       this.$refs.childNote.displayAllNotes();
-
-    //  this.allNotes =this.$refs.childNote.methods.displayAllNotes()
-// console.log(" this.Notes",  this.Notes)
-//       note
-//         .getNotes()
-//         .then((result) => {
-//           this.allNotes = result.data.data;
-//           console.log('allNotes ', this.allNotes);
-
-       
-//         })
-//         .catch((error) => {
-//           alert('error', error);
-//         });
     },
 
     hide: function() {
@@ -188,9 +171,6 @@ export default {
         .createNote(noteData)
         .then((result) => {
           this.$refs.childNote.displayAllNotes();
-          console.log("result", result)
-         // this.displayAllNotes();
-          alert(':success');
         })
         .catch((error) => {
           console.warn('error for create note is ', error);

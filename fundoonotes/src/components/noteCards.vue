@@ -46,37 +46,21 @@ export default {
   components: {
     cardIcons,
   },
-
-  // props: {
-  //   allNotes: Object,
-  // },
-
    data: () => ({
-  //   hover: false,
-   // allNotes: Object,
  allNotes: "",
    }),
     methods: {
      
       displayAllNotes() {
-        console.log("inside note com");
         return note
           .getNotes()
           .then((result) => {
-            console.log("allNotes in notee ", result.data.data);
             this.allNotes = result.data.data;
-            console.log("this.allNotes", this.allNotes)
-            return result.data.data;
           })
           .catch((error) => {
-            alert("error", error);
+           console.log("Error", error)
           });
       },
-
-      // mounted() {
-      //   console.log("mount");
-      //   this.displayAllNotes();
-      // },
     },
 
 }
