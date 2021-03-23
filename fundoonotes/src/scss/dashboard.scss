@@ -22,8 +22,8 @@
         }
         
         .FundooNotes_img {
-            @include height(46px);
-            width: 46px;
+            @include height(4px);
+            width: 4px;
             padding-left: 10px;
             padding-right: 10px;
         }
@@ -36,15 +36,18 @@
         
         //take a note starts
         .note-card {
+            max-width: 750px;
             border-radius: 50px;
             padding-left: 0px;
-            max-height: 200px;
         }
         
         .takeNote {
-            margin-right: 0px;
-            width: 600px;
-            border-radius: 50px;
+            margin-right: 300px;
+        }
+        
+        //card icons
+        .cardBottomIcon {
+            padding-left: 200px;
         }
         
         .close {
@@ -57,5 +60,6 @@
         }
         
         .v-icon {
-            margin-left: 7px;
+            margin-left: 0%;
+            color: blue;
         }

@@ -1,13 +1,18 @@
 .sideNavBar {
-    margin-top: 0px;
-    padding-right: 10px;
-    height: 100%;
-    width: 5%;
+    margin-top: 6px;
+    padding-right: 40px;
+    height: 100%
 }
 
 .icon-name {
     text-align: left;
     margin-left: 10px;
+}
+
+.note-card {
+    max-width: 600px;
+    border-radius: 50px;
+    max-height: 200px;
 }
 
 .v-icon {

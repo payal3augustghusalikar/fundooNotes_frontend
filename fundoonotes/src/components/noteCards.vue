@@ -47,9 +47,9 @@ export default {
     cardIcons,
   },
 
-  props: {
-    allNotes: Object,
-  },
+  // props: {
+  //   allNotes: Object,
+  // },
 
    data: () => ({
   //   hover: false,

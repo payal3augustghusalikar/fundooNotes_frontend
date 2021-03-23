@@ -99,7 +99,7 @@
                 </v-card>
               </div>
               <div class="allCards">
-                <noteCards ref="childNote" :allNotes="allNotes" />
+                <noteCards ref="childNote"  />
               </div>
             </v-container>
           </v-main>
@@ -129,22 +129,11 @@ export default {
     cardHeight: 50,
     isActive: true,
     allNotes: '',
-  }),
-
-  
+  }), 
 
   mounted() {
-     // this.displayAllNotes();
-    console.warn(' Mounted'); 
-    try{ 
-      console.log("this.$refs.childNote.methods.displayAllNotes()", this.$refs.childNote.displayAllNotes())
-         console.log("data from child")
-      // this.$refs.note.setNoteData(data);
+     this.$refs.childNote.displayAllNotes();
     
-      }
-      catch(error){
-        console.log(error.message)
-      }  
   },
 
   methods: {
@@ -160,11 +149,11 @@ export default {
       // this.resetCard();
     },
 
-//     displayAllNotes() {
-//     //this.$refs.childNote.displayAllNotes("note")
-//     //  this.$refs.childNote.displayAllNotes();
+    displayAllNotes() {
+    //this.$refs.childNote.displayAllNotes("note")
+      this.$refs.childNote.displayAllNotes();
 
-//     //  this.allNotes =this.$refs.childNote.methods.displayAllNotes()
+    //  this.allNotes =this.$refs.childNote.methods.displayAllNotes()
 // console.log(" this.Notes",  this.Notes)
 //       note
 //         .getNotes()
@@ -177,7 +166,7 @@ export default {
 //         .catch((error) => {
 //           alert('error', error);
 //         });
-//     },
+    },
 
     hide: function() {
       this.showBottomCard = false;
@@ -198,10 +187,10 @@ export default {
       note
         .createNote(noteData)
         .then((result) => {
-          //this.$refs.childNote.displayAllNotes();
+          this.$refs.childNote.displayAllNotes();
           console.log("result", result)
-          this.displayAllNotes();
-        
+         // this.displayAllNotes();
+          alert(':success');
         })
         .catch((error) => {
           console.warn('error for create note is ', error);
