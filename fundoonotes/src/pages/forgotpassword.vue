@@ -13,7 +13,7 @@
             <fundooTitle />
           </md-card-title>
           <v-card-title>
-            Sign in
+           Enter Your Email
           </v-card-title>
         </md-card-header>
         <md-card-content>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-//import router from "../router/route.js";
+
 import fundooTitle from '../components/fundooTitle.vue';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
@@ -132,12 +132,13 @@ export default {
     validateUser() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        
         this.forgotPassword();
       }
     },
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 @import url("../scss/login.scss");
 </style>

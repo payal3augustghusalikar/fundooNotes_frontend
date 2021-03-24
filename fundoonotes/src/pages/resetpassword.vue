@@ -126,11 +126,11 @@ isPasswordNotReset: false,
     form: {
       password: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
       cpassword: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
     },
   },
@@ -155,12 +155,10 @@ isPasswordNotReset: false,
       let data = {
         newPassword: this.form.password,
         confirmPassword:this.form.cpassword,
-       
+       token: this.$route.params.token
       };
-       const  token = this.$route.params.token;
-       console.log('token 1',token );
       user
-        .resetPassword(data, token)
+        .resetPassword(data)
         .then((result) => {
           console.log('Success', result);
              window.setTimeout(() => {
@@ -183,6 +181,11 @@ isPasswordNotReset: false,
   },
 };
 </script>
+<<<<<<< HEAD
 <style scoped>
 @import url("../scss/resetpassword.scss");
+=======
+<style lang="scss" scoped>
+@import url("../scss/resetPassword.scss");
+>>>>>>> development
 </style>

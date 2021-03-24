@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="main">
+
     <form
       novalidate
       class="md-layout jc-center login"
@@ -22,8 +23,7 @@
             <md-input
               type="email"
               name="email"
-             
-             autocomplete="off"
+              autocomplete="off"
               v-model="form.email"
               :disabled="sending"
             />
@@ -40,7 +40,6 @@
             <md-input
               name="password"
               type="password"
-          
               v-model="form.password"
               :disabled="sending"
             />
@@ -56,7 +55,7 @@
         <md-card-content>
           <md-card-actions>
             <span>
-              <router-link to="/forgotpassword">Forgot Password</router-link>  
+              <router-link to="/forgotpassword">Forgot Password</router-link>
             </span>
           </md-card-actions>
         </md-card-content>
@@ -78,8 +77,8 @@
       <md-snackbar :md-active.sync="userLoggedIn"
         >The user {{ User }} is logged in!</md-snackbar
       >
-       <md-snackbar :md-active.sync="userNotLoggedIn"
-        >Could not login, Please try again!</md-snackbar
+      <md-snackbar :md-active.sync="userNotLoggedIn"
+        >Could not login, Please verify your emailId and try again!</md-snackbar
       >
     </form>
   </div>
@@ -115,7 +114,7 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
     },
   },
@@ -131,8 +130,7 @@ export default {
     clearForm() {
       this.$v.$reset();
       this.form.email = null;
-      this.form.password = null;
-        router.push({ name: 'dashboard' });
+      this.form.password = null;   
     },
     loginUser() {
       this.sending = true;
@@ -142,20 +140,22 @@ export default {
       };
       user
         .loginUser(data)
-        .then((data) => {
-          console.warn('login detatils result is1 ', data);
+        .then((data) => { 
           sessionStorage.setItem('token', data.data.token);
           sessionStorage.setItem('firstName', data.data.user[0].firstName);
           sessionStorage.setItem('lastName', data.data.user[0].lastName);
           sessionStorage.setItem('emailId', data.data.user[0].emailId);
-             window.setTimeout(() => {
+            window.setTimeout(() => {
             this.userLoggedIn = true;
             this.sending = false;
             this.clearForm();
-                }, 4000);
+             router.push({ name: 'dashboard' });
+                }, 4000);  
         })
         .catch((error) => {this.userNotLoggedIn = true;
+         this.sending = false;
         console.warn('error for login is ', error);});
+            router.push({ name: 'login' });
     },
     validateUser() {
       this.$v.$touch();
@@ -166,6 +166,6 @@ export default {
   },
 };
 </script>
-<style scoped>
-@import url("../scss/login.scss");
+<style lang="scss" scoped>
+@import "src/scss/login.scss"
 </style>

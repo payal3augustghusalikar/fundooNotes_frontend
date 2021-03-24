@@ -1,31 +1,187 @@
 <template>
-  <div>
-    <h3 v-if="token">
-      hii,{{ firstName }} {{ lastName }} welcome to dashboard
-    </h3>
-    <h3 v-if="!token">You are not logged in! please log in.</h3>
+<v-flex>
+  <div id="app">
+    <v-app id="inspire">
+      <v-card class="mx-auto overflow-hidden topBar">
+        <v-row>
+          <v-col>
+            <v-app-bar color="white" class="main-bar" elevation="1">
+              <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
+
+              <span class="FundooNotes_img">
+                <img src="../assets/googleKeep.png" />
+              </span>
+              <v-toolbar-title>FundooNotes</v-toolbar-title>
+              <div id="top-search-bar">
+                <v-text-field
+                  label="Search"
+                  prepend-inner-icon="mdi-magnify"
+                  fixed
+                  filled
+                   autocomplete="off"
+                  dense
+                  solo
+                ></v-text-field>
+              </div>
+              <v-spacer> </v-spacer>
+
+              <md-avatar class="md-avatar-icon">P</md-avatar>
+            </v-app-bar>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <sidenavBar :showIconName="showIconName" />
+          </v-col>
+          <v-main>
+            <v-container>
+              <div class="takeNote">
+                <v-card
+                  class="mx-auto my-12 note-card window"
+                  elevation="8"
+                  @click="expandCard"
+                  :height="cardHeight"
+                  v-click-outside="hide"
+                  v-bind:class="{ active: showBottomCard }"
+                >
+                  <v-textarea
+                    v-model="title"
+                    autocomplete="off"
+                    :placeholder="text"
+                    flat
+                    solo
+                    dense
+                  
+                    required
+                  >
+                    <template v-slot:append>
+                      <v-icon v-if="!showBottomCard"
+                        >mdi-checkbox-marked-outline</v-icon
+                      >
+                      <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
+                      <v-icon v-if="!showBottomCard">mdi-image-outline</v-icon>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon
+                            v-bind="attrs"
+                            v-on="on"
+                            v-show="showBottomCard"
+                            >mdi-pin-outline</v-icon
+                          >
+                        </template>
+                        <span>Pin note</span>
+                      </v-tooltip>
+                    </template>
+                  </v-textarea>
+
+                  <v-textarea
+                    v-model="description"
+                    placeholder="take a Note"
+                    flat
+                    solo
+                      autocomplete="off"
+                    dense
+                 
+                    required
+                    v-show="showBottomCard == true"
+                  />
+                  <v-span class="cardBottomIcon" v-if="showBottomCard">
+                    <v-row>
+                      <cardIcons />
+                      <v-spacer></v-spacer>
+                      <v-button
+                        type="submit"
+                        class="close"
+                        @click="creatNewNote"
+                        >Close</v-button
+                      >
+                    </v-row>
+                  </v-span>
+                </v-card>
+              </div>
+              <div class="allCards">
+                <noteCards ref="childNote"  />
+              </div>
+            </v-container>
+          </v-main>
+        </v-row>
+      </v-card>
+    </v-app>
   </div>
+  </v-flex>
 </template>
 
 <script>
-
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
 export default {
-  data() {
-    return {
-      firstName: null,
-      token: null,
-    };
+  components: {
+    sidenavBar,
+    cardIcons,
+    noteCards,
   },
-  name: 'dashboard',
-  async created() {
-    const firstName = sessionStorage.getItem('firstName');
-    const lastName = sessionStorage.getItem('lastName');
-    const token = sessionStorage.getItem('token');
-    const emailId = sessionStorage.getItem('emailId');
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.token = token;
-    this.emailId = emailId;
+  data: () => ({
+    title: '',
+    description: '',
+    showIconName: true,
+    showBottomCard: false,
+    text: 'take a note...',
+    cardHeight: 50,
+    isActive: true,
+    allNotes: '',
+  }), 
+
+  mounted() {
+     this.$refs.childNote.displayAllNotes(); 
+  },
+
+  methods: {
+    resetCard: function() {
+      this.cardHeight = 50;
+      this.text = 'take a note...';
+      this.title= '';
+    this.description= '';
+    },
+
+    drawer() {
+      this.showIconName = !this.showIconName;
+    },
+
+    displayAllNotes() {
+      this.$refs.childNote.displayAllNotes();
+    },
+
+    hide: function() {
+      this.showBottomCard = false;
+      this.resetCard();
+    },
+
+    expandCard() {
+      this.showBottomCard = true;
+      this.text = 'title';
+      this.cardHeight = 150;
+    },
+
+    creatNewNote() {
+      let noteData = {
+        title: this.title,
+        description: this.description,
+      };
+      note
+        .createNote(noteData)
+        .then((result) => {
+          this.$refs.childNote.displayAllNotes();
+        })
+        .catch((error) => {
+          console.warn('error for create note is ', error);
+        });
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import url("../scss/dashboard.scss");
+</style>

@@ -178,8 +178,6 @@ import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
 
 import user from '../services/user.js';
-//const user = require('../services/user.js')
-
 export default {
   components: {
     fundooTitle,
@@ -195,7 +193,7 @@ export default {
       password: null,
       cpassword: null,
     },
-userNotSaved: false,
+    userNotSaved: false,
     userSaved: false,
     sending: false,
     user: null,
@@ -217,11 +215,11 @@ userNotSaved: false,
       },
       password: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
       cpassword: {
         required,
-        minLength: minLength(4),
+        minLength: minLength(6),
       },
     },
   },
@@ -255,8 +253,6 @@ userNotSaved: false,
         password: this.form.password,
         confirmPassword: this.form.cpassword,
       };
-
-      console.log('signup details: ', data);
       user
         .registerUser(data)
         .then((result) => {
@@ -266,13 +262,12 @@ userNotSaved: false,
             this.userSaved = true;
             this.sending = false;
             this.clearForm();
-          }, 4000);
+          }, 2000);
         })
          .catch((error) => {
           this.userNotSaved = true;
            console.warn('error ', error);
-        } );
-       
+        } );  
     },
     validateUser() {
       this.$v.$touch();
@@ -283,6 +278,6 @@ userNotSaved: false,
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 @import url("../scss/register.scss");
 </style>
