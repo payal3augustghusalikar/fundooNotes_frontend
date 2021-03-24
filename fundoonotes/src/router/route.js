@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import register from '../pages/register.vue';
 import login from '../pages/login.vue';
-import forgotPassword from '../pages/forgotPassword.vue';
-import resetPassword from '../pages/resetPassword.vue';
+import forgotPassword from '../pages/forgotpassword.vue';
+import resetPassword from '../pages/resetpassword.vue';
 import dashboard from '../components/dashboard.vue';
 
 Vue.use(Router);

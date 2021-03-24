@@ -181,5 +181,5 @@ isPasswordNotReset: false,
 };
 </script>
 <style lang="scss" scoped>
-@import url("../scss/resetPassword.scss");
+@import url("../scss/resetpassword.scss");
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <form
       novalidate
       class="md-layout jc-center login"
@@ -166,5 +166,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import url("../scss/login.scss");
+@import "src/scss/login.scss"
 </style>
