@@ -19,14 +19,15 @@
               >
             </article>
             <v-card-title>{{ note.title }} </v-card-title>
-            <v-list-item >{{ note.description }}</v-list-item>
-         
-        
+            <v-list-item>{{ note.description }}</v-list-item>
+
             <cardIcons v-show="hover == true || click == true" />
           </v-card>
         </v-hover>
       </v-flex>
+     
     </v-layout>
+     
   </v-flex>
 </template>
 
@@ -41,16 +42,20 @@ export default {
   },
   data: () => ({
     allNotes: "",
+    result: "",
+   
   }),
   methods: {
     displayAllNotes() {
       return note
         .getNotes()
         .then((result) => {
-          this.allNotes = result.data.data;
+          this.result = result.data.data;
+          this.allNotes = [...this.result].reverse();
+        
         })
         .catch((error) => {
-          console.log("Error", error);
+         
         });
     },
   },

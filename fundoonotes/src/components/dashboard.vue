@@ -30,92 +30,99 @@
             </v-col>
           </v-row>
           <v-row>
-          
             <v-col>
               <sidenavBar :showIconName="showIconName" />
             </v-col>
             <v-flex>
-            <v-main >
-              <v-container class="main">
-                <div class="takeNote">
-                  <v-card
-                    class="mx-auto my-12 note-card window"
-                    elevation="8"
-                    @click="expandCard"
-                    :height="cardHeight"
-                    v-click-outside="hide"
-                    v-bind:class="{ active: showBottomCard }"
-                  >
-                    <v-textarea
-                      v-model="title"
-                      autocomplete="off"
-                      :placeholder="text"
-                      flat
-                      solo
-                      dense
-                      auto-grow
-                      rows="1"
-                      row-height="10"
-                      required
+              <v-main>
+                <v-container class="main">
+                  <div class="takeNote">
+                    <v-card
+                      class="mx-auto my-12 note-card window"
+                      elevation="8"
+                      @click="expandCard"
+                      :height="cardHeight"
+                      v-click-outside="hide"
+                      v-bind:class="{ active: showBottomCard }"
                     >
-                      <template v-slot:append>
-                        <v-icon v-if="!showBottomCard"
-                          >mdi-checkbox-marked-outline</v-icon
-                        >
-                        <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
-                        <v-icon v-if="!showBottomCard"
-                          >mdi-image-outline</v-icon
-                        >
-                        <v-tooltip bottom>
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-icon
-                              v-bind="attrs"
-                              v-on="on"
-                              v-show="showBottomCard"
-                              >mdi-pin-outline</v-icon
-                            >
-                          </template>
-                          <span>Pin note</span>
-                        </v-tooltip>
-                      </template>
-                    </v-textarea>
+                      <v-textarea
+                        v-model="title"
+                        autocomplete="off"
+                        :placeholder="text"
+                        flat
+                        solo
+                        dense
+                        auto-grow
+                        rows="1"
+                        row-height="10"
+                        required
+                      >
+                        <template v-slot:append>
+                          <v-icon v-if="!showBottomCard"
+                            >mdi-checkbox-marked-outline</v-icon
+                          >
+                          <v-icon v-if="!showBottomCard">mdi-brush</v-icon>
+                          <v-icon v-if="!showBottomCard"
+                            >mdi-image-outline</v-icon
+                          >
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-icon
+                                v-bind="attrs"
+                                v-on="on"
+                                v-show="showBottomCard"
+                                >mdi-pin-outline</v-icon
+                              >
+                            </template>
+                            <span>Pin note</span>
+                          </v-tooltip>
+                        </template>
+                      </v-textarea>
 
-                    <v-textarea
-                      v-model="description"
-                      placeholder="take a Note"
-                      flat
-                      solo
-                      autocomplete="off"
-                      dense
-                      auto-grow
-                      rows="1"
-                      row-height="10"
-                      required
-                      v-show="showBottomCard == true"
-                    />
-                    <v-span class="cardBottomIcon" v-if="showBottomCard">
-                      <v-row>
-                        <cardIcons />
-                        <v-spacer></v-spacer>
-                        <v-button
-                          type="submit"
-                          class="close"
-                          @click="creatNewNote"
-                          >Close</v-button
-                        >
-                      </v-row>
-                    </v-span>
-                  </v-card>
-                </div>
-                <div class="allCards">
-                  <noteCards ref="childNote" />
-                </div>
-              </v-container>
-            </v-main>
-        </v-flex>
+                      <v-textarea
+                        v-model="description"
+                        placeholder="take a Note"
+                        flat
+                        solo
+                        autocomplete="off"
+                        dense
+                        auto-grow
+                        rows="1"
+                        row-height="10"
+                        required
+                        v-show="showBottomCard == true"
+                      />
+                      <v-span class="cardBottomIcon" v-if="showBottomCard">
+                        <v-row>
+                          <cardIcons />
+                          <v-spacer></v-spacer>
+                          <v-button
+                            type="submit"
+                            class="close"
+                            @click="creatNewNote"
+                            >Close</v-button
+                          >
+                        </v-row>
+                      </v-span>
+                    </v-card>
+                  </div>
+                  <div class="allCards">
+                    <noteCards ref="childNote" />
+                  </div>
+                </v-container>
+              </v-main>
+            </v-flex>
           </v-row>
-         
-        
+          <v-snackbar
+            v-model="snackbar.appear"
+            :color="snackbar.color"
+            :timeout="snackbar.timeout"
+            :left="snackbar.x === 'left'"
+            :right="snackbar.x === 'right'"
+            :top="snackbar.y === 'top'"
+          >
+            {{ snackbar.text }}</v-snackbar
+          >
         </v-card>
       </v-app>
     </div>
@@ -134,6 +141,13 @@ export default {
     noteCards,
   },
   data: () => ({
+    snackbar: {
+      appear: false,
+      text: "",
+      timeout: 2500,
+      x: "right",
+      y: "top",
+    },
     title: "",
     description: "",
     showIconName: true,
@@ -142,6 +156,7 @@ export default {
     cardHeight: 50,
     isActive: true,
     allNotes: "",
+ 
   }),
 
   mounted() {
@@ -183,10 +198,18 @@ export default {
       note
         .createNote(noteData)
         .then((result) => {
+         
+          this.snackbar.appear = true;
+          this.snackbar.text = "note created successfully";
+
           this.$refs.childNote.displayAllNotes();
+          this.hide();
         })
         .catch((error) => {
-          console.warn("error for create note is ", error);
+       
+          this.snackbar.appear = true;
+          this.snackbar.text = "error occured!! please try again!!";
+           this.hide();
         });
     },
   },
