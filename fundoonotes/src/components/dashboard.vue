@@ -9,7 +9,7 @@
               <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
 
               <span class="FundooNotes_img">
-                <img src="../assets/googleKeep.png" />
+               
               </span>
               <v-toolbar-title>FundooNotes</v-toolbar-title>
               <div id="top-search-bar">
