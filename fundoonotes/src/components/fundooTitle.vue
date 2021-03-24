@@ -27,5 +27,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-@import url("../scss/fundooTitle.scss");
+// @import url("../scss/fundooTitle.scss");
+@import "../scss/fundooTitle.scss"
 </style>
