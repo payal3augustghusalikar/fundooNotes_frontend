@@ -1,5 +1,6 @@
 <template>
   <div>
+  <h1 id="color">color</h1>
     <form
       novalidate
       class="md-layout jc-center login"

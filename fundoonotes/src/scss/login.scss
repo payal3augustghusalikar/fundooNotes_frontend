@@ -1,32 +1,38 @@
-    .md-progress-bar {
-        top: 0;
-        right: 0;
-        left: 0;
-    }
-    
-    .jc-center {
-        justify-content: center;
-    }
-    
-    .login {
-        height: 450px;
-        padding-top: 100px;
-        padding-right: 500px;
-        padding-left: 500px;
-    }
-    
-    .md-card {
-        padding-top: 90px;
-    }
-    
-    .md-layout-item {
-        padding-top: 0px
-    }
-    
-    #field-size {
-        size: 10px;
-    }
-    
-     ::-webkit-scrollbar {
-        display: none;
-    }
+@import "./common.scss";
+.md-progress-bar {
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.jc-center {
+    justify-content: center;
+}
+
+.login {
+    height: 450px;
+    padding-top: 100px;
+    padding-right: 500px;
+    padding-left: 500px;
+    color: $myred;
+}
+
+#color {
+    color: $myBlue
+}
+
+.md-card {
+    padding-top: 90px;
+}
+
+.md-layout-item {
+    padding-top: 0px
+}
+
+#field-size {
+    size: 10px;
+}
+
+ ::-webkit-scrollbar {
+    display: none;
+}

@@ -31,4 +31,16 @@ export default {
         };
         return apiCall.get(noteData);
     },
+
+    /**
+     * @description  update the note
+     * @returns the response from api calling methods
+     */
+    updateNote(noteInput, noteId) {
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes' + noteId
+        };
+        return apiCall.get(noteData);
+    },
 };

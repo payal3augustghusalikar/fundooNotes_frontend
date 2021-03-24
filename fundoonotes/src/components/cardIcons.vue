@@ -42,30 +42,22 @@
      
     </v-tooltip>
     <v-list v-show="dialog">
-      <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}" >
-        <v-list-item-title left>{{ item.title }}</v-list-item-title>
-      </v-list-item>
+     <v-list-item @click="deletNote">Delete note</v-list-item>
+        <v-list-item v-on="on" link>Add label</v-list-item>
     </v-list>
    </v-group>
   
-   
 </template>
 
 <script>
 export default {
+name:'cardIcons',
+ props: ['singleNoteDetails', 'trashField', 'mainField'],
   data: () => ({
     dialog: false,
-    items: [
-      {
-        title: 'Click Me',
-      },
-      {
-        title: 'Click Me',
-      },
-      {
-        title: 'Click Me',
-      },
-    ],
+   methods: {
+     
+   },
   }),
 };
 </script>

@@ -9,10 +9,10 @@
         >
           <v-list-item v-for="item in sideNavBar" :key="item.icon">
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon @click="goToItem(item)" >{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-title v-if="showIconName">
-              <div class="icon-name">{{ item.title }}</div>
+              <div class="icon-name" @click="goToItem(item)>{{ item.title }}</div>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
@@ -36,7 +36,7 @@ export default {
         title: 'Reminders',
         icon: 'mdi mdi-bell-outline',
       },
- {
+      {
         title: 'Label',
         icon: ' mdi-label-outline',
       },
@@ -54,7 +54,15 @@ export default {
       },
     ],
   }),
-  methods: {},
+  methods: {
+  goToItem (item) {
+        this.$router.push({
+          name: item.title
+        });
+      }
+    },
+  
+  },
 };
 </script>
 <style lang="scss" scoped>
