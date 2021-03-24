@@ -2,39 +2,32 @@
   <v-flex>
     <v-layout row wrap>
       <v-flex
-        v-for="note in allNotes" v-bind:key="note._id"
+        v-for="note in allNotes"
+        v-bind:key="note._id"
         md3
-        class="mr-5 mb-10"
+        class="mr-5 mb-5"
       >
-            <v-hover v-slot="{ hover }">
-              <v-card
-              
-                class="mx-auto v-list"
-                outlined
-                :class="{'on-hover':hover}"
+        <v-hover v-slot="{ hover }">
+          <v-card
+            class="mx-auto singleCard card-container"
+            outlined
+            :class="{ 'on-hover': hover }"
+          >
+            <article class="text-md-right text-lg-right">
+              <v-icon v-bind="attrs" v-on="on" v-show="hover"
+                >mdi-pin-outline</v-icon
               >
-              <article class="text-md-right text-lg-right">
-                <v-icon v-bind="attrs" v-on="on" v-show="hover"
-                  >mdi-pin-outline</v-icon
-                >
-              </article>
-                <v-card-title>{{ note.title }} </v-card-title>
-                <v-list-item class="v-list">{{ note.description }}</v-list-item>
-                <!--  <p>{{item.dialog}}</P> -->
-                <v-list-item></v-list-item>
-               
-            <cardIcons
-                  v-show="hover==true || click==true"
-                   />
-               
-              </v-card>
-            </v-hover>
+            </article>
+            <v-card-title>{{ note.title }} </v-card-title>
+            <v-list-item >{{ note.description }}</v-list-item>
          
+        
+            <cardIcons v-show="hover == true || click == true" />
+          </v-card>
+        </v-hover>
       </v-flex>
-     
     </v-layout>
   </v-flex>
-
 </template>
 
 <script>
@@ -46,24 +39,22 @@ export default {
   components: {
     cardIcons,
   },
-   data: () => ({
- allNotes: "",
-   }),
-    methods: {
-     
-      displayAllNotes() {
-        return note
-          .getNotes()
-          .then((result) => {
-            this.allNotes = result.data.data;
-          })
-          .catch((error) => {
-           console.log("Error", error)
-          });
-      },
+  data: () => ({
+    allNotes: "",
+  }),
+  methods: {
+    displayAllNotes() {
+      return note
+        .getNotes()
+        .then((result) => {
+          this.allNotes = result.data.data;
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
     },
-
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

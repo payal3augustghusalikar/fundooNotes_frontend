@@ -1,6 +1,5 @@
 <template>
-
-<v-group>
+  <v-group>
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-icon v-bind="attrs" v-on="on">mdi-bell-outline</v-icon>
@@ -37,18 +36,15 @@
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
-      
+
       <span>more</span>
-     
     </v-tooltip>
     <v-list v-show="dialog">
-      <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}" >
+      <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
         <v-list-item-title left>{{ item.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
-   </v-group>
-  
-   
+  </v-group>
 </template>
 
 <script>
@@ -57,13 +53,13 @@ export default {
     dialog: false,
     items: [
       {
-        title: 'Click Me',
+        title: "Click Me",
       },
       {
-        title: 'Click Me',
+        title: "Click Me",
       },
       {
-        title: 'Click Me',
+        title: "Click Me",
       },
     ],
   }),

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-navigation-drawer class="sideNavBar" permanent >
-      <v-list >
+    <v-navigation-drawer class="sideNavBar" fixed permanent>
+      <v-list>
         <v-list-item-group
           v-model="group"
           shaped
@@ -29,28 +29,28 @@ export default {
   data: () => ({
     sideNavBar: [
       {
-        title: 'Note',
-        icon: 'mdi-lightbulb-outline',
+        title: "Note",
+        icon: "mdi-lightbulb-outline",
       },
       {
-        title: 'Reminders',
-        icon: 'mdi mdi-bell-outline',
-      },
- {
-        title: 'Label',
-        icon: ' mdi-label-outline',
+        title: "Reminders",
+        icon: "mdi mdi-bell-outline",
       },
       {
-        title: 'Edit labels',
-        icon: 'mdi-pencil-outline',
+        title: "Label",
+        icon: " mdi-label-outline",
       },
       {
-        title: 'Archieve',
-        icon: 'mdi-download-outline',
+        title: "Edit labels",
+        icon: "mdi-pencil-outline",
       },
       {
-        title: 'Trash',
-        icon: 'mdi-delete-outline',
+        title: "Archieve",
+        icon: "mdi-download-outline",
+      },
+      {
+        title: "Trash",
+        icon: "mdi-delete-outline",
       },
     ],
   }),
