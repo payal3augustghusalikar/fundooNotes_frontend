@@ -10,6 +10,7 @@
               <md-card-title>
                 <fundooTitle />
               </md-card-title>
+
               <v-card-title>
                 Reset Password
               </v-card-title>
@@ -183,5 +184,5 @@ isPasswordNotReset: false,
 };
 </script>
 <style scoped>
-@import url("../scss/resetPassword.scss");
+@import url("../scss/resetpassword.scss");
 </style>

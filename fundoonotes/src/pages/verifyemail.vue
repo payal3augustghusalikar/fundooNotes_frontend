@@ -73,5 +73,5 @@ export default {
 </script>
 
 <style scoped>
-@import url("../scss/verifyEmail.scss");
+@import url("../scss/verifyemail.scss");
 </style>
