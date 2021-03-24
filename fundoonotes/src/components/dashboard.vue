@@ -1,4 +1,5 @@
 <template>
+<v-flex>
   <div id="app">
     <v-app id="inspire">
       <v-card class="mx-auto overflow-hidden topBar">
@@ -43,14 +44,14 @@
                   v-click-outside="hide"
                   v-bind:class="{ active: showBottomCard }"
                 >
-                  <v-text-field
+                  <v-textarea
                     v-model="title"
                     autocomplete="off"
                     :placeholder="text"
                     flat
                     solo
                     dense
-                    maxlength="50"
+                  
                     required
                   >
                     <template v-slot:append>
@@ -71,16 +72,16 @@
                         <span>Pin note</span>
                       </v-tooltip>
                     </template>
-                  </v-text-field>
+                  </v-textarea>
 
-                  <v-text-field
+                  <v-textarea
                     v-model="description"
-                    placeholder="take a Notee"
+                    placeholder="take a Note"
                     flat
                     solo
                       autocomplete="off"
                     dense
-                    maxlength="400"
+                 
                     required
                     v-show="showBottomCard == true"
                   />
@@ -107,6 +108,7 @@
       </v-card>
     </v-app>
   </div>
+  </v-flex>
 </template>
 
 <script>
