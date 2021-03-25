@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="450">
       <v-card v-click-outside="onClickOutside">
         <v-card-text>
-          <v-form class="editForm">
+          <v-form ref="editForm">
             <v-text-field
               solo
               label="id"
@@ -39,7 +39,9 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click.native="onClickOutside">Close</v-btn>
+          <v-btn color="green darken-1" flat @click.native="dialog == false"
+            >Close</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -57,9 +59,9 @@
 </template>
 
 <script>
-import cardIcons from "./cardIcons";
+import cardIcons from './cardIcons';
 
-import note from "../services/note.js";
+import note from '../services/note.js';
 
 export default {
   components: {
@@ -75,54 +77,43 @@ export default {
     return {
       snackbar: {
         appear: false,
-        text: "",
+        text: '',
         timeout: 2500,
-        x: "right",
-        y: "top",
+        x: 'right',
+        y: 'top',
       },
       editOptions: this.options,
     };
   },
-
-  mounted() {
-    console.log("options", this.options);
+  beforeDestroy() {
+    this.$refs.dialog.close();
   },
+
   methods: {
     close() {
-  
-      this.dialog = "false";
-      this.$emit("update:dialog", false);
+      this.dialog = 'false';
+      this.$emit('update:dialog', false);
     },
 
     onClickOutside() {
-      console.log("inside onClickOutside");
       if (this.editOptions.title && this.editOptions.description) {
         const noteInput = {
           title: this.editOptions.title,
           description: this.editOptions.description,
         };
-        console.log("inoteInput", noteInput);
-        console.log("this.editOptions._id");
-        console.log("this.editOptions._id", this.editOptions._id);
         note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
-            console.log("data", data.data.status_code.status_code);
-
             if (data.data.status_code.status_code == 200) {
-              this.snackbar.appear = true;
-              this.snackbar.text = "note updated successfully";
-              this.close();
+              (this.snackbar.appear = true),
+                (this.snackbar.text = 'note updated successfully'),
+                this.close();
             }
-            this.close();
-            console.log("after closed");
           })
-
           .catch(
-            (error) => console.log("error)", error),
-            (this.snackbar.appear = true),
+            (error) => (this.snackbar.appear = true),
             (this.snackbar.text =
-              "error while updating, please try again later")
+              'error while updating, please try again later')
           );
       }
     },

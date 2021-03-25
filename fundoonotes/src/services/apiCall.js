@@ -38,7 +38,7 @@ export default {
      * @returns the response from axios methods
      */
     put(userData) {
-        console.log("put")
+
         return axios.put(userData.endPoint, userData.userInput, {
             headers: {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
@@ -51,7 +51,7 @@ export default {
      * @returns the response from axios methods
      */
     get(userData) {
-        console.warn('inside get ');
+
         return axios.get(userData.endPoint, {
             headers: {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),

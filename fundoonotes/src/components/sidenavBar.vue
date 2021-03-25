@@ -9,12 +9,15 @@
         >
           <v-list-item v-for="item in sideNavBar" :key="item.icon">
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon @click="goToItem(item)">{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-title v-if="showIconName">
-              <div class="icon-name">{{ item.title }}</div>
+              <div class="icon-name" @click="goToItem(item)">
+                {{ item.title }}
+              </div>
             </v-list-item-title>
           </v-list-item>
+         
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -22,6 +25,7 @@
 </template>
 
 <script>
+import router from '../router/route.js';
 export default {
   props: {
     showIconName: Boolean,
@@ -54,7 +58,17 @@ export default {
       },
     ],
   }),
-  methods: {},
+
+//  router.push({ name: 'login' });
+
+  methods: {
+    goToItem(item) {
+      console.log("pushing to : ",item.title )
+      router.push({
+        name: item.title,
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

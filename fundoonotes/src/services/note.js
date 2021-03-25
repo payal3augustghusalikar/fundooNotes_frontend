@@ -38,7 +38,7 @@ export default {
      * @returns the response from api calling methods
      */
     updateNote(noteInput, noteId) {
-        console.log("updateNote")
+
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/' + noteId

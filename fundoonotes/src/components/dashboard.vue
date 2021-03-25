@@ -36,7 +36,7 @@
             <v-flex>
               <v-main>
                 <v-container class="main">
-                  <div class="takeNote">
+                  <div class="takeNote" v-show="dashboard">
                     <v-card
                       class="mx-auto my-12 note-card window"
                       elevation="8"
@@ -106,9 +106,14 @@
                       </v-span>
                     </v-card>
                   </div>
+                   <router-view></router-view>
                   <div class="allCards">
-                    <noteCards ref="childNote" />
+                    <noteCards  v-show="!dashboard" ref="childNote" />
                   </div>
+                  <div class="allCards">
+                    <trash  />
+                  </div>
+                 
                 </v-container>
               </v-main>
             </v-flex>
@@ -156,11 +161,13 @@ export default {
     cardHeight: 50,
     isActive: true,
     allNotes: '',
+    dashboard:false,
  
   }),
 
   mounted() {
     this.$refs.childNote.displayAllNotes();
+ this.dashboard=true;
   },
 
   methods: {

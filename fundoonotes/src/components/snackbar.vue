@@ -28,5 +28,5 @@ export default {
       y: 'top',
     }
     })
-}
+};
 </script>
