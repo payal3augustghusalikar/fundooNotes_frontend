@@ -29,28 +29,28 @@ export default {
   data: () => ({
     sideNavBar: [
       {
-        title: "Note",
-        icon: "mdi-lightbulb-outline",
+        title: 'Note',
+        icon: 'mdi-lightbulb-outline',
       },
       {
-        title: "Reminders",
-        icon: "mdi mdi-bell-outline",
+        title: 'Reminders',
+        icon: 'mdi mdi-bell-outline',
       },
       {
-        title: "Label",
-        icon: " mdi-label-outline",
+        title: 'Label',
+        icon: ' mdi-label-outline',
       },
       {
-        title: "Edit labels",
-        icon: "mdi-pencil-outline",
+        title: 'Edit labels',
+        icon: 'mdi-pencil-outline',
       },
       {
-        title: "Archieve",
-        icon: "mdi-download-outline",
+        title: 'Archieve',
+        icon: 'mdi-download-outline',
       },
       {
-        title: "Trash",
-        icon: "mdi-delete-outline",
+        title: 'Trash',
+        icon: 'mdi-delete-outline',
       },
     ],
   }),

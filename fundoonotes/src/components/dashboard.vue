@@ -130,10 +130,10 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import sidenavBar from "../components/sidenavBar.vue";
-import cardIcons from "../components/cardIcons.vue";
-import noteCards from "../components/noteCards.vue";
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
 export default {
   components: {
     sidenavBar,
@@ -143,19 +143,19 @@ export default {
   data: () => ({
     snackbar: {
       appear: false,
-      text: "",
+      text: '',
       timeout: 2500,
-      x: "right",
-      y: "top",
+      x: 'right',
+      y: 'top',
     },
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note...",
+    text: 'take a note...',
     cardHeight: 50,
     isActive: true,
-    allNotes: "",
+    allNotes: '',
  
   }),
 
@@ -166,9 +166,9 @@ export default {
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
-      this.title = "";
-      this.description = "";
+      this.text = 'take a note...';
+      this.title = '';
+      this.description = '';
     },
 
     drawer() {
@@ -186,7 +186,7 @@ export default {
 
     expandCard() {
       this.showBottomCard = true;
-      this.text = "title";
+      this.text = 'title';
       this.cardHeight = 150;
     },
 
@@ -200,7 +200,7 @@ export default {
         .then((result) => {
          
           this.snackbar.appear = true;
-          this.snackbar.text = "note created successfully";
+          this.snackbar.text = 'note created successfully';
 
           this.$refs.childNote.displayAllNotes();
           this.hide();
@@ -208,7 +208,7 @@ export default {
         .catch((error) => {
        
           this.snackbar.appear = true;
-          this.snackbar.text = "error occured!! please try again!!";
+          this.snackbar.text = 'error occured!! please try again!!';
            this.hide();
         });
     },

@@ -12,6 +12,7 @@
             class="mx-auto singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
+            @click.stop="note.dialog=true"
           >
             <article class="text-md-right text-lg-right">
               <v-icon v-bind="attrs" v-on="on" v-show="hover"
@@ -22,29 +23,39 @@
             <v-list-item>{{ note.description }}</v-list-item>
 
             <cardIcons v-show="hover == true || click == true" />
+             <dialogBox :dialog.sync="dialog"  ref="dialogue"
+                :options="note" />
           </v-card>
         </v-hover>
       </v-flex>
+     <div>
      
+    
+   </div>
     </v-layout>
      
   </v-flex>
 </template>
 
 <script>
-import note from "../services/note.js";
-import cardIcons from "../components/cardIcons.vue";
+import note from '../services/note.js';
+import cardIcons from '../components/cardIcons.vue';
+import dialogBox from './dialogBox.vue';
 
 export default {
-  name: "noteCards",
+  name: 'noteCards',
   components: {
     cardIcons,
+    dialogBox,
   },
   data: () => ({
-    allNotes: "",
-    result: "",
+    allNotes: '',
+    result: '',
+     dialog: false
    
   }),
+
+
   methods: {
     displayAllNotes() {
       return note
