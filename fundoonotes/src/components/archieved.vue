@@ -1,10 +1,10 @@
 <template>
   <v-flex>
-  <h1> notes </h1>
+  <h1> Archievedd </h1>
     <v-layout row wrap  >
       <v-flex
-     
-        v-for="note in activeNotes"
+       v-for="note in archievedNotes"
+      
         v-bind:key="note._id"
         md3
         class="mr-5 mb-5"
@@ -58,7 +58,7 @@ export default {
   },
   data: () => ({
     allNotes: "",
-    activeNotes: "",
+    archievedNotes: "",
       passiveNotes: "",
     result: "",
     dialog: false,
@@ -77,22 +77,20 @@ export default {
           this.result = result.data.data;
           
           this.allNotes = [...this.result].reverse();
-          this.activeNotes = this.allNotes.filter(
-            (note) => note.isDeleted == false
+          this.archievedNotes = this.allNotes.filter(
+            (note) => note.isArchieved == false
           );
-            console.warn("this.activeNotes", this.activeNotes);
-         //return this.allNotes
+            console.warn("this.archievedNotes", this.archievedNotes);
+          return this.allNotes
           
         
-          this.passiveNotes = this.allNotes.filter(
-            (note) => note.isDeleted == true
-          );
-          console.warn("this.passiveNotes", this.passiveNotes);
-          this.$root.$emit('eventing', this.passiveNotes);
+          // this.passiveNotes = this.allNotes.filter(
+          //   (note) => note.isDeleted == true
+          // );
+          // console.warn("this.passiveNotes", this.passiveNotes);
         })
         .catch((error) => {});
     },
-
 
 
 

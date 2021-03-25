@@ -11,7 +11,8 @@
                 <span class="FundooNotes_img">
                   <img src="../assets/googleKeep.png" />
                 </span>
-                <v-toolbar-title>FundooNotes</v-toolbar-title>
+                <v-toolbar-title>FundooNotess</v-toolbar-title>
+             
                 <div id="top-search-bar">
                   <v-text-field
                     label="Search"

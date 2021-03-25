@@ -49,7 +49,7 @@ export default {
         icon: 'mdi-pencil-outline',
       },
       {
-        title: 'Archieve',
+        title: 'Archieved',
         icon: 'mdi-download-outline',
       },
       {
@@ -64,7 +64,7 @@ export default {
   methods: {
     goToItem(item) {
       console.log("pushing to : ",item.title )
-      router.push({
+      this.$router.push({
         name: item.title,
       });
     },
