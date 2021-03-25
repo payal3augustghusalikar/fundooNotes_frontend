@@ -38,9 +38,10 @@ export default {
      * @returns the response from axios methods
      */
     put(userData) {
+        console.log("put")
         return axios.put(userData.endPoint, userData.userInput, {
             headers: {
-                Authorization: `Bearer ${userData.token}`,
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
         });
     },

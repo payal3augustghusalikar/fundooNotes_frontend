@@ -12,8 +12,9 @@
             class="mx-auto singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
-            @click.stop="note.dialog=true"
+            @click.stop="note.dialog = true" 
           >
+           <dialogBox :dialog.sync="note.dialog" ref="dialogue" :options="note" />
             <article class="text-md-right text-lg-right">
               <v-icon v-bind="attrs" v-on="on" v-show="hover"
                 >mdi-pin-outline</v-icon
@@ -21,41 +22,34 @@
             </article>
             <v-card-title>{{ note.title }} </v-card-title>
             <v-list-item>{{ note.description }}</v-list-item>
-
+            <v-list-item></v-list-item>
             <cardIcons v-show="hover == true || click == true" />
-             <dialogBox :dialog.sync="dialog"  ref="dialogue"
-                :options="note" />
+           
+            <v-list-item></v-list-item>
           </v-card>
         </v-hover>
       </v-flex>
-     <div>
-     
     
-   </div>
     </v-layout>
-     
   </v-flex>
 </template>
 
 <script>
-import note from '../services/note.js';
-import cardIcons from '../components/cardIcons.vue';
-import dialogBox from './dialogBox.vue';
+import note from "../services/note.js";
+import cardIcons from "../components/cardIcons.vue";
+import dialogBox from "./dialogBox.vue";
 
 export default {
-  name: 'noteCards',
+  name: "noteCards",
   components: {
     cardIcons,
     dialogBox,
   },
   data: () => ({
-    allNotes: '',
-    result: '',
-     dialog: false
-   
+    allNotes: "",
+    result: "",
+    dialog: false,
   }),
-
-
   methods: {
     displayAllNotes() {
       return note
@@ -63,11 +57,8 @@ export default {
         .then((result) => {
           this.result = result.data.data;
           this.allNotes = [...this.result].reverse();
-        
         })
-        .catch((error) => {
-         
-        });
+        .catch((error) => {});
     },
   },
 };

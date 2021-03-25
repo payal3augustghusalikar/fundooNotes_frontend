@@ -115,7 +115,7 @@
           </v-row>
           <v-snackbar
             v-model="snackbar.appear"
-            :color="snackbar.color"
+           
             :timeout="snackbar.timeout"
             :left="snackbar.x === 'left'"
             :right="snackbar.x === 'right'"
