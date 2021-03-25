@@ -59,7 +59,7 @@ export default {
   data: () => ({
     allNotes: "",
     archievedNotes: "",
-      passiveNotes: "",
+    
     result: "",
     dialog: false,
   }),
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     displayAllNotes() {
-      console.log("disply on dash");
+      console.log("disply archieved");
       return note
         .getNotes()
         .then((result) => {
@@ -78,22 +78,12 @@ export default {
           
           this.allNotes = [...this.result].reverse();
           this.archievedNotes = this.allNotes.filter(
-            (note) => note.isArchieved == false
+            (note) => note.isArchived == true
           );
             console.warn("this.archievedNotes", this.archievedNotes);
-          return this.allNotes
-          
-        
-          // this.passiveNotes = this.allNotes.filter(
-          //   (note) => note.isDeleted == true
-          // );
-          // console.warn("this.passiveNotes", this.passiveNotes);
         })
         .catch((error) => {});
     },
-
-
-
   },
 };
 </script>

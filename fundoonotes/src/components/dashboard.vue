@@ -107,13 +107,12 @@
                       </v-span>
                     </v-card>
                   </div>
-                   <router-view></router-view>
+                 
                   <div class="allCards">
                     <noteCards  v-show="!dashboard" ref="childNote" />
-                  </div>
-                  <div class="allCards">
-                    <trash  />
-                  </div>
+                  <router-view></router-view>
+        
+                   </div>
                  
                 </v-container>
               </v-main>

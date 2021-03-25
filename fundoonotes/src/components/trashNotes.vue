@@ -65,7 +65,17 @@ export default {
   //   console.log("allNotesForTrash", this.editOptions)
   // },
 
-  mounted() {
+  // mounted() {
+  //   this.$root.$on("eventing", (passiveNotes) => {
+  //     console.log("allNotesForTrash", passiveNotes);
+  //     this.trashNotes=passiveNotes;
+  //      console.log("trashNotes",  this.trashNotes);
+  //   });
+  // },
+
+beforeMount() {
+  
+
     this.$root.$on("eventing", (passiveNotes) => {
       console.log("allNotesForTrash", passiveNotes);
       this.trashNotes=passiveNotes;
