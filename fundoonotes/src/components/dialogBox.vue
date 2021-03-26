@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="450">
       <v-card v-click-outside="onClickOutside">
         <v-card-text>
-          <v-form ref="editForm">
+          <v-form v-if="!trash" ref="editForm">
             <v-text-field
               solo
               label="id"
@@ -36,9 +36,14 @@
             <cardIcons />
           </v-form>
         </v-card-text>
-
+        
+ <h4 v-if="trash"> Do you want to delete forever? </h4>
         <v-card-actions>
           <v-spacer></v-spacer>
+ <v-btn v-if="trash" color="red darken-1" flat @click="restoreNote"
+              >Yes</v-btn
+            >
+
           <v-btn color="green darken-1" flat @click.native="dialog == false"
             >Close</v-btn
           >
@@ -72,6 +77,7 @@ export default {
       default: false,
     },
     options: Object,
+    trash:Boolean
   },
   data() {
     return {
@@ -83,6 +89,7 @@ export default {
         y: 'top',
       },
       editOptions: this.options,
+       
     };
   },
   beforeDestroy() {

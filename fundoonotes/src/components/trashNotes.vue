@@ -18,68 +18,71 @@
             <v-card-title>{{ note.title }} </v-card-title>
             <v-list-item class="v-list">{{ note.description }}</v-list-item>
 
-            <v-list-item></v-list-item>
-            <v-icon>mdi-restore</v-icon>
+            <v-list-item>
+              <v-row v-show="hover == true || click == true">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on" @click="restoreNote">
+                      <article class="text-md-left text-lg-left">
+                        <v-icon>mdi-restore</v-icon>
+                      </article>
+                    </v-btn>
+                  </template>
+                  <span>Restore</span>
+                </v-tooltip>
+
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <article class="text-md-left text-lg-left">
+                        <v-icon @click="note.dialog = true"
+                          >mdi-delete-outline</v-icon
+                        >
+                      </article>
+                    </v-btn>
+                  </template>
+                  <span>Delete Forever</span>
+                </v-tooltip>
+              </v-row>
+            </v-list-item>
+
+        <dialogBox :dialog.sync="note.dialog" :trash="true" />
+
             <v-flex> </v-flex>
           </v-card>
         </v-hover>
       </v-flex>
     </v-layout>
+
+    
   </v-flex>
 </template>
 
 <script>
 import note from "../services/note.js";
 // import cardIcons from '../components/cardIcons.vue';
-// import dialogBox from './dialogBox.vue';
+import dialogBox from "./dialogBox.vue";
 
-import noteCards from "../components/noteCards.vue";
 
 export default {
   name: "Trash",
   components: {
-    // noteCards,
+    dialogBox,
   },
-  // props: ['passiveNotes'],
-  //  mounted() {
-  //    console.log("mountd treadsh")
-  //   this.getTrashNotes()
-  //  },
-
-  // components: {
-  //   cardIcons,
-  //   dialogBox,
-  // },
 
   data: () => ({
-    dialog: false,
+    IconDialog: false,
     trashNotes: "",
     allNotesForTrash: "",
-
-    // passiveNotes:""
+    trash: true,
+    dialog: false,
   }),
 
-  //   mounted() {
-  //   console.log("inside mounted trash")
-  //   this.editOptions=this.passiveNotes
-  //   console.log("allNotesForTrash", this.editOptions)
-  // },
-
-  // mounted() {
-  //   this.$root.$on("eventing", (passiveNotes) => {
-  //     console.log("allNotesForTrash", passiveNotes);
-  //     this.trashNotes=passiveNotes;
-  //      console.log("trashNotes",  this.trashNotes);
-  //   });
-  // },
-
-beforeMount() {
-  
-
+  beforeMount() {
     this.$root.$on("eventing", (passiveNotes) => {
       console.log("allNotesForTrash", passiveNotes);
-      this.trashNotes=passiveNotes;
-       console.log("trashNotes",  this.trashNotes);
+      this.trashNotes = passiveNotes;
+      console.log("trashNotes", this.trashNotes);
     });
   },
 
@@ -106,3 +109,4 @@ beforeMount() {
   //  }}
 };
 </script>
+
