@@ -8,9 +8,8 @@
 
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:2001/';
+//axios.defaults.baseURL = process.env.VUE_BASEURL;
 const commonHeaders = 'Bearer ' + sessionStorage.getItem('token');
-
-
 
 export default {
     /**
@@ -28,23 +27,22 @@ export default {
      * @returns the response from axios methods
      */
     postWithToken(userData) {
-        console.warn('inside apicall');
         return axios.post(userData.endPoint, userData.userInput, {
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                Authorization: commonHeaders,
             },
         });
     },
+
     /**
      * @description takes the data from user.js file and call the axios put method and return response to user.js
      * @param {*} data holds the userinput and endPoint
      * @returns the response from axios methods
      */
     put(userData) {
-
         return axios.put(userData.endPoint, userData.userInput, {
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                Authorization: commonHeaders,
             },
         });
     },
@@ -54,11 +52,8 @@ export default {
      * @returns the response from axios methods
      */
     get(userData) {
-
         return axios.get(userData.endPoint, {
             headers: {
-                //  Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-
                 Authorization: commonHeaders
 
             },
@@ -73,10 +68,9 @@ export default {
      * @returns the response from axios methods
      */
     delete(userData) {
-        console.log("inside dele")
         return axios.delete(userData.endPoint, {
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                Authorization: commonHeaders,
             },
         });
     },

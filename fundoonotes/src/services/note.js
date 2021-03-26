@@ -53,10 +53,7 @@ export default {
      * @returns the response from api calling methods
      */
     deleteForever(noteId) {
-        console.log("inside  deleteForever(noteId)")
-
         const noteData = {
-
             endPoint: '/notes/deleteforever/' + noteId
         };
         return apiCall.delete(noteData);

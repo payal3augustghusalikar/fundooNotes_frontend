@@ -1,7 +1,5 @@
 <template>
   <v-flex>
-    <h1>Trashug</h1>
-
     <v-layout row wrap>
       <v-flex
         v-for="note in trashNotes"
@@ -30,7 +28,6 @@
                   </template>
                   <span>Restore</span>
                 </v-tooltip>
-
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn icon v-bind="attrs" v-on="on">
@@ -46,18 +43,19 @@
               </v-row>
             </v-list-item>
             <v-list-item></v-list-item>
-
             <dialogBox :dialog="note.dialog"  :options="note" :trash="true" />
           </v-card>
         </v-hover>
+         
       </v-flex>
+    
     </v-layout>
   </v-flex>
 </template>
 
 <script>
 import note from "../services/note.js";
-// import cardIcons from '../components/cardIcons.vue';
+
 import dialogBox from "./dialogBox.vue";
 
 export default {
@@ -74,34 +72,44 @@ export default {
     dialog: false,
   }),
 
-  beforeMount() {
-    this.$root.$on("eventing", (passiveNotes) => {
-      console.log("allNotesForTrash", passiveNotes);
-      this.trashNotes = passiveNotes;
-      console.log("trashNotes", this.trashNotes);
-    });
+
+mounted() {
+   console.log("this.mountd ", )
+  //this.allNotesForTrash= this.refs.noteCards.displayAllNotes();
+this.displayAllNotes();
+  //  this.trashNotes = this.allNotesForTrash.filter(
+  //           (note) => note.isDeleted == true
+  //         );
+  //         console.log("this.passiveNotes ", this.trashNotes )
+},
+  // beforeMount() {
+  //   this.$root.$on("eventing", (passiveNotes) => {
+  //     this.trashNotes = passiveNotes;
+    
+  //   });
+  // },
+ methods: {
+ displayAllNotes() {
+      console.log("disply archieved");
+      return note
+        .getNotes()
+        .then((result) => {
+          this.result = result.data.data;
+           console.log(" this.result ",  this.result );
+          this.allNotes = [...this.result].reverse();
+          this.trashNotes = this.allNotes.filter(
+            (note) => note.isDeleted == true
+          );
+          console.log("this.passiveNotes ", this.trashNotes )
+           
+        })
+        .catch((error) => {
+
+console.log("error", error)
+
+        });
+    },
   },
-
-  //   methods: {
-  //     getTrashNotes(){
-  //       console.log("trash");
-  //       return note
-  //         .getNotes()
-  //         .then((result) => {
-  //           this.result = result.data.data;
-
-  //           this.allNotes = [...this.result].reverse();
-  //           // this.activeNotes = this.allNotes.filter(
-  //           //   (note) => note.isDeleted == false
-  //           // );
-  //           //   console.warn("this.activeNotes", this.activeNotes);
-  //           // return this.allNotes
-  //           this.passiveNotes = this.allNotes.filter(
-  //             (note) => note.isDeleted == true
-  //           );
-  //           console.warn("this.passiveNotes", this.passiveNotes);
-  //         })
-  //         .catch((error) => {});
-  //  }}
+ 
 };
 </script>

@@ -37,7 +37,7 @@
             <v-flex>
               <v-main>
                 <v-container class="main">
-                  <div class="takeNote" v-show="dashboard">
+                  <div class="takeNote" v-show="dashboard||note">
                     <v-card
                       class="mx-auto my-12 note-card window"
                       elevation="8"
@@ -161,8 +161,7 @@ export default {
     cardHeight: 50,
     isActive: true,
     allNotes: '',
-    dashboard:false,
- 
+    dashboard:true,
   }),
 
   mounted() {

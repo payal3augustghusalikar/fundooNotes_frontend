@@ -42,11 +42,11 @@
         <h4 v-if="trash">Do you want to delete forever?</h4>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn v-if="trash" color="red darken-1" flat @click="deleteForever"
+          <v-btn v-if="trash" color="darken-1" flat @click="deleteForever"
             >Yes</v-btn
           >
 
-          <v-btn color="green darken-1" flat @click.native="close">Close</v-btn>
+          <v-btn color="darken-1" flat @click.native="close">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -119,8 +119,9 @@ watch: {
 
     onClickOutside() {
       if (this.trash == true) {
-        console.log("it is trash");
-      } else if (this.editOptions.title && this.editOptions.description) {
+        console.log("")
+      }
+       else if (this.editOptions.title && this.editOptions.description) {
         const noteInput = {
           title: this.editOptions.title,
           description: this.editOptions.description,
@@ -142,14 +143,10 @@ watch: {
       }
     },
 
-    deleteForever() {
-      console.log("deleteForever note");
-      console.log("this.editOptions._id", this.editOptions._id);
-      console.log("this.editOptions._id", this.editOptions);
+    deleteForever() {   
       note
         .deleteForever(this.editOptions._id)
         .then((data) => {
-          console.log(data.data);
           if (data.data.status_code.status_code == 200) {
             (this.snackbar.appear = true),
               (this.snackbar.text = "note deleted successfully"),
@@ -157,9 +154,9 @@ watch: {
           }
         })
         .catch(
-          (error) => console.log("error", error),
+          (error) => 
           (this.snackbar.appear = true),
-          (this.snackbar.text = "error while updating, please try again later")
+          (this.snackbar.text = "error while deleting, please try again later")
         );
     },
   },

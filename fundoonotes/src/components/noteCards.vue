@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-  <h1> notes </h1>
+ 
     <v-layout row wrap  >
       <v-flex
      
@@ -75,27 +75,21 @@ export default {
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
-          
           this.allNotes = [...this.result].reverse();
           this.activeNotes = this.allNotes.filter(
             (note) => note.isDeleted == false
           );
-            console.warn("this.activeNotes", this.activeNotes);
-         //return this.allNotes
-          
-        
-          this.passiveNotes = this.allNotes.filter(
-            (note) => note.isDeleted == true
-          );
-          console.warn("this.passiveNotes", this.passiveNotes);
-          this.$root.$emit('eventing', this.passiveNotes);
+
+
+        //   console.log(" this.activeNotes",  this.activeNotes);
+        //   this.passiveNotes = this.allNotes.filter(
+        //     (note) => note.isDeleted == true
+        //   );
+        //  this.$root.$emit('eventing', this.passiveNotes);
+        //  return this.allNotes
         })
         .catch((error) => {});
     },
-
-
-
-
   },
 };
 </script>
