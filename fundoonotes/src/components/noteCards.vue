@@ -14,7 +14,7 @@
             class="mx-auto singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
-            @click="note.dialog = true"
+            @click.stop="note.dialog = true"
           >
             <article class="text-md-right text-lg-right">
               <v-icon v-bind="attrs" v-on="on" v-show="hover"
@@ -30,7 +30,7 @@
             />
             <v-list-item></v-list-item>
             <dialogBox
-              :dialog.sync="note.dialog"
+              :dialog="note.dialog==true"
              
               :options="note"
             />

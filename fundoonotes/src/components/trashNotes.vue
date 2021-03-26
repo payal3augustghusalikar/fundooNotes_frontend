@@ -45,16 +45,13 @@
                 </v-tooltip>
               </v-row>
             </v-list-item>
+            <v-list-item></v-list-item>
 
-        <dialogBox :dialog.sync="note.dialog" :trash="true" />
-
-            <v-flex> </v-flex>
+            <dialogBox :dialog="note.dialog"  :options="note" :trash="true" />
           </v-card>
         </v-hover>
       </v-flex>
     </v-layout>
-
-    
   </v-flex>
 </template>
 
@@ -62,7 +59,6 @@
 import note from "../services/note.js";
 // import cardIcons from '../components/cardIcons.vue';
 import dialogBox from "./dialogBox.vue";
-
 
 export default {
   name: "Trash",
@@ -109,4 +105,3 @@ export default {
   //  }}
 };
 </script>
-

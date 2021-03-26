@@ -8,6 +8,9 @@
 
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:2001/';
+const commonHeaders = 'Bearer ' + sessionStorage.getItem('token');
+
+
 
 export default {
     /**
@@ -53,6 +56,25 @@ export default {
     get(userData) {
 
         return axios.get(userData.endPoint, {
+            headers: {
+                //  Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+
+                Authorization: commonHeaders
+
+            },
+        });
+    },
+
+
+
+
+    /**
+     * @description delete note permanently from database and return responce to caller file
+     * @returns the response from axios methods
+     */
+    delete(userData) {
+        console.log("inside dele")
+        return axios.delete(userData.endPoint, {
             headers: {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
