@@ -103,6 +103,7 @@ export default {
           (this.snackbar.appear = true),
             (this.snackbar.text = "note restore successfully"),
             this.close();
+             this.displayAllNotes()
         }
       })
       .catch(

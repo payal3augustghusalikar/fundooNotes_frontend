@@ -176,6 +176,7 @@ Textappear: Boolean,
   beforeMount() {
     this.navBarOption;
     console.log("this.navBarOption", this.navBarOption);
+    
   },
   mounted() {
     console.log("on dashboard");

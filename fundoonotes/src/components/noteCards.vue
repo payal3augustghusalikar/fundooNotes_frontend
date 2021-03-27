@@ -71,9 +71,8 @@ export default {
   mounted() {
     this.displayAllNotes();
   },
+  
   methods: {
-
-    
     displayAllNotes() {
       return note
         .getNotes()

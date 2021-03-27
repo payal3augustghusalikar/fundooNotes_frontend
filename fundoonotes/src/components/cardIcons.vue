@@ -44,7 +44,7 @@
           <v-list-item v-on="on">Add label</v-list-item>
         </v-list>
       </v-menu>
-      <dashboard v-show="false" :snackbarText="snackbarText" :Textappear="Textappear"/>
+      <dashboard v-show="false" :snackbarText="snackbarText" :Textappear="Textappear"   ref="dashboard"/>
     </v-group>
   </div>
 </template>
@@ -87,6 +87,7 @@ export default {
               this.Textappear= true
               console.log(this.snackbarText)
               }
+              this.$refs.dashboard.displayAllNotes();
             // (this.snackbar.appear = true),
             //   (this.snackbar.text = "Note moved to trash ");
             //this.close();
