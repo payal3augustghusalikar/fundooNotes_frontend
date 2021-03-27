@@ -46,7 +46,7 @@
             >Yes</v-btn
           >
 
-          <v-btn color="darken-1" flat @click.native="close">Close</v-btn>
+          <v-btn color="darken-1" flat @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

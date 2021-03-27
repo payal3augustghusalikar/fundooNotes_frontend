@@ -27,7 +27,9 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-icon v-bind="attrs" v-on="on">mdi-download-outline</v-icon>
+          <v-icon v-bind="attrs" v-on="on" @click="archieve"
+            >mdi-download-outline</v-icon
+          >
         </template>
         <span>Archieve</span>
       </v-tooltip>
@@ -45,29 +47,39 @@
       <v-list-item @click="deletNote">Delete note</v-list-item>
       <v-list-item v-on="on">Add label</v-list-item>
     </v-list>
-   
   </div>
 </template>
 
 <script>
 import note from '../services/note.js';
 export default {
+
+  mounted(){
+       console.log("mount", this.singleNote._id)
+  },
   data: () => ({
-    props: ['singleNote'],
-    dialog: false,
+ 
+
+
+    props: {
+    
+    singleNote: Object,
+    
+  },
+    IconDialog: false,
 
     methods: {
       deletNote() {
+        console.log("delete")
         note
           .delete(this.singleNote._id)
           .then((data) => {
             if (data.data.status_code.status_code == 200) {
               (this.snackbar.appear = true),
-                (this.snackbar.text = 'note deleted successfully'),
-                this.close();
+                (this.snackbar.text = 'note deleted successfully')
+               // this.close();
             }
           })
-
           .catch(
             (error) => (this.snackbar.appear = true),
             (this.snackbar.text =
@@ -75,7 +87,30 @@ export default {
           );
       },
     },
-  }),
+
+ archieve() {
+    const noteInput = {
+         isArchived: true,
+        };
+      console.log("delete", this.singleNote._id)
+        note
+          .archieveNote(this.singleNote._id, noteInput)
+          .then((data) => {
+            if (data.data.status_code.status_code == 200) {
+              (this.snackbar.appear = true),
+                (this.snackbar.text = 'note deleted successfully'),
+                this.close();
+            }
+          })
+          .catch(
+            (error) => (this.snackbar.appear = true),
+            (this.snackbar.text =
+              'error while deleting, please try again later')
+          );
+      },
+   
+})
+
 };
 </script>
 

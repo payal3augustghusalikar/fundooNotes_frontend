@@ -30,7 +30,7 @@
             />
             <v-list-item></v-list-item>
             <dialogBox
-              :dialog="note.dialog==true"
+          
              
               :options="note"
             />

@@ -20,9 +20,9 @@
               <v-row v-show="hover == true || click == true">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn icon v-bind="attrs" v-on="on" @click="restoreNote">
+                    <v-btn icon v-bind="attrs" v-on="on" >
                       <article class="text-md-left text-lg-left">
-                        <v-icon>mdi-restore</v-icon>
+                        <v-icon @click="restoreNote">mdi-restore</v-icon>
                       </article>
                     </v-btn>
                   </template>
@@ -43,12 +43,10 @@
               </v-row>
             </v-list-item>
             <v-list-item></v-list-item>
-            <dialogBox :dialog="note.dialog"  :options="note" :trash="true" />
+            <dialogBox :dialog="note.dialog" :options="note" :trash="true" />
           </v-card>
         </v-hover>
-         
       </v-flex>
-    
     </v-layout>
   </v-flex>
 </template>
@@ -72,44 +70,61 @@ export default {
     dialog: false,
   }),
 
-
-mounted() {
-   console.log("this.mountd ", )
-  //this.allNotesForTrash= this.refs.noteCards.displayAllNotes();
-this.displayAllNotes();
-  //  this.trashNotes = this.allNotesForTrash.filter(
-  //           (note) => note.isDeleted == true
-  //         );
-  //         console.log("this.passiveNotes ", this.trashNotes )
-},
+  mounted() {
+    console.log("this.mountd ");
+    //this.allNotesForTrash= this.refs.noteCards.displayAllNotes();
+    this.displayAllNotes();
+    //  this.trashNotes = this.allNotesForTrash.filter(
+    //           (note) => note.isDeleted == true
+    //         );
+    //         console.log("this.passiveNotes ", this.trashNotes )
+  },
   // beforeMount() {
   //   this.$root.$on("eventing", (passiveNotes) => {
   //     this.trashNotes = passiveNotes;
-    
+
   //   });
   // },
- methods: {
- displayAllNotes() {
+  methods: {
+    displayAllNotes() {
       console.log("disply archieved");
       return note
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
-           console.log(" this.result ",  this.result );
+          console.log(" this.result ", this.result);
           this.allNotes = [...this.result].reverse();
           this.trashNotes = this.allNotes.filter(
             (note) => note.isDeleted == true
           );
-          console.log("this.passiveNotes ", this.trashNotes )
-           
+          console.log("this.passiveNotes ", this.trashNotes);
         })
         .catch((error) => {
-
-console.log("error", error)
-
+          console.log("error", error);
         });
     },
   },
- 
+
+  restoreNote() {
+    console.log("disply restore");
+    const noteInput = {
+      isDeleted: true,
+    };
+    //  console.log("restoreNote", noteId)
+    //   note
+    //     .restoreNote(noteId, noteInput)
+    //     .then((data) => {
+    //       if (data.data.status_code.status_code == 200) {
+    //         (this.snackbar.appear = true),
+    //           (this.snackbar.text = 'note restore successfully'),
+    //           this.close();
+    //       }
+    //     })
+    //     .catch(
+    //       (error) => (this.snackbar.appear = true),
+    //       (this.snackbar.text =
+    //         'error while restoring, please try again later')
+    //     );
+  },
 };
 </script>

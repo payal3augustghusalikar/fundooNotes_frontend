@@ -60,4 +60,47 @@ export default {
     },
 
 
+    /**
+     * @description  archieveNote the note 
+     * @returns the response from api calling methods
+     */
+    archieveNote(noteInput, noteId) {
+
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/archieve/' + noteId
+        };
+
+        return apiCall.put(noteData);
+    },
+
+
+
+    /**
+     * @description  archieveNote the note 
+     * @returns the response from api calling methods
+     */
+    UnrchieveNote(noteInput, noteId) {
+
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/unarchieve/' + noteId
+        };
+
+        return apiCall.put(noteData);
+    },
+
+    /**
+     * @description  restoreNote the note 
+     * @returns the response from api calling methods
+     */
+    restoreNote(noteId, noteInput) {
+
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/restore/' + noteId
+        };
+        return apiCall.put(noteData);
+    },
+
 };

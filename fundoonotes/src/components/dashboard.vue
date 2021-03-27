@@ -12,7 +12,7 @@
                   <img src="../assets/googleKeep.png" />
                 </span>
                 <v-toolbar-title>FundooNotess</v-toolbar-title>
-             
+
                 <div id="top-search-bar">
                   <v-text-field
                     label="Search"
@@ -37,7 +37,7 @@
             <v-flex>
               <v-main>
                 <v-container class="main">
-                  <div class="takeNote" v-show="dashboard||note">
+                  <div class="takeNote" v-if="navBarOption">
                     <v-card
                       class="mx-auto my-12 note-card window"
                       elevation="8"
@@ -85,14 +85,15 @@
                         placeholder="take a Note"
                         flat
                         solo
-                        autocomplete="off"
                         dense
                         auto-grow
                         rows="1"
                         row-height="10"
                         required
+                        autocomplete="off"
                         v-show="showBottomCard == true"
-                      />
+                      >
+                      </v-textarea>
                       <v-span class="cardBottomIcon" v-if="showBottomCard">
                         <v-row>
                           <cardIcons />
@@ -107,20 +108,21 @@
                       </v-span>
                     </v-card>
                   </div>
-                 
+
                   <div class="allCards">
-                    <noteCards  v-show="!dashboard" ref="childNote" />
-                  <router-view></router-view>
-        
-                   </div>
-                 
+                    <noteCards
+                      v-show="false"
+                      v-if="navBarOption"
+                      ref="childNote"
+                    />
+                    <router-view></router-view>
+                  </div>
                 </v-container>
               </v-main>
             </v-flex>
           </v-row>
           <v-snackbar
             v-model="snackbar.appear"
-           
             :timeout="snackbar.timeout"
             :left="snackbar.x === 'left'"
             :right="snackbar.x === 'right'"
@@ -135,46 +137,56 @@
 </template>
 
 <script>
-import note from '../services/note.js';
-import sidenavBar from '../components/sidenavBar.vue';
-import cardIcons from '../components/cardIcons.vue';
-import noteCards from '../components/noteCards.vue';
+import note from "../services/note.js";
+import sidenavBar from "../components/sidenavBar.vue";
+import cardIcons from "../components/cardIcons.vue";
+import noteCards from "../components/noteCards.vue";
 export default {
   components: {
     sidenavBar,
     cardIcons,
     noteCards,
   },
+
+  props: {
+    navBarOption: {
+      default: true,
+    },
+  },
+
   data: () => ({
     snackbar: {
       appear: false,
-      text: '',
+      text: "",
       timeout: 2500,
-      x: 'right',
-      y: 'top',
+      x: "right",
+      y: "top",
     },
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     showIconName: true,
     showBottomCard: false,
-    text: 'take a note...',
+    text: "take a note...",
     cardHeight: 50,
     isActive: true,
-    allNotes: '',
-    dashboard:true,
+    allNotes: "",
   }),
-
+  beforeMount() {
+    this.navBarOption;
+    console.log("this.navBarOption", this.navBarOption);
+  },
   mounted() {
+    console.log("on dashboard");
+    console.log("this.navBarOption on dashboard", this.navBarOption);
     this.$refs.childNote.displayAllNotes();
- this.dashboard=true;
   },
 
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = 'take a note...';
-      this.title = '';
-      this.description = '';
+      this.text = "take a note...";
+      this.title = "";
+      this.description = "";
     },
 
     drawer() {
@@ -192,7 +204,7 @@ export default {
 
     expandCard() {
       this.showBottomCard = true;
-      this.text = 'title';
+      this.text = "title";
       this.cardHeight = 150;
     },
 
@@ -204,18 +216,16 @@ export default {
       note
         .createNote(noteData)
         .then((result) => {
-         
           this.snackbar.appear = true;
-          this.snackbar.text = 'note created successfully';
+          this.snackbar.text = "note created successfully";
 
           this.$refs.childNote.displayAllNotes();
           this.hide();
         })
         .catch((error) => {
-       
           this.snackbar.appear = true;
-          this.snackbar.text = 'error occured!! please try again!!';
-           this.hide();
+          this.snackbar.text = "error occured!! please try again!!";
+          this.hide();
         });
     },
   },

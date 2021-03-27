@@ -21,16 +21,24 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
+
+    <dashboard v-show="false" :navBarOption.sync="this.navBarOption"/>
   </div>
 </template>
 
 <script>
 import router from '../router/route.js';
+import dashboard from "./dashboard.vue";
 export default {
+ components: {
+    dashboard
+  },
+
   props: {
     showIconName: Boolean,
   },
   data: () => ({
+    navBarOption:true,
     sideNavBar: [
       {
         title: 'Note',
@@ -64,9 +72,16 @@ export default {
   methods: {
     goToItem(item) {
       console.log("pushing to : ",item.title )
+      if(item.title=='Trash')
+      {
+         this.navBarOption=false
+      }
+console.log("item.title==Trash",item.title=='Trash' )
+      
       this.$router.push({
         name: item.title,
       });
+     
     },
   },
 };
