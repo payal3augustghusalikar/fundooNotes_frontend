@@ -67,21 +67,15 @@ export default {
     ],
   }),
 
-//  router.push({ name: 'login' });
-
   methods: {
     goToItem(item) {
-      console.log("pushing to : ",item.title )
       if(item.title=='Trash')
       {
          this.navBarOption=false
       }
-console.log("item.title==Trash",item.title=='Trash' )
-      
       this.$router.push({
         name: item.title,
       });
-     
     },
   },
 };

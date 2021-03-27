@@ -14,7 +14,6 @@
             class="mx-auto singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
-         
           >
             <article class="text-md-right text-lg-right">
               <v-icon v-bind="attrs" v-on="on" v-show="hover"
@@ -43,40 +42,32 @@
 <script>
 import note from "../services/note.js";
 import cardIcons from "../components/cardIcons.vue";
-//import dialogBox from "./dialogBox.vue";
-//import trashNotes from "../components/trashNotes.vue";
+
 export default {
   name: "Note",
   components: {
     cardIcons,
-   // dialogBox,
-   // trashNotes
   },
   data: () => ({
     allNotes: "",
     archievedNotes: "",
-    
     result: "",
     dialog: false,
   }),
-
 
   mounted() {
     this.displayAllNotes();
   },
   methods: {
     displayAllNotes() {
-      console.log("disply archieved");
       return note
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
-          
           this.allNotes = [...this.result].reverse();
           this.archievedNotes = this.allNotes.filter(
             (note) => note.isArchived == true
           );
-            console.warn("this.archievedNotes", this.archievedNotes);
         })
         .catch((error) => {});
     },

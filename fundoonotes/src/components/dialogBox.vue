@@ -83,38 +83,16 @@ export default {
       editOptions: this.options,
     };
   },
-  // beforeDestroy() {
-  //   this.$refs.dialog.close();
-  // },
-
-  // watch: {
-  //   dialog(val) {
-  //     !val && alert("Dialog is closing");
-  //   },
-  // },
-
+ 
 watch: {
     dialog(val) {
         val || this.close();
     },
 },
 
-
-  // watch: {
-  //     dialog: function(val) {
-  //       console.log("closing dialog")
-  //       if(val) {
-  //         // this.editOptions._id = '';
-  //         // this.editOptions.title = '';
-  //         // this.editOptions.description = '';
-  //        this.dialog==false
-  //       }
-  //     }
-  //   },
   methods: {
     close() {
-      this.dialog = "false";
-     
+      this.dialog = "false"; 
     },
 
     onClickOutside() {

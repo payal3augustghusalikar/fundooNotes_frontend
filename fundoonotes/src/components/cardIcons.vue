@@ -19,12 +19,7 @@
         </template>
         <span> Change color</span>
       </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-icon v-bind="attrs" v-on="on">mdi-image-outline</v-icon>
-        </template>
-        <span>Add image</span>
-      </v-tooltip>
+
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-icon v-bind="attrs" v-on="on" @click="archieve"
@@ -33,84 +28,94 @@
         </template>
         <span>Archieve</span>
       </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="IconDialog = true">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
+      <v-menu>
+        <template v-slot:activator="{ on: menu, attrs }">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on: tooltip }">
+              <v-icon v-bind="attrs" v-on="{ ...tooltip, ...menu }"
+                >mdi-dots-vertical</v-icon
+              >
+            </template>
+            <span>more</span>
+          </v-tooltip>
         </template>
-        <span>more</span>
-      </v-tooltip>
+        <v-list>
+          <v-list-item @click="moveToTrash">Delete note</v-list-item>
+          <v-list-item v-on="on">Add label</v-list-item>
+        </v-list>
+      </v-menu>
+      <dashboard v-show="false" :snackbarText="snackbarText" :Textappear="Textappear"/>
     </v-group>
-
-    <v-list v-show="IconDialog">
-      <v-list-item @click="deletNote">Delete note</v-list-item>
-      <v-list-item v-on="on">Add label</v-list-item>
-    </v-list>
   </div>
 </template>
 
 <script>
-import note from '../services/note.js';
+import note from "../services/note.js";
+import dashboard from "./dashboard";
 export default {
+  components: {
+    dashboard
+  },
 
-  mounted(){
-       console.log("mount", this.singleNote._id)
+  mounted() {
+    console.log("mount", this.singleNote);
+  },
+  props: {
+    singleNote: Object
   },
   data: () => ({
- 
-
-
-    props: {
-    
-    singleNote: Object,
-    
-  },
+    noteInfo: this.singleNote,
     IconDialog: false,
-
-    methods: {
-      deletNote() {
-        console.log("delete")
-        note
-          .delete(this.singleNote._id)
-          .then((data) => {
-            if (data.data.status_code.status_code == 200) {
-              (this.snackbar.appear = true),
-                (this.snackbar.text = 'note deleted successfully')
-               // this.close();
-            }
-          })
-          .catch(
-            (error) => (this.snackbar.appear = true),
-            (this.snackbar.text =
-              'error while deleting, please try again later')
-          );
-      },
+    snackbarText:"",
+    Textappear:false
+  }),
+  methods: {
+    moveToTrash() {
+      const noteInput = {
+        isDeleted: true
+      };
+      console.log("moveToTrash note");
+      console.log("this.singleNote", this.singleNote);
+      console.log("moveToTrash note", this.singleNote._id);
+      note
+        .moveToTrash(noteInput, this.singleNote._id)
+        .then(data => {
+          console.log("res", data);
+          console.log(data.data.status_code.status_code);
+          if (data.data.status_code.status_code == 200) {
+            this.snackbarText =  "Note moved to trash ";
+              this.Textappear= true
+              console.log(this.snackbarText)
+              }
+            // (this.snackbar.appear = true),
+            //   (this.snackbar.text = "Note moved to trash ");
+            //this.close();
+        })
+        .catch(
+          this.snackbarText =  "Note moved to trash ",
+              this.Textappear= true,
+        );
     },
 
- archieve() {
-    const noteInput = {
-         isArchived: true,
-        };
-      console.log("delete", this.singleNote._id)
-        note
-          .archieveNote(this.singleNote._id, noteInput)
-          .then((data) => {
-            if (data.data.status_code.status_code == 200) {
-              (this.snackbar.appear = true),
-                (this.snackbar.text = 'note deleted successfully'),
-                this.close();
-            }
-          })
-          .catch(
-            (error) => (this.snackbar.appear = true),
-            (this.snackbar.text =
-              'error while deleting, please try again later')
-          );
-      },
-   
-})
-
+    archieve() {
+      const noteInput = {
+        isArchived: true
+      };
+      note
+        .archieveNote(this.singleNote, noteInput)
+        .then(data => {
+          if (data.data.status_code.status_code == 200) {
+            (this.snackbar.appear = true),
+              (this.snackbar.text = "note archieve successfully"),
+              this.close();
+          }
+        })
+        .catch(
+          error => (this.snackbar.appear = true),
+          (this.snackbar.text = "error while archieve, please try again later")
+        );
+    }
+  }
 };
 </script>
 

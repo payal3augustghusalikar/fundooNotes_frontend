@@ -121,15 +121,14 @@
               </v-main>
             </v-flex>
           </v-row>
-          <v-snackbar
-            v-model="snackbar.appear"
-            :timeout="snackbar.timeout"
-            :left="snackbar.x === 'left'"
-            :right="snackbar.x === 'right'"
-            :top="snackbar.y === 'top'"
-          >
+          <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
             {{ snackbar.text }}</v-snackbar
           >
+
+           <v-snackbar v-model="Textappear" :timeout="2500">
+            {{ snackbarText }}</v-snackbar
+          >
+         
         </v-card>
       </v-app>
     </div>
@@ -152,6 +151,9 @@ export default {
     navBarOption: {
       default: true,
     },
+Textappear: Boolean,
+    snackbarText:String,
+   
   },
 
   data: () => ({
@@ -159,9 +161,9 @@ export default {
       appear: false,
       text: "",
       timeout: 2500,
-      x: "right",
-      y: "top",
+     
     },
+
     title: "",
     description: "",
     showIconName: true,
@@ -179,6 +181,7 @@ export default {
     console.log("on dashboard");
     console.log("this.navBarOption on dashboard", this.navBarOption);
     this.$refs.childNote.displayAllNotes();
+   console.log(" this.snackbars", this.Textappear,this.snackbarText );
   },
 
   methods: {

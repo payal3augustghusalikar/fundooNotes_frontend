@@ -61,8 +61,6 @@ export default {
     },
 
 
-
-
     /**
      * @description delete note permanently from database and return responce to caller file
      * @returns the response from axios methods
