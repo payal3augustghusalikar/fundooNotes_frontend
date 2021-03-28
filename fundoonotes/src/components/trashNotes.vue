@@ -49,6 +49,7 @@
           </v-card>
         </v-hover>
       </v-flex>
+       <Snackbar ref="snackbar" />
     </v-layout>
   </v-flex>
 </template>
@@ -100,9 +101,17 @@ export default {
       .restoreNote(noteId, noteInput)
       .then((data) => {
         if (data.data.status_code.status_code == 200) {
-          (this.snackbar.appear = true),
-            (this.snackbar.text = "note restore successfully"),
-            this.close();
+          console.log(data.data)
+          const snackbarData = {
+                text: 'Note moved to trash',
+                timeout: 2500
+              };
+     console.log(this.snackbarData)
+   this.$refs.snackbar.activateSnackbar(snackbarData) ;
+
+          //(this.snackbar.appear = true),
+            // (this.snackbar.text = "note restore successfully"),
+            // this.close();
              this.displayAllNotes()
         }
       })

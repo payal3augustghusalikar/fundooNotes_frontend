@@ -74,7 +74,7 @@ export default {
   
   methods: {
     displayAllNotes() {
-      return note
+       note
         .getNotes()
         .then(result => {
           this.result = result.data.data;

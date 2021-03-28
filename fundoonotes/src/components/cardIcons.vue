@@ -44,7 +44,8 @@
           <v-list-item v-on="on">Add label</v-list-item>
         </v-list>
       </v-menu>
-      <dashboard v-show="false" :snackbarText="snackbarText" :Textappear="Textappear"   ref="dashboard"/>
+      <dashboard v-show="false" ref="dashboard" />
+      <Snackbar ref="snackbar" />
     </v-group>
   </div>
 </template>
@@ -66,49 +67,67 @@ export default {
   data: () => ({
     noteInfo: this.singleNote,
     IconDialog: false,
-    snackbarText:"",
-    Textappear:false
+     snackbarData:"",
+    // Textappear:false
   }),
   methods: {
     moveToTrash() {
       const noteInput = {
         isDeleted: true
       };
-      console.log("moveToTrash note");
-      console.log("this.singleNote", this.singleNote);
+      // console.log("moveToTrash note");
+      // console.log("this.singleNote", this.singleNote);
       console.log("moveToTrash note", this.singleNote._id);
       note
         .moveToTrash(noteInput, this.singleNote._id)
         .then(data => {
-          console.log("res", data);
+          console.log("res is", data);
           console.log(data.data.status_code.status_code);
           if (data.data.status_code.status_code == 200) {
-            this.snackbarText =  "Note moved to trash ";
-              this.Textappear= true
-              console.log(this.snackbarText)
-              }
-              this.$refs.dashboard.displayAllNotes();
-            // (this.snackbar.appear = true),
-            //   (this.snackbar.text = "Note moved to trash ");
-            //this.close();
+            // this.snackbarText =  "Note moved to trash ";
+            //   this.Textappear= true
+             console.log("inside ifff")
+
+            const snackbarData = {
+              text: "Note moved to trashhhhhhhhhhhh",
+              timeout: 2500
+            };
+            console.log("this.snackbarData : ", this.snackbarData);
+
+            this.$refs.snackbar.activateSnackbar(snackbarData);
+            this.$refs.dashboard.displayAllNotes();
+          }
+    console.log("outside ifff")
+          // (this.snackbar.appear = true),
+          //   (this.snackbar.text = "Note moved to trash ");
+          //this.close();
         })
         .catch(
-          this.snackbarText =  "Note moved to trash ",
-              this.Textappear= true,
+          (this.snackbarText = "Note moved to trash "),
+          (this.Textappear = true)
         );
     },
 
     archieve() {
+      console.log("archieveNote note");
+      console.log("this.singleNote", this.singleNote);
+      console.log("archieveNote note", this.singleNote._id);
       const noteInput = {
         isArchived: true
       };
       note
-        .archieveNote(this.singleNote, noteInput)
+        .archieveNote(noteInput, this.singleNote._id)
         .then(data => {
           if (data.data.status_code.status_code == 200) {
-            (this.snackbar.appear = true),
-              (this.snackbar.text = "note archieve successfully"),
-              this.close();
+console.log("note arch")
+             this.snackbarData = {
+              text: "note archieve successfully",
+              timeout: 2500
+            };
+            // (this.snackbar.appear = true),
+            //   (this.snackbar.text = "note archieve successfully"),
+            console.log("this.snackbarData : ", this.snackbarData);
+               this.$refs.dashboard.displayAllNotes();
           }
         })
         .catch(

@@ -25,7 +25,6 @@
                   ></v-text-field>
                 </div>
                 <v-spacer> </v-spacer>
-
                 <md-avatar class="md-avatar-icon">P</md-avatar>
               </v-app-bar>
             </v-col>
@@ -110,12 +109,12 @@
                   </div>
 
                   <div class="allCards">
+                    <router-view></router-view>
                     <noteCards
                       v-show="false"
                       v-if="navBarOption"
                       ref="childNote"
                     />
-                    <router-view></router-view>
                   </div>
                 </v-container>
               </v-main>
@@ -124,11 +123,10 @@
           <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
             {{ snackbar.text }}</v-snackbar
           >
-
-           <v-snackbar v-model="Textappear" :timeout="2500">
+ <snackbar ref="snackbar" />
+          <v-snackbar v-model="Textappear" :timeout="2500">
             {{ snackbarText }}</v-snackbar
           >
-         
         </v-card>
       </v-app>
     </div>
@@ -144,24 +142,22 @@ export default {
   components: {
     sidenavBar,
     cardIcons,
-    noteCards,
+    noteCards
   },
 
   props: {
     navBarOption: {
-      default: true,
+      default: true
     },
-Textappear: Boolean,
-    snackbarText:String,
-   
+    Textappear: Boolean,
+    snackbarText: String
   },
 
   data: () => ({
     snackbar: {
       appear: false,
       text: "",
-      timeout: 2500,
-     
+      timeout: 2500
     },
 
     title: "",
@@ -171,19 +167,22 @@ Textappear: Boolean,
     text: "take a note...",
     cardHeight: 50,
     isActive: true,
-    allNotes: "",
+    allNotes: ""
   }),
-  beforeMount() {
-    this.navBarOption;
-    console.log("this.navBarOption", this.navBarOption);
-    
-  },
-  mounted() {
-    console.log("on dashboard");
-    console.log("this.navBarOption on dashboard", this.navBarOption);
-    this.$refs.childNote.displayAllNotes();
-   console.log(" this.snackbars", this.Textappear,this.snackbarText );
-  },
+//   beforeMount() {
+//     this.navBarOption;
+//     console.log("this.navBarOption", this.navBarOption);
+//     // this.displayAllNotes();
+//   },
+
+//  mounted() {
+ 
+//      console.log("on dashboard");
+//   this.displayAllNotes();
+//   //   console.log("this.navBarOption on dashboard", this.navBarOption);
+//   //   this.$refs.childNote.displayAllNotes();
+//   //   console.log(" this.snackbars", this.Textappear, this.snackbarText);
+//    },
 
   methods: {
     resetCard: function() {
@@ -198,6 +197,7 @@ Textappear: Boolean,
     },
 
     displayAllNotes() {
+      console.log("insidde dashboard")
       this.$refs.childNote.displayAllNotes();
     },
 
@@ -215,24 +215,24 @@ Textappear: Boolean,
     creatNewNote() {
       let noteData = {
         title: this.title,
-        description: this.description,
+        description: this.description
       };
       note
         .createNote(noteData)
-        .then((result) => {
+        .then(result => {
           this.snackbar.appear = true;
           this.snackbar.text = "note created successfully";
 
           this.$refs.childNote.displayAllNotes();
           this.hide();
         })
-        .catch((error) => {
+        .catch(error => {
           this.snackbar.appear = true;
           this.snackbar.text = "error occured!! please try again!!";
           this.hide();
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

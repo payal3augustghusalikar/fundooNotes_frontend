@@ -1,7 +1,6 @@
 <template>
   <v-flex>
-  <h1> Archievedd </h1>
-    <v-layout row wrap  >
+    <v-layout row wrap>
       <v-flex
        v-for="note in archievedNotes"
       
@@ -64,6 +63,7 @@ export default {
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
+          console.log("data.data", this.result)
           this.allNotes = [...this.result].reverse();
           this.archievedNotes = this.allNotes.filter(
             (note) => note.isArchived == true
