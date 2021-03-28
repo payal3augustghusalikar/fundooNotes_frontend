@@ -73,9 +73,10 @@ export default {
      * @returns the response from api calling methods
      */
     archieveNote(noteInput, noteId) {
+        console.log("inside archive")
         const noteData = {
             userInput: noteInput,
-            endPoint: '/notes/archieve/' + noteId
+            endPoint: '/notes/archive/' + noteId
         };
         return apiCall.put(noteData);
     },
@@ -87,7 +88,7 @@ export default {
     UnrchieveNote(noteInput, noteId) {
         const noteData = {
             userInput: noteInput,
-            endPoint: '/notes/unarchieve/' + noteId
+            endPoint: '/notes/unarchive/' + noteId
         };
         return apiCall.put(noteData);
     },

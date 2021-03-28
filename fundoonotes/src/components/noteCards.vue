@@ -68,9 +68,9 @@ export default {
     }
   }),
 
-  mounted() {
-    this.displayAllNotes();
-  },
+  // mounted() {
+  //   this.displayAllNotes();
+  // },
   
   methods: {
     displayAllNotes() {
@@ -80,8 +80,9 @@ export default {
           this.result = result.data.data;
           this.allNotes = [...this.result].reverse();
           this.activeNotes = this.allNotes.filter(
-            note => note.isDeleted == false
+            note => (note.isDeleted == false && note.isArchived == false)
           );
+           console.log(" this.activeNotes",  this.activeNotes);
         })
         .catch(error => {
           console.log("error", error);

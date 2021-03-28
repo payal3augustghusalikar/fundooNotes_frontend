@@ -17,67 +17,77 @@
               </div>
             </v-list-item-title>
           </v-list-item>
-         
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
-    <dashboard v-show="false" :navBarOption.sync="this.navBarOption"/>
+    <dashboard v-show="false" ref="dashboard"  />
   </div>
 </template>
 
 <script>
-import router from '../router/route.js';
+import router from "../router/route.js";
 import dashboard from "./dashboard.vue";
 export default {
- components: {
+  name: "sidenavBar",
+  components: {
     dashboard
   },
 
   props: {
-    showIconName: Boolean,
+    showIconName: Boolean
   },
   data: () => ({
-    navBarOption:true,
+    navBarOption: true,
+
     sideNavBar: [
       {
-        title: 'Note',
-        icon: 'mdi-lightbulb-outline',
+        title: "Note",
+        icon: "mdi-lightbulb-outline"
       },
       {
-        title: 'Reminders',
-        icon: 'mdi mdi-bell-outline',
+        title: "Reminders",
+        icon: "mdi mdi-bell-outline"
       },
       {
-        title: 'Label',
-        icon: ' mdi-label-outline',
+        title: "Label",
+        icon: " mdi-label-outline"
       },
       {
-        title: 'Edit labels',
-        icon: 'mdi-pencil-outline',
+        title: "Edit labels",
+        icon: "mdi-pencil-outline"
       },
       {
-        title: 'Archieved',
-        icon: 'mdi-download-outline',
+        title: "Archieved",
+        icon: "mdi-download-outline"
       },
       {
-        title: 'Trash',
-        icon: 'mdi-delete-outline',
-      },
-    ],
+        title: "Trash",
+        icon: "mdi-delete-outline"
+      }
+    ]
   }),
 
   methods: {
     goToItem(item) {
-      if(item.title=='Trash')
-      {
-         this.navBarOption=false
+      if (item.title == "Trash" || item.title == "Archieved") {
+        // console.log(
+        //   "condition, ",
+        //   item.title == "Trash" || item.title == "Archieved"
+        // );
+        this.navBarOption = false;
+        console.log("condition this.navBarOption, ", this.navBarOption);
+         //this.$refs.dashboard.setDashboardComponent(this.navBarOption)
+         this.$root.$emit('eventing', this.navBarOption);
       }
+      else{ console.log("this is xcep trash and archieved")}
+     
+
       this.$router.push({
-        name: item.title,
+        name: item.title
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

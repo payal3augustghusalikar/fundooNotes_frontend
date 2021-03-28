@@ -1,6 +1,7 @@
 <template>
   <v-flex>
     <v-layout row wrap>
+   <br />
       <v-flex
        v-for="note in archievedNotes"
       
@@ -43,7 +44,7 @@ import note from "../services/note.js";
 import cardIcons from "../components/cardIcons.vue";
 
 export default {
-  name: "Note",
+  name: "Archieved",
   components: {
     cardIcons,
   },

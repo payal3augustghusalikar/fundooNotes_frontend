@@ -63,6 +63,8 @@ import cardIcons from "./cardIcons";
 import note from "../services/note.js";
 
 export default {
+
+   name: 'dialogBox',
   components: {
     cardIcons,
   },

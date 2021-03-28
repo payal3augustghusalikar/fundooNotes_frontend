@@ -54,6 +54,8 @@
 import note from "../services/note.js";
 import dashboard from "./dashboard";
 export default {
+
+   name: 'cardIcons',
   components: {
     dashboard
   },
@@ -118,8 +120,9 @@ export default {
       note
         .archieveNote(noteInput, this.singleNote._id)
         .then(data => {
+           console.log("res is", data);
           if (data.data.status_code.status_code == 200) {
-console.log("note arch")
+      console.log("note arch")
              this.snackbarData = {
               text: "note archieve successfully",
               timeout: 2500

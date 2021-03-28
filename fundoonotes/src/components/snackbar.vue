@@ -11,6 +11,8 @@
 
 <script>
 export default {
+
+   name: 'snackbar',
   // props: {
   //   snackbarAppear: Boolean,
   //   text: String,
