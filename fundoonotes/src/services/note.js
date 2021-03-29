@@ -32,17 +32,77 @@ export default {
         return apiCall.get(noteData);
     },
 
-
     /**
      * @description  update the note
      * @returns the response from api calling methods
      */
     updateNote(noteInput, noteId) {
-
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/' + noteId
         };
         return apiCall.put(noteData);
     },
+
+    /**
+     * @description  delete note by moving to trash  the note
+     * @returns the response from api calling methods
+     */
+    moveToTrash(noteInput, noteId) {
+        console.log("moveToTrash")
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/delete/' + noteId
+        };
+        return apiCall.put(noteData);
+    },
+
+    /**
+     * @description  delete the note permanently
+     * @returns the response from api calling methods
+     */
+    deleteForever(noteId) {
+        const noteData = {
+            endPoint: '/notes/deleteforever/' + noteId
+        };
+        return apiCall.delete(noteData);
+    },
+
+    /**
+     * @description  archieveNote the note 
+     * @returns the response from api calling methods
+     */
+    archieveNote(noteInput, noteId) {
+        console.log("inside archive")
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/archive/' + noteId
+        };
+        return apiCall.put(noteData);
+    },
+
+    /**
+     * @description  archieveNote the note 
+     * @returns the response from api calling methods
+     */
+    unArchieveNote(noteInput, noteId) {
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/unarchive/' + noteId
+        };
+        return apiCall.put(noteData);
+    },
+
+    /**
+     * @description  restoreNote the note 
+     * @returns the response from api calling methods
+     */
+    restoreNote(noteId, noteInput) {
+        const noteData = {
+            userInput: noteInput,
+            endPoint: '/notes/restore/' + noteId
+        };
+        return apiCall.put(noteData);
+    },
+
 };

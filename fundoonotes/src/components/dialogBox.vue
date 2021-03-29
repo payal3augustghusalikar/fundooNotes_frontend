@@ -1,9 +1,10 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="dialog" persistent max-width="450">
-      <v-card v-click-outside="onClickOutside">
+    <v-dialog v-model="dialog" persistent max-width="400" min-height="200">
+      <v-card >
         <v-card-text>
-          <v-form ref="editForm">
+          <v-form >
+       <br />
             <v-text-field
               solo
               label="id"
@@ -11,6 +12,7 @@
               v-show="false"
             ></v-text-field>
             <v-textarea
+              v-if="!trash"
               flat
               solo
               dense
@@ -22,6 +24,7 @@
               v-model="editOptions.title"
             ></v-textarea>
             <v-textarea
+              v-if="!trash"
               autocomplete="off"
               flat
               solo
@@ -33,70 +36,96 @@
               label="description"
               v-model="editOptions.description"
             ></v-textarea>
-            <cardIcons />
+            <cardIcons v-if="!trash" />
           </v-form>
         </v-card-text>
-
+        <h4 v-if="trash">Do you want to delete forever?</h4>
+         <br />
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click.native="dialog == false"
-            >Close</v-btn
+          <v-btn v-if="trash" color="darken-1" flat @click="deleteForever"
+            >Yes</v-btn
           >
+          <v-btn color="darken-1" flat @click.native="close">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar
-      v-model="snackbar.appear"
-      :timeout="snackbar.timeout"
-      :left="snackbar.x === 'left'"
-      :right="snackbar.x === 'right'"
-      :top="snackbar.y === 'top'"
-    >
+    <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
       {{ snackbar.text }}</v-snackbar
     >
     <noteCards v-show="false" ref="noteCards" />
+   
   </v-layout>
 </template>
 
 <script>
-import cardIcons from './cardIcons';
-
-import note from '../services/note.js';
+import cardIcons from "./cardIcons";
+//import trashNotes from "./trashNotes";
+import note from "../services/note.js";
 
 export default {
+
+   name: 'dialogBox',
   components: {
     cardIcons,
+   // trashNotes
   },
   props: {
     dialog: {
       default: false,
     },
     options: Object,
+    trash: Boolean,
   },
   data() {
     return {
       snackbar: {
         appear: false,
-        text: '',
+        text: "",
         timeout: 2500,
-        x: 'right',
-        y: 'top',
       },
       editOptions: this.options,
     };
   },
-  beforeDestroy() {
-    this.$refs.dialog.close();
-  },
+ 
+// watch: {
+//     dialog(val) {
+//         val || this.close();
+//     },
+// },
 
   methods: {
     close() {
-      this.dialog = 'false';
-      this.$emit('update:dialog', false);
+      console.log("inside close")
+      this.dialog = false; 
     },
-
+deleteForever() {   
+  console.log("delete forever ")
+      note
+        .deleteForever(this.editOptions._id)
+        .then((data) => {
+          if (data.data.status_code.status_code == 200) {
+            (this.snackbar.appear = true),
+              (this.snackbar.text = "note deleted successfully"),
+                this.$emit('displayTrashNotesevent'),
+             this.close();
+          //   this.$refs.trashNotes.displayAllNotes()
+          }
+           
+        })
+        .catch(
+          (error) => 
+          (this.snackbar.appear = true),
+          (this.snackbar.text = "error while deleting, please try again later")
+        );
+    },
     onClickOutside() {
-      if (this.editOptions.title && this.editOptions.description) {
+      console.log("onClickOutside start")
+      if (this.trash == true) {
+        console.log("trash")
+         this.deleteForever()
+      }
+       else if (this.editOptions.title && this.editOptions.description) {
         const noteInput = {
           title: this.editOptions.title,
           description: this.editOptions.description,
@@ -104,19 +133,24 @@ export default {
         note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
+            console.log("this.dialog in dialogbox",this.dialog)
             if (data.data.status_code.status_code == 200) {
               (this.snackbar.appear = true),
-                (this.snackbar.text = 'note updated successfully'),
+                (this.snackbar.text = "note updated successfully")
+                this.$refs.noteCards.displayAllNotes()
                 this.close();
+                   console.log("onClickOutside end")
             }
           })
           .catch(
             (error) => (this.snackbar.appear = true),
             (this.snackbar.text =
-              'error while updating, please try again later')
+              "error while updating, please try again later")
           );
       }
     },
+
+    
   },
 };
 </script>

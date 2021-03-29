@@ -1,32 +1,36 @@
 <template>
-    <v-snackbar
-            v-model="snackbar.appear"
-           
-            :timeout="snackbar.timeout"
-            :left="snackbar.x === 'left'"
-            :right="snackbar.x === 'right'"
-            :top="snackbar.y === 'top'"
-          >
-            {{ snackbar.text }}</v-snackbar
-          >
+  <v-snackbar v-model="showSnackbar" :timeout="timeout">
+    {{ text }}
+    <template v-slot:action="{ attrs }">
+      <v-btn color="blue" text v-bind="attrs" @click="snackbarAppear = false">
+        Close
+      </v-btn>
+    </template></v-snackbar
+  >
 </template>
 
-
 <script>
-
-
 export default {
-  props: {
-    appear: Boolean,
-  },
-    data: () => ({
-    snackbar: {
-      appear: false,
-      text: '',
-      timeout: 2500,
-      x: 'right',
-      y: 'top',
+  name: "snackbar",
+  // props: {
+  //   snackbarAppear: Boolean,
+  //   text: String,
+  //   timeout: String
+  // },
+  data: () => ({
+    timeout: "",
+    text: "",
+    showSnackbar: false
+  }),
+
+  methods: {
+    activateSnackbar(snackbarData) {
+      console.log(" activateSnackbar(snackbarData)");
+      this.showSnackbar = true;
+      this.text = snackbarData.text;
+
+      this.timeout = snackbarData.timeout;
     }
-    })
+  }
 };
 </script>

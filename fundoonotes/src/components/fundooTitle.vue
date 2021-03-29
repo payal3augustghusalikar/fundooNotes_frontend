@@ -22,7 +22,7 @@
 
 
 export default {
-
+ name: 'fundooTitle',
 };
 </script>
 <style lang="scss" scoped>

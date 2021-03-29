@@ -1,119 +1,132 @@
 <template>
-  <div>
-    <h1>Trash gg</h1>
-    <noteCards v-show="false" ref="childNote" />
-
-
-   
   <v-flex>
-    <v-layout row wrap>
+    <v-layout class="noteCards" row wrap>
       <v-flex
-        v-for="note in passiveNotes"
+        v-for="note in trashNotes"
         v-bind:key="note._id"
         md3
         class="mr-5 mb-10"
       >
-   
-          <v-hover v-slot="{ hover }">
-            <v-card
-              @click.stop="note.dialog = true"
-              class="mx-auto v-list"
-              outlined
-              :class="{ 'on-hover': hover }"
-            >
-              <article class="text-md-right text-lg-right">
-                <v-icon v-bind="attrs" v-on="on" v-show="hover"
-                  >mdi-pin-outline</v-icon
-                >
-              </article>
-              <v-card-title>{{ note.title }} </v-card-title>
-              <v-list-item class="v-list">{{ note.description }}</v-list-item>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            class="mx-auto v-list"
+            outlined
+            :class="{ 'on-hover': hover }"
+          >
+            <v-card-title>{{ note.title }} </v-card-title>
+            <v-list-item class="v-list">{{ note.description }}</v-list-item>
 
-              <v-list-item></v-list-item>
-
-              <cardIcons
-                v-show="hover == true || click == true"
-                :singleNoteDetails="note"
-              />
-              <v-flex>
-                <dialogBox
-                  ref="dialog"
-                  :options="note"
-                  :dialog.sync="dialog"
-                ></dialogBox>
-              </v-flex>
-            </v-card>
-          </v-hover>
+            <v-list-item>
+              <v-row v-show="hover == true">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <article class="text-md-left text-lg-left">
+                        <v-icon @click="restoreNote(note._id)"
+                          >mdi-restore</v-icon
+                        >
+                      </article>
+                    </v-btn>
+                  </template>
+                  <span>Restore</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <article class="text-md-left text-lg-left">
+                        <v-icon @click="note.dialog = true"
+                          >mdi-delete-outline</v-icon
+                        >
+                      </article>
+                    </v-btn>
+                  </template>
+                  <span>Delete Forever</span>
+                </v-tooltip>
+              </v-row>
+            </v-list-item>
+            <v-list-item></v-list-item>
+            <dialogBox :dialog.sync="note.dialog == true" @displayTrashNotesevent="displayAllNotes" :options="note" :trash="true" />
+         
        
+          </v-card>
+        </v-hover>
       </v-flex>
+       <snackbar ref="snackbar" />
     </v-layout>
   </v-flex>
-   </div>
 </template>
 
 <script>
-import note from '../services/note.js';
-import cardIcons from '../components/cardIcons.vue';
-import dialogBox from './dialogBox.vue';
+import note from "../services/note.js";
 
- 
-
-
-
-import noteCards from '../components/noteCards.vue';
+import dialogBox from "./dialogBox.vue";
 
 export default {
-  name: 'Trash',
-components: {
-    noteCards,
+  name: "Trash",
+  components: {
+    dialogBox,
   },
- // props: ['passiveNotes'],
-   mounted() {
-     console.log("mountd treadsh")
-     this.getTrashNotes()
-   },
-
-  // components: {
-  //   cardIcons,
-  //   dialogBox,
-  // },
 
   data: () => ({
+    IconDialog: false,
+    trashNotes: "",
+    allNotesForTrash: "",
+    trash: true,
     dialog: false,
-   trashNotes: "",
-   allNotesForTrash:""
   }),
 
-//   mounted() {
-//   console.log("inside mounted trash")
-//   this.editOptions=this.passiveNotes
-//   console.log("allNotesForTrash", this.editOptions)
-// },
+  mounted() {
+    this.displayAllNotes();
+  },
+
   methods: {
-
-    getTrashNotes(){
-
- 
-      console.log("disply on dash");
-      return note
+    displayAllNotes() {
+      console.log("inside trash display")
+       note
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
-
           this.allNotes = [...this.result].reverse();
-          // this.activeNotes = this.allNotes.filter(
-          //   (note) => note.isDeleted == false
-          // );
-          //   console.warn("this.activeNotes", this.activeNotes);
-          // return this.allNotes
-
-
-          this.passiveNotes = this.allNotes.filter(
+          this.trashNotes = this.allNotes.filter(
             (note) => note.isDeleted == true
           );
-          console.warn("this.passiveNotes", this.passiveNotes);
+         
         })
-        .catch((error) => {});
- }}
-};
+        .catch((error) => {  
+        });
+    },
+ 
+  restoreNote(noteId) {
+    const noteInput = {
+      isDeleted: false,
+    };
+    note
+      .restoreNote(noteId, noteInput)
+      .then((data) => {
+        if (data.data.status_code.status_code == 200) {
+          console.log(data.data)
+          const snackbarData = {
+                text: 'Note moved to trash',
+                timeout: 2500
+              };
+              this.displayAllNotes()
+     console.log(this.snackbarData)
+   this.$refs.snackbar.activateSnackbar(snackbarData) ;
+
+          // (this.snackbar.appear = true),
+          //   (this.snackbar.text = "note restore successfully"),
+            // this.close();
+             this.displayAllNotes()
+        }
+      })
+      .catch(
+        (error) => (this.snackbar.appear = true),
+        (this.snackbar.text = "error while restoring, please try again later")
+      );
+  },
+} }
 </script>
+
+<style lang="scss" scoped>
+@import url("../scss/noteCards.scss");
+</style>

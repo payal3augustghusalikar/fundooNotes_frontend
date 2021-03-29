@@ -7,7 +7,7 @@ import resetPassword from '../pages/resetPassword.vue';
 import dashboard from '../components/dashboard.vue';
 import noteCards from '../components/noteCards.vue';
 import trashNotes from '../components/trashNotes.vue';
-
+import archieved from '../components/archieved.vue';
 import snackbar from '../components/snackbar.vue';
 
 //import labels from '../components/trash.vue';
@@ -54,11 +54,11 @@ export default new Router({
                     //     name: 'labels',
                     //     component: labels,
                     // },
-                    //  {
-                    //     path: 'archieved',
-                    //     name: 'archieved',
-                    //     component: archieved,
-                    // },
+                    {
+                        path: '/archieved',
+                        name: 'Archieved',
+                        component: archieved,
+                    },
 
                 ]
                 // }
