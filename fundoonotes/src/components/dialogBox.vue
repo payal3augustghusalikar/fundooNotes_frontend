@@ -1,9 +1,10 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="dialog" @close="close" persistent max-width="400" min-height="200">
-      <v-card v-click-outside="onClickOutside">
+    <v-dialog v-model="dialog" persistent max-width="400" min-height="200">
+      <v-card >
         <v-card-text>
-          <v-form ref="editForm">
+          <v-form >
+       <br />
             <v-text-field
               solo
               label="id"
@@ -38,15 +39,14 @@
             <cardIcons v-if="!trash" />
           </v-form>
         </v-card-text>
-
         <h4 v-if="trash">Do you want to delete forever?</h4>
+         <br />
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn v-if="trash" color="darken-1" flat @click="deleteForever"
             >Yes</v-btn
           >
-
-          <v-btn color="darken-1" flat @click="dialog = false">Close</v-btn>
+          <v-btn color="darken-1" flat @click.native="close">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -54,12 +54,13 @@
       {{ snackbar.text }}</v-snackbar
     >
     <noteCards v-show="false" ref="noteCards" />
+   
   </v-layout>
 </template>
 
 <script>
 import cardIcons from "./cardIcons";
-
+//import trashNotes from "./trashNotes";
 import note from "../services/note.js";
 
 export default {
@@ -67,6 +68,7 @@ export default {
    name: 'dialogBox',
   components: {
     cardIcons,
+   // trashNotes
   },
   props: {
     dialog: {
@@ -86,20 +88,42 @@ export default {
     };
   },
  
-watch: {
-    dialog(val) {
-        val || this.close();
-    },
-},
+// watch: {
+//     dialog(val) {
+//         val || this.close();
+//     },
+// },
 
   methods: {
     close() {
-      this.dialog = "false"; 
+      console.log("inside close")
+      this.dialog = false; 
     },
-
+deleteForever() {   
+  console.log("delete forever ")
+      note
+        .deleteForever(this.editOptions._id)
+        .then((data) => {
+          if (data.data.status_code.status_code == 200) {
+            (this.snackbar.appear = true),
+              (this.snackbar.text = "note deleted successfully"),
+                this.$emit('displayTrashNotesevent'),
+             this.close();
+          //   this.$refs.trashNotes.displayAllNotes()
+          }
+           
+        })
+        .catch(
+          (error) => 
+          (this.snackbar.appear = true),
+          (this.snackbar.text = "error while deleting, please try again later")
+        );
+    },
     onClickOutside() {
+      console.log("onClickOutside start")
       if (this.trash == true) {
-        console.log("")
+        console.log("trash")
+         this.deleteForever()
       }
        else if (this.editOptions.title && this.editOptions.description) {
         const noteInput = {
@@ -109,10 +133,13 @@ watch: {
         note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
+            console.log("this.dialog in dialogbox",this.dialog)
             if (data.data.status_code.status_code == 200) {
               (this.snackbar.appear = true),
-                (this.snackbar.text = "note updated successfully"),
+                (this.snackbar.text = "note updated successfully")
+                this.$refs.noteCards.displayAllNotes()
                 this.close();
+                   console.log("onClickOutside end")
             }
           })
           .catch(
@@ -123,22 +150,7 @@ watch: {
       }
     },
 
-    deleteForever() {   
-      note
-        .deleteForever(this.editOptions._id)
-        .then((data) => {
-          if (data.data.status_code.status_code == 200) {
-            (this.snackbar.appear = true),
-              (this.snackbar.text = "note deleted successfully"),
-              this.close();
-          }
-        })
-        .catch(
-          (error) => 
-          (this.snackbar.appear = true),
-          (this.snackbar.text = "error while deleting, please try again later")
-        );
-    },
+    
   },
 };
 </script>

@@ -109,8 +109,8 @@
                   </div>
 
                   <div class="allCards">
-                    <router-view></router-view>
                     <noteCards v-if="showAddNote" ref="childNote" />
+                    <router-view></router-view>
                   </div>
                 </v-container>
               </v-main>
@@ -177,7 +177,7 @@ export default {
     console.log("on dashboard");
     this.displayAllNotes();
     console.log("this.navBarOption on dashboard", this.navBarOption);
-    //   this.$refs.childNote.displayAllNotes();
+    // this.$refs.childNote.displayAllNotes();
     //   console.log(" this.snackbars", this.Textappear, this.snackbarText);
 
     this.$root.$on("eventing", navBarOption => {
@@ -201,7 +201,7 @@ export default {
 
     displayAllNotes() {
       console.log("insidde dashboard");
-      this.$refs.childNote.displayAllNotes();
+      // this.$refs.childNote.displayAllNotes();
     },
 
     hide: function() {

@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-layout row wrap>
+    <v-layout class="noteCards" row wrap>
       <v-flex
         v-for="note in activeNotes"
         v-bind:key="note._id"
@@ -23,7 +23,7 @@
             <v-card-title  @click.stop="note.dialog = true">{{ note.title }} </v-card-title>
             <v-list-item  @click.stop="note.dialog = true">{{ note.description }}</v-list-item>
             <v-list-item></v-list-item>
-            <cardIcons v-show="hover == true" :singleNote="note" />
+            <cardIcons v-show="hover == true" @displayActiveNotesevent="displayAllNotes" :singleNote="note" />
             <v-list-item></v-list-item>
             <dialogBox :dialog.sync="note.dialog == true" :options="note" />
           </v-card>
@@ -68,9 +68,9 @@ export default {
     }
   }),
 
-  // mounted() {
-  //   this.displayAllNotes();
-  // },
+  mounted() {
+    this.displayAllNotes();
+  },
   
   methods: {
     displayAllNotes() {
@@ -87,11 +87,11 @@ export default {
         .catch(error => {
           console.log("error", error);
         });
-    }
+    },
+    // 
   }
 };
 </script>
-
 <style lang="scss" scoped>
 @import url("../scss/noteCards.scss");
 </style>

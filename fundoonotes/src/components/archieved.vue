@@ -1,7 +1,6 @@
 <template>
   <v-flex>
-    <v-layout row wrap>
-   <br />
+    <v-layout class="noteCards" row wrap>
       <v-flex
        v-for="note in archievedNotes"
       

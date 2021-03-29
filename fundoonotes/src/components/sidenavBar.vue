@@ -21,7 +21,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <dashboard v-show="false" ref="dashboard"  />
+    <dashboard v-show="false" ref="dashboard" />
   </div>
 </template>
 
@@ -76,12 +76,17 @@ export default {
         //   item.title == "Trash" || item.title == "Archieved"
         // );
         this.navBarOption = false;
+        if (item.title == "Archieved") {
+          console.log("condition this.navBarOption, ", this.navBarOption);
+             this.$root.$emit("archieved", this.navBarOption);
+        }
         console.log("condition this.navBarOption, ", this.navBarOption);
-         //this.$refs.dashboard.setDashboardComponent(this.navBarOption)
-         this.$root.$emit('eventing', this.navBarOption);
+        //this.$refs.dashboard.setDashboardComponent(this.navBarOption)
+        this.$root.$emit("eventing", this.navBarOption);
+        
+      } else {
+        console.log("this is xcep trash and archieved");
       }
-      else{ console.log("this is xcep trash and archieved")}
-     
 
       this.$router.push({
         name: item.title

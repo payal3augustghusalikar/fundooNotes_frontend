@@ -20,14 +20,24 @@
         <span> Change color</span>
       </v-tooltip>
 
-      <v-tooltip bottom>
+      <v-tooltip v-if="singleNote.isArchived==false" bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-icon v-bind="attrs" v-on="on" @click="archieve"
+          <v-icon  v-bind="attrs" v-on="on" @click="archieve"
             >mdi-download-outline</v-icon
           >
         </template>
         <span>Archieve</span>
       </v-tooltip>
+
+<v-tooltip v-if="singleNote.isArchived==true" bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon v-bind="attrs" v-on="on" @click="unArchieve"
+            >mdi-download-outline mdi-rotate-180"</v-icon
+          >
+        </template>
+        <span>unArchieve</span>
+      </v-tooltip>
+
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
           <v-tooltip bottom>
@@ -45,7 +55,7 @@
         </v-list>
       </v-menu>
       <dashboard v-show="false" ref="dashboard" />
-      <Snackbar ref="snackbar" />
+      <snackbar ref="snackbar" />
     </v-group>
   </div>
 </template>
@@ -59,19 +69,37 @@ export default {
   components: {
     dashboard
   },
-
-  mounted() {
-    console.log("mount", this.singleNote);
-  },
-  props: {
-    singleNote: Object
-  },
-  data: () => ({
+ data: () => ({
     noteInfo: this.singleNote,
     IconDialog: false,
      snackbarData:"",
     // Textappear:false
+   
+      showAddNote: true
   }),
+  mounted() {
+    console.log("mount in cardicons", this.singleNote);
+    // this.isArchived=this.singleNote.isArchived
+    //   console.log(" this.isArchived",  this.isArchived);
+
+  // this.$root.$on("eventing", navBarOption => {
+  //     console.log("showAddNote", navBarOption);
+  //     this.unArchive = navBarOption;
+  //     console.log("showAddNote", this.unArchive);
+  //   });
+
+
+ this.$root.$on("archieved", navBarOption => {
+      console.log("archive", navBarOption);
+      this.showAddNote = navBarOption;
+      console.log("archive", this.showAddNote);
+    });
+
+  },
+  props: {
+    singleNote: Object
+  },
+ 
   methods: {
     moveToTrash() {
       const noteInput = {
@@ -97,7 +125,8 @@ export default {
             console.log("this.snackbarData : ", this.snackbarData);
 
             this.$refs.snackbar.activateSnackbar(snackbarData);
-            this.$refs.dashboard.displayAllNotes();
+              this.$emit('displayActiveNotesevent')
+            //this.$refs.dashboard.displayAllNotes();
           }
     console.log("outside ifff")
           // (this.snackbar.appear = true),
@@ -130,6 +159,36 @@ export default {
             // (this.snackbar.appear = true),
             //   (this.snackbar.text = "note archieve successfully"),
             console.log("this.snackbarData : ", this.snackbarData);
+                 this.$emit('displayActiveNotesevent')
+               //this.$refs.dashboard.displayAllNotes();
+          }
+        })
+        .catch(
+          error => (this.snackbar.appear = true),
+          (this.snackbar.text = "error while archieve, please try again later")
+        );
+    },
+
+unArchieve() {
+      console.log("unArchieve note");
+      console.log("this.singleNote", this.singleNote);
+      console.log("unArchieve note", this.singleNote._id);
+      const noteInput = {
+        isArchived: false
+      };
+      note
+        .unArchieveNote(noteInput, this.singleNote._id)
+        .then(data => {
+           console.log("res is", data);
+          if (data.data.status_code.status_code == 200) {
+      console.log("note arch")
+             this.snackbarData = {
+              text: "note archieve successfully",
+              timeout: 2500
+            };
+            // (this.snackbar.appear = true),
+            //   (this.snackbar.text = "note archieve successfully"),
+            console.log("this.snackbarData : ", this.snackbarData);
                this.$refs.dashboard.displayAllNotes();
           }
         })
@@ -138,6 +197,7 @@ export default {
           (this.snackbar.text = "error while archieve, please try again later")
         );
     }
+
   }
 };
 </script>

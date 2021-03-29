@@ -11,27 +11,26 @@
 
 <script>
 export default {
-
-   name: 'snackbar',
+  name: "snackbar",
   // props: {
   //   snackbarAppear: Boolean,
   //   text: String,
   //   timeout: String
   // },
   data: () => ({
-  timeout: "",
-  text:"",
-  showSnackbar: false,
+    timeout: "",
+    text: "",
+    showSnackbar: false
   }),
 
-methods: {
-     activateSnackbar(snackbarData) {
-console.log(" activateSnackbar(snackbarData)")
-        this.showSnackbar = true;
-       this.text = snackbarData.text;
-      
-       this.timeout = snackbarData.timeout;
-     }
-   }
+  methods: {
+    activateSnackbar(snackbarData) {
+      console.log(" activateSnackbar(snackbarData)");
+      this.showSnackbar = true;
+      this.text = snackbarData.text;
+
+      this.timeout = snackbarData.timeout;
+    }
+  }
 };
 </script>

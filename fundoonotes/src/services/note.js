@@ -85,7 +85,7 @@ export default {
      * @description  archieveNote the note 
      * @returns the response from api calling methods
      */
-    UnrchieveNote(noteInput, noteId) {
+    unArchieveNote(noteInput, noteId) {
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/unarchive/' + noteId

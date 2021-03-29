@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-layout row wrap>
+    <v-layout class="noteCards" row wrap>
       <v-flex
         v-for="note in trashNotes"
         v-bind:key="note._id"
@@ -45,11 +45,13 @@
               </v-row>
             </v-list-item>
             <v-list-item></v-list-item>
-            <dialogBox :dialog="note.dialog" :options="note" :trash="true" />
+            <dialogBox :dialog.sync="note.dialog == true" @displayTrashNotesevent="displayAllNotes" :options="note" :trash="true" />
+         
+       
           </v-card>
         </v-hover>
       </v-flex>
-       <Snackbar ref="snackbar" />
+       <snackbar ref="snackbar" />
     </v-layout>
   </v-flex>
 </template>
@@ -79,7 +81,8 @@ export default {
 
   methods: {
     displayAllNotes() {
-      return note
+      console.log("inside trash display")
+       note
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
@@ -106,11 +109,12 @@ export default {
                 text: 'Note moved to trash',
                 timeout: 2500
               };
+              this.displayAllNotes()
      console.log(this.snackbarData)
    this.$refs.snackbar.activateSnackbar(snackbarData) ;
 
-          //(this.snackbar.appear = true),
-            // (this.snackbar.text = "note restore successfully"),
+          // (this.snackbar.appear = true),
+          //   (this.snackbar.text = "note restore successfully"),
             // this.close();
              this.displayAllNotes()
         }
@@ -122,3 +126,7 @@ export default {
   },
 } }
 </script>
+
+<style lang="scss" scoped>
+@import url("../scss/noteCards.scss");
+</style>
