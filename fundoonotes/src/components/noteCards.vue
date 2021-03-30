@@ -38,14 +38,18 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import cardIcons from "../components/cardIcons.vue";
-import dialogBox from "./dialogBox.vue";
-import trashNotes from "../components/trashNotes.vue";
+//import note from '../services/note.js';
+import cardIcons from '../components/cardIcons.vue';
+import dialogBox from './dialogBox.vue';
+import trashNotes from '../components/trashNotes.vue';
+
+
+import {mapGetters, mapActions} from "vuex";
+
 export default {
+  name: 'Note',
 
-
-  name: "Note",
+ 
   components: {
     cardIcons,
     dialogBox,
@@ -56,41 +60,54 @@ export default {
    snackbars: Object,  
   },
   data: () => ({
-    allNotes: "",
-    activeNotes: "",
-    passiveNotes: "",
-    result: "",
+    allNotes: '',
+    activeNotes: '',
+    passiveNotes: '',
+    result: '',
     dialog: false,
     snackbar: {
       appear: false,
-      text: "",
+      text: '',
       timeout: 2500
     }
   }),
-
-  mounted() {
-    this.displayAllNotes();
-  },
-  
   methods: {
-    displayAllNotes() {
-       note
-        .getNotes()
-        .then(result => {
-          this.result = result.data.data;
-          this.allNotes = [...this.result].reverse();
-          this.activeNotes = this.allNotes.filter(
+
+...mapActions(["getAllNotes"]),
+
+
+    // displayAllNotes() {
+    //    note
+    //     .getNotes()
+    //     .then(result => {
+    //       this.result = result.data.data;
+    //       this.allNotes = [...this.result].reverse();
+    //       this.activeNotes = this.allNotes.filter(
+    //         note => (note.isDeleted == false && note.isArchived == false)
+    //       );
+    //        console.log(' this.activeNotes',  this.activeNotes);
+    //     })
+    //     .catch(error => {
+    //       console.log('error', error);
+    //     });
+    // },
+    // 
+  },
+ computed : mapGetters(["allNotes"]),
+  // mounted() {
+  //   this.displayAllNotes();
+  // },
+  mounted() {
+  console.log("inside created")
+  this.allNotes = this.getAllNotes();
+ this.activeNotes = this.allNotes.filter(
             note => (note.isDeleted == false && note.isArchived == false)
           );
-           console.log(" this.activeNotes",  this.activeNotes);
-        })
-        .catch(error => {
-          console.log("error", error);
-        });
-    },
-    // 
-  }
-};
+           console.log(' this.activeNotes',  this.activeNotes);
+
+
+}
+  };
 </script>
 <style lang="scss" scoped>
 @import url("../scss/noteCards.scss");

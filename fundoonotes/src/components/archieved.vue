@@ -39,18 +39,18 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import cardIcons from "../components/cardIcons.vue";
+import note from '../services/note.js';
+import cardIcons from '../components/cardIcons.vue';
 
 export default {
-  name: "Archieved",
+  name: 'Archieved',
   components: {
     cardIcons,
   },
   data: () => ({
-    allNotes: "",
-    archievedNotes: "",
-    result: "",
+    allNotes: '',
+    archievedNotes: '',
+    result: '',
     dialog: false,
   }),
 
@@ -63,7 +63,7 @@ export default {
         .getNotes()
         .then((result) => {
           this.result = result.data.data;
-          console.log("data.data", this.result)
+          console.log('data.data', this.result);
           this.allNotes = [...this.result].reverse();
           this.archievedNotes = this.allNotes.filter(
             (note) => note.isArchived == true

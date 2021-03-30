@@ -11,21 +11,16 @@
 
 <script>
 export default {
-  name: "snackbar",
-  // props: {
-  //   snackbarAppear: Boolean,
-  //   text: String,
-  //   timeout: String
-  // },
+  name: 'snackbar',
+
   data: () => ({
-    timeout: "",
-    text: "",
+    timeout: '',
+    text: '',
     showSnackbar: false
   }),
 
   methods: {
     activateSnackbar(snackbarData) {
-      console.log(" activateSnackbar(snackbarData)");
       this.showSnackbar = true;
       this.text = snackbarData.text;
 

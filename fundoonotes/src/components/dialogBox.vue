@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import cardIcons from "./cardIcons";
+import cardIcons from './cardIcons';
 //import trashNotes from "./trashNotes";
-import note from "../services/note.js";
+import note from '../services/note.js';
 
 export default {
 
@@ -81,49 +81,45 @@ export default {
     return {
       snackbar: {
         appear: false,
-        text: "",
+        text: '',
         timeout: 2500,
       },
       editOptions: this.options,
     };
   },
  
-// watch: {
-//     dialog(val) {
-//         val || this.close();
-//     },
-// },
+
 
   methods: {
     close() {
-      console.log("inside close")
+     
       this.dialog = false; 
     },
 deleteForever() {   
-  console.log("delete forever ")
+
       note
         .deleteForever(this.editOptions._id)
         .then((data) => {
           if (data.data.status_code.status_code == 200) {
             (this.snackbar.appear = true),
-              (this.snackbar.text = "note deleted successfully"),
+              (this.snackbar.text = 'note deleted successfully'),
                 this.$emit('displayTrashNotesevent'),
              this.close();
-          //   this.$refs.trashNotes.displayAllNotes()
+        
           }
            
         })
         .catch(
           (error) => 
           (this.snackbar.appear = true),
-          (this.snackbar.text = "error while deleting, please try again later")
+          (this.snackbar.text = 'error while deleting, please try again later')
         );
     },
     onClickOutside() {
-      console.log("onClickOutside start")
+   
       if (this.trash == true) {
-        console.log("trash")
-         this.deleteForever()
+       
+         this.deleteForever();
       }
        else if (this.editOptions.title && this.editOptions.description) {
         const noteInput = {
@@ -133,19 +129,19 @@ deleteForever() {
         note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
-            console.log("this.dialog in dialogbox",this.dialog)
+          
             if (data.data.status_code.status_code == 200) {
               (this.snackbar.appear = true),
-                (this.snackbar.text = "note updated successfully")
-                this.$refs.noteCards.displayAllNotes()
+                (this.snackbar.text = 'note updated successfully');
+                this.$refs.noteCards.displayAllNotes();
                 this.close();
-                   console.log("onClickOutside end")
+                 
             }
           })
           .catch(
             (error) => (this.snackbar.appear = true),
             (this.snackbar.text =
-              "error while updating, please try again later")
+              'error while updating, please try again later')
           );
       }
     },

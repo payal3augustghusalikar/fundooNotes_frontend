@@ -57,20 +57,20 @@
 </template>
 
 <script>
-import note from "../services/note.js";
+import note from '../services/note.js';
 
-import dialogBox from "./dialogBox.vue";
+import dialogBox from './dialogBox.vue';
 
 export default {
-  name: "Trash",
+  name: 'Trash',
   components: {
     dialogBox,
   },
 
   data: () => ({
     IconDialog: false,
-    trashNotes: "",
-    allNotesForTrash: "",
+    trashNotes: '',
+    allNotesForTrash: '',
     trash: true,
     dialog: false,
   }),
@@ -81,7 +81,6 @@ export default {
 
   methods: {
     displayAllNotes() {
-      console.log("inside trash display")
        note
         .getNotes()
         .then((result) => {
@@ -104,27 +103,23 @@ export default {
       .restoreNote(noteId, noteInput)
       .then((data) => {
         if (data.data.status_code.status_code == 200) {
-          console.log(data.data)
+       
           const snackbarData = {
                 text: 'Note moved to trash',
                 timeout: 2500
               };
-              this.displayAllNotes()
-     console.log(this.snackbarData)
+              this.displayAllNotes();
+   
    this.$refs.snackbar.activateSnackbar(snackbarData) ;
-
-          // (this.snackbar.appear = true),
-          //   (this.snackbar.text = "note restore successfully"),
-            // this.close();
-             this.displayAllNotes()
+             this.displayAllNotes();
         }
       })
       .catch(
         (error) => (this.snackbar.appear = true),
-        (this.snackbar.text = "error while restoring, please try again later")
+        (this.snackbar.text = 'error while restoring, please try again later')
       );
   },
-} }
+} };
 </script>
 
 <style lang="scss" scoped>

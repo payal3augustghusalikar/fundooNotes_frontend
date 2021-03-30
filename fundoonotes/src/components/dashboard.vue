@@ -130,12 +130,12 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import sidenavBar from "../components/sidenavBar.vue";
-import cardIcons from "../components/cardIcons.vue";
-import noteCards from "../components/noteCards.vue";
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
 export default {
-  name: "dashboard",
+  name: 'dashboard',
   components: {
     sidenavBar,
     cardIcons,
@@ -153,18 +153,18 @@ export default {
   data: () => ({
     snackbar: {
       appear: false,
-      text: "",
+      text: '',
       timeout: 2500
     },
 
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note...",
+    text: 'take a note...',
     cardHeight: 50,
     isActive: true,
-    allNotes: "",
+    allNotes: '',
     showAddNote: true
   }),
   //   beforeMount() {
@@ -174,25 +174,24 @@ export default {
   //   },
 
   mounted() {
-    console.log("on dashboard");
+  
     this.displayAllNotes();
-    console.log("this.navBarOption on dashboard", this.navBarOption);
+ 
     // this.$refs.childNote.displayAllNotes();
-    //   console.log(" this.snackbars", this.Textappear, this.snackbarText);
-
-    this.$root.$on("eventing", navBarOption => {
-      console.log("showAddNote", navBarOption);
+ 
+    this.$root.$on('eventing', navBarOption => {
+   
       this.showAddNote = navBarOption;
-      console.log("showAddNote", this.showAddNote);
+     
     });
   },
 
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
-      this.title = "";
-      this.description = "";
+      this.text = 'take a note...';
+      this.title = '';
+      this.description = '';
     },
 
     drawer() {
@@ -200,7 +199,7 @@ export default {
     },
 
     displayAllNotes() {
-      console.log("insidde dashboard");
+   
       // this.$refs.childNote.displayAllNotes();
     },
 
@@ -211,15 +210,11 @@ export default {
 
     expandCard() {
       this.showBottomCard = true;
-      this.text = "title";
+      this.text = 'title';
       this.cardHeight = 150;
     },
 
-    //  setDashboardComponent(navBarOption) {
-    //    console.log("setDashboardComponent",this.navBarOption )
-    //       this.showAddNote = this.navBarOption;
-
-    //     },
+   
 
     creatNewNote() {
       let noteData = {
@@ -230,14 +225,14 @@ export default {
         .createNote(noteData)
         .then(result => {
           this.snackbar.appear = true;
-          this.snackbar.text = "note created successfully";
+          this.snackbar.text = 'note created successfully';
 
           this.$refs.childNote.displayAllNotes();
           this.hide();
         })
         .catch(error => {
           this.snackbar.appear = true;
-          this.snackbar.text = "error occured!! please try again!!";
+          this.snackbar.text = 'error occured!! please try again!!';
           this.hide();
         });
     }

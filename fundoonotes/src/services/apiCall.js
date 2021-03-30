@@ -40,7 +40,7 @@ export default {
      * @returns the response from axios methods
      */
     put(userData) {
-        console.log("inside put")
+        console.log('inside put');
         return axios.put(userData.endPoint, userData.userInput, {
             headers: {
                 Authorization: commonHeaders,
