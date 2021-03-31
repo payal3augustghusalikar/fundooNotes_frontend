@@ -1,7 +1,11 @@
 import note from '../../services/note.js';
 
+//namespaced: true,
 const state = {
     notes: [],
+    // text: "",
+    // color: "",
+    // timeout: "",
 
 };
 const getters = {
@@ -20,27 +24,29 @@ const getters = {
             (note.isDeleted == true))
     }
 
-
-    // this.allNotes = [...this.result].reverse();
-    // this.archievedNotes = this.allNotes.filter(
-    //   (note) => note.isArchived == true
-    // );
-    // allNotes: [...this.result].reverse(),
-    // activeNotes: this.allNotes.filter(
-    //     note => (note.isDeleted == false && note.isArchived == false)
-    // ),
-
-
 };
+//...mapActions("snackbar", ["showSnack"]),
 
 const actions = {
+    // showSnack({ commit }, payload) {
+    //     console.log("show snackbar ")
+    //     console.log("payload", payload)
+    //     commit("SHOW_MESSAGE", payload);
+    // },
     getAllNotes({ commit }) {
         console.log("inside get all notes")
         note
             .getNotes()
             .then(result => {
                 this.result = result.data.data;
+
                 commit("setAllNotes", this.result)
+                    // this.showSnack({
+                    //     text: "Successfully Saved!",
+                    //     color: "success",
+                    //     timeout: 3500,
+                    // });
+
             }).catch(error => {
                 console.log("error", error)
             });
@@ -68,12 +74,18 @@ const actions = {
 const mutations = {
     setAllNotes: (state, notes) => (state.notes = notes),
     newNote: (state, noteData) => state.notes.unshift(noteData),
-    trashNote: (state, noteData) => state.notes.unshift(noteData)
+    trashNote: (state, noteData) => state.notes.unshift(noteData),
+    // SHOW_MESSAGE(state, payload) {
+    //     state.text = payload.text;
+    //     state.color = payload.color;
+    //     state.timeout = payload.timeout;
+    // },
 };
 
 export default {
     state,
     getters,
     actions,
-    mutations
+    mutations,
+
 }

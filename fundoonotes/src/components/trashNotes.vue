@@ -74,10 +74,7 @@ export default {
     dialog: false,
   }),
 
-  // mounted() {
-  //   this.displayAllNotes();
-  // },
-
+  
 created() {
     this.getAllNotes();
   },
@@ -91,27 +88,12 @@ created() {
  ...mapActions(["getAllNotes"]),
 
   ...mapActions(["edit"]),
-    
-    // displayAllNotes() {
-    //    note
-    //     .getNotes()
-    //     .then((result) => {
-    //       this.result = result.data.data;
-    //       this.allNotes = [...this.result].reverse();
-    //       this.trashNotes = this.allNotes.filter(
-    //         (note) => note.isDeleted == true
-    //       );
-         
-    //     })
-    //     .catch((error) => {  
-    //        const snackbarData = {
+   
+// const snackbarData = {
     //             text: 'error occured! please try again',
     //             timeout: 2500
     //           };
     //           this.$refs.snackbar.activateSnackbar(snackbarData) ;
-    //     });
-    // },
- 
   restoreNote(noteId) {
     const noteInput = {
       isDeleted: false,

@@ -46,17 +46,13 @@ export default {
   components: {
     cardIcons,
   },
+  
   data: () => ({
     allNotes: '',
     archievedNotes: '',
     result: '',
     dialog: false,
   }),
-
-  // mounted() {
-  //    this.$root.$on("displayActiveNotesevent",  this.displayAllNotes())
-  //   //this.displayAllNotes();
-  // },
 
   created() {
     this.getAllNotes();
@@ -66,23 +62,8 @@ export default {
     ...mapGetters([ "allArchivedNotes"]),
     },
 
-
   methods: {
-
  ...mapActions(["getAllNotes"]),
-
-  //   displayAllNotes() {
-  //     return note
-  //       .getNotes()
-  //       .then((result) => {
-  //         this.result = result.data.data;
-  //         this.allNotes = [...this.result].reverse();
-  //         this.archievedNotes = this.allNotes.filter(
-  //           (note) => note.isArchived == true
-  //         );
-  //       })
-  //       .catch((error) => {});
-  //   },
    },
 };
 </script>

@@ -88,8 +88,9 @@ export default {
  
   methods: {
 
-...mapActions(["trashNote"]),
-
+//...mapActions(["trashNote"],"snackbar", ["showSnack"]),
+...mapActions( ["showSnack"]),
+//...mapActions(["showSnack"]),
     moveToTrash() {
       const noteInput = {
         isDeleted: true
@@ -103,8 +104,7 @@ export default {
               timeout: 2500
             };
             this.$refs.snackbar.activateSnackbar(snackbarData);
-              this.$emit('displayActiveNotesevent');
-            //this.$refs.dashboard.displayAllNotes();
+                  this.getAllNotes()
           } 
         })
         .catch(
@@ -112,7 +112,7 @@ export default {
           (this.Textappear = true)
         );
     },
-...mapActions(["getAllNotes"]),
+//...mapActions(["getAllNotes"]),
     archieve() {
       const noteInput = {
         isArchived: true
@@ -122,15 +122,19 @@ export default {
         .then(data => {
          
           if (data.data.status_code.status_code == 200) {
-   
-             this.snackbarData = {
-              text: 'note archieve successfully',
-              timeout: 2500
-            };
+   console.log("data.data.status_code.status_code", data.data.status_code.status_code)
+            //  this.snackbarData = {
+            //   text: 'note archieve successfully',
+            //   timeout: 2500
+            // };
+             this.showSnack({
+                    text: "Successfully Saved!",
+                    color: "success",
+                    timeout: 3500,
+                });
 
-            this.getAllNotes()
-                 //this.$emit('displayActiveNotesevent');
-               //this.$refs.dashboard.displayAllNotes();
+           // this.getAllNotes()
+               
           }
         })
         .catch(
@@ -148,12 +152,20 @@ unArchieve() {
         .then(data => {
          
           if (data.data.status_code.status_code == 200) {
-   
-             this.snackbarData = {
-              text: 'note archieve successfully',
-              timeout: 2500
-            };
-               this.$refs.dashboard.displayAllNotes();
+    console.log("data.data.status_code.status_code", data.data.status_code.status_code)
+           
+             this.showSnack({
+
+                    text: "Successfully Saved!",
+                    color: "success",
+                    timeout: 3500,
+                });
+
+            //  this.snackbarData = {
+            //   text: 'note archieve successfully',
+            //   timeout: 2500
+            // };
+                 //  this.getAllNotes()
           }
         })
         .catch(

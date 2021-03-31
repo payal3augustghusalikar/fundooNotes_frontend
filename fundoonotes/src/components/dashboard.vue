@@ -116,14 +116,18 @@
               </v-main>
             </v-flex>
           </v-row>
+
+ 
+
           <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
             {{ snackbar.text }}</v-snackbar
           >
-          <snackbar ref="snackbar" />
+         <snackbarNotify />
           <v-snackbar v-model="Textappear" :timeout="2500">
             {{ snackbarText }}</v-snackbar
           >
         </v-card>
+
       </v-app>
     </div>
   </v-flex>
@@ -135,13 +139,14 @@ import sidenavBar from "../components/sidenavBar.vue";
 import cardIcons from "../components/cardIcons.vue";
 import noteCards from "../components/noteCards.vue";
 import { mapGetters, mapActions } from "vuex";
-
+import snackbarNotify from "../components/snackbarNotify.vue";
 export default {
   name: "dashboard",
   components: {
     sidenavBar,
     cardIcons,
-    noteCards
+    noteCards,
+    snackbarNotify
   },
 
   props: {
