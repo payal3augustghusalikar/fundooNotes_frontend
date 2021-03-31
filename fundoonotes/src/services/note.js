@@ -14,8 +14,6 @@ export default {
      * @returns the response from api calling methods
      */
     createNote(data) {
-        console.log("inside createNote", data)
-
         const noteData = {
             userInput: data,
             endPoint: '/notes'
@@ -28,7 +26,6 @@ export default {
      * @returns the response from api calling methods
      */
     getNotes() {
-        console.log("inside getNotes")
         const noteData = {
             endPoint: '/notes'
         };
@@ -52,7 +49,6 @@ export default {
      * @returns the response from api calling methods
      */
     moveToTrash(noteInput, noteId) {
-        console.log('moveToTrash');
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/delete/' + noteId
@@ -76,7 +72,6 @@ export default {
      * @returns the response from api calling methods
      */
     archieveNote(noteInput, noteId) {
-        console.log('inside archive');
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/archive/' + noteId

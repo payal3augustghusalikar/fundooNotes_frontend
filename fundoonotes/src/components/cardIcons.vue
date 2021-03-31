@@ -63,6 +63,7 @@
 <script>
 import note from '../services/note.js';
 import dashboard from './dashboard';
+import { mapGetters, mapActions } from "vuex";
 export default {
 
    name: 'cardIcons',
@@ -73,8 +74,6 @@ export default {
     noteInfo: this.singleNote,
     IconDialog: false,
      snackbarData:'',
-    // Textappear:false
-   
       showAddNote: true
   }),
   mounted() {
@@ -88,12 +87,14 @@ export default {
   },
  
   methods: {
+
+...mapActions(["trashNote"]),
+
     moveToTrash() {
       const noteInput = {
         isDeleted: true
       };
-      note
-        .moveToTrash(noteInput, this.singleNote._id)
+      this.trashNote(noteInput, this.singleNote._id)
         .then(data => {
           if (data.data.status_code.status_code == 200) {
 
@@ -101,19 +102,17 @@ export default {
               text: 'Note moved to trashhhhhhhhhhhh',
               timeout: 2500
             };
-          
             this.$refs.snackbar.activateSnackbar(snackbarData);
               this.$emit('displayActiveNotesevent');
             //this.$refs.dashboard.displayAllNotes();
-          }
-         
+          } 
         })
         .catch(
           (this.snackbarText = 'Note moved to trash '),
           (this.Textappear = true)
         );
     },
-
+...mapActions(["getAllNotes"]),
     archieve() {
       const noteInput = {
         isArchived: true
@@ -128,8 +127,9 @@ export default {
               text: 'note archieve successfully',
               timeout: 2500
             };
-         
-                 this.$emit('displayActiveNotesevent');
+
+            this.getAllNotes()
+                 //this.$emit('displayActiveNotesevent');
                //this.$refs.dashboard.displayAllNotes();
           }
         })
@@ -140,7 +140,6 @@ export default {
     },
 
 unArchieve() {
-   
       const noteInput = {
         isArchived: false
       };
@@ -154,9 +153,6 @@ unArchieve() {
               text: 'note archieve successfully',
               timeout: 2500
             };
-            // (this.snackbar.appear = true),
-            //   (this.snackbar.text = "note archieve successfully"),
-         
                this.$refs.dashboard.displayAllNotes();
           }
         })
@@ -165,7 +161,6 @@ unArchieve() {
           (this.snackbar.text = 'error while archieve, please try again later')
         );
     }
-
   }
 };
 </script>

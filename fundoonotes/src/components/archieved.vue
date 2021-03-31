@@ -2,8 +2,7 @@
   <v-flex>
     <v-layout class="noteCards" row wrap>
       <v-flex
-       v-for="note in archievedNotes"
-      
+       v-for="note in allArchivedNotes"
         v-bind:key="note._id"
         md3
         class="mr-5 mb-5"
@@ -27,7 +26,6 @@
               :singleNote="note"
             />
             <v-list-item></v-list-item>
-           
           </v-card>
         </v-hover>
        
@@ -41,6 +39,7 @@
 <script>
 import note from '../services/note.js';
 import cardIcons from '../components/cardIcons.vue';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: 'Archieved',
@@ -54,24 +53,37 @@ export default {
     dialog: false,
   }),
 
-  mounted() {
-    this.displayAllNotes();
+  // mounted() {
+  //    this.$root.$on("displayActiveNotesevent",  this.displayAllNotes())
+  //   //this.displayAllNotes();
+  // },
+
+  created() {
+    this.getAllNotes();
   },
-  methods: {
-    displayAllNotes() {
-      return note
-        .getNotes()
-        .then((result) => {
-          this.result = result.data.data;
-          console.log('data.data', this.result);
-          this.allNotes = [...this.result].reverse();
-          this.archievedNotes = this.allNotes.filter(
-            (note) => note.isArchived == true
-          );
-        })
-        .catch((error) => {});
+
+  computed: {
+    ...mapGetters([ "allArchivedNotes"]),
     },
-  },
+
+
+  methods: {
+
+ ...mapActions(["getAllNotes"]),
+
+  //   displayAllNotes() {
+  //     return note
+  //       .getNotes()
+  //       .then((result) => {
+  //         this.result = result.data.data;
+  //         this.allNotes = [...this.result].reverse();
+  //         this.archievedNotes = this.allNotes.filter(
+  //           (note) => note.isArchived == true
+  //         );
+  //       })
+  //       .catch((error) => {});
+  //   },
+   },
 };
 </script>
 

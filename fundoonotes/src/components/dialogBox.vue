@@ -54,7 +54,6 @@
       {{ snackbar.text }}</v-snackbar
     >
     <noteCards v-show="false" ref="noteCards" />
-   
   </v-layout>
 </template>
 
@@ -62,6 +61,7 @@
 import cardIcons from './cardIcons';
 //import trashNotes from "./trashNotes";
 import note from '../services/note.js';
+
 
 export default {
 
@@ -88,15 +88,12 @@ export default {
     };
   },
  
-
-
   methods: {
     close() {
-     
       this.dialog = false; 
     },
-deleteForever() {   
 
+deleteForever() {   
       note
         .deleteForever(this.editOptions._id)
         .then((data) => {
@@ -105,9 +102,7 @@ deleteForever() {
               (this.snackbar.text = 'note deleted successfully'),
                 this.$emit('displayTrashNotesevent'),
              this.close();
-        
-          }
-           
+          }    
         })
         .catch(
           (error) => 
@@ -117,9 +112,7 @@ deleteForever() {
     },
 
     onClickOutside() {
-   
       if (this.trash == true) {
-       
          this.deleteForever();
       }
        else if (this.editOptions.title && this.editOptions.description) {
@@ -144,9 +137,7 @@ deleteForever() {
               'error while updating, please try again later')
           );
       }
-    },
-
-    
+    },  
   },
 };
 </script>

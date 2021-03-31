@@ -23,7 +23,6 @@ export default {
     activateSnackbar(snackbarData) {
       this.showSnackbar = true;
       this.text = snackbarData.text;
-
       this.timeout = snackbarData.timeout;
     }
   }

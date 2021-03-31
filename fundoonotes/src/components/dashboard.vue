@@ -145,9 +145,9 @@ export default {
   },
 
   props: {
-    // navBarOption: {
-    //   default: true
-    // },
+    navBarOption: {
+      default: true
+    },
     Textappear: Boolean,
     snackbarText: String
   },
@@ -167,27 +167,17 @@ export default {
     cardHeight: 50,
     isActive: true,
     allNotes: "",
-    showAddNote: true
+    showAddNote: false
   }),
-  //   beforeMount() {
-  //     this.navBarOption;
-  //     console.log("this.navBarOption", this.navBarOption);
-  //     // this.displayAllNotes();
-  //   },
-
+ 
   mounted() {
     this.displayAllNotes();
-
-    // this.$refs.childNote.displayAllNotes();
-
-    this.$root.$on("eventing", navBarOption => {
+    this.$root.$on("navBarRendering", navBarOption => {
       this.showAddNote = navBarOption;
     });
   },
 
   methods: {
-  
-
     resetCard: function() {
       this.cardHeight = 50;
       this.text = "take a note...";
@@ -215,30 +205,13 @@ export default {
     },
   ...mapActions(["addNote"]),
     creatNewNote() {
-      console.log("inside create")
       let noteData = {
         title: this.title,
         description: this.description
       };
       this.addNote(noteData);
-      this.$refs.childNote.displayAllNotes();
+     // this.$refs.childNote.displayAllNotes();
       this.hide();
-
-      //   note
-      //     .createNote(noteData)
-      //     .then(result => {
-      //       this.snackbar.appear = true;
-      //       this.snackbar.text = 'note created successfully';
-
-      //  this.$refs.childNote.displayAllNotes();
-      //  this.hide();
-      //     })
-      //     .catch(error => {
-      //       this.snackbar.appear = true;
-      //       this.snackbar.text = 'error occured!! please try again!!';
-      //       this.hide();
-      //     });
-      // }
     }
   }
 };

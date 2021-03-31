@@ -1,11 +1,12 @@
 <template>
   <v-flex>
-    <v-layout class="noteCards" row wrap>
+    <v-layout class="noteCards row wrap" style="overflow:auto">
+   
       <v-flex
-        v-for="note in allNotes"
+        v-for="note in allActiveNotes"
         v-bind:key="note._id"
         md3
-        class="mr-5 mb-5"
+        class="mr-5 mb-5" 
       >
         <v-hover v-slot="{ hover }">
           <v-card
@@ -34,7 +35,8 @@
             <dialogBox :dialog.sync="note.dialog == true" :options="note" />
           </v-card>
         </v-hover>
-      </v-flex>
+     
+       </v-flex>
     </v-layout>
     <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
       {{ snackbar.text }}</v-snackbar
@@ -44,11 +46,9 @@
 </template>
 
 <script>
-//import note from '../services/note.js';
 import cardIcons from "../components/cardIcons.vue";
 import dialogBox from "./dialogBox.vue";
 import trashNotes from "../components/trashNotes.vue";
-
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -77,29 +77,14 @@ export default {
 
   methods: {
     ...mapActions(["getAllNotes"]),
-    
-    // displayAllNotes() {
-    //   this.getAllNotes();
-    //   console.log("allNotes", this.allNotes)
-    // }
   },
-// ...mapGetters([
-// 'allNotes',
-// ])
+
   created() {
     this.getAllNotes();
-     console.log("allNotes1", this.allNotes)
   },
 
-
-  // this.allNotes1 = [...this.allNotes].reverse();
-  //         this.activeNotes = this.allNotes1.filter(
-  //           note => (note.isDeleted == false && note.isArchived == false)
-  //         );
-
-
   computed: {
-    ...mapGetters([ "allNotes"]),
+    ...mapGetters([ "allActiveNotes"]),
     }
 };
 </script>

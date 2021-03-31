@@ -2,14 +2,14 @@
   <v-flex>
     <v-layout class="noteCards" row wrap>
       <v-flex
-        v-for="note in trashNotes"
+        v-for="note in allTrashNotes"
         v-bind:key="note._id"
         md3
         class="mr-5 mb-10"
       >
         <v-hover v-slot="{ hover }">
           <v-card
-            class="mx-auto v-list"
+            class="mx-auto v-list  singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
           >
@@ -56,8 +56,9 @@
 
 <script>
 import note from '../services/note.js';
-
+import { mapGetters, mapActions } from "vuex";
 import dialogBox from './dialogBox.vue';
+
 
 export default {
   name: 'Trash',
@@ -73,54 +74,49 @@ export default {
     dialog: false,
   }),
 
-  mounted() {
-    this.displayAllNotes();
+  // mounted() {
+  //   this.displayAllNotes();
+  // },
+
+created() {
+    this.getAllNotes();
   },
 
-  methods: {
-    displayAllNotes() {
-       note
-        .getNotes()
-        .then((result) => {
-          this.result = result.data.data;
-          this.allNotes = [...this.result].reverse();
-          this.trashNotes = this.allNotes.filter(
-            (note) => note.isDeleted == true
-          );
-         
-        })
-        .catch((error) => {  
-           const snackbarData = {
-                text: 'error occured! please try again',
-                timeout: 2500
-              };
-              this.$refs.snackbar.activateSnackbar(snackbarData) ;
-        });
+  computed: {
+    ...mapGetters([ "allTrashNotes"]),
     },
+
+  methods: {
+
+ ...mapActions(["getAllNotes"]),
+
+  ...mapActions(["edit"]),
+    
+    // displayAllNotes() {
+    //    note
+    //     .getNotes()
+    //     .then((result) => {
+    //       this.result = result.data.data;
+    //       this.allNotes = [...this.result].reverse();
+    //       this.trashNotes = this.allNotes.filter(
+    //         (note) => note.isDeleted == true
+    //       );
+         
+    //     })
+    //     .catch((error) => {  
+    //        const snackbarData = {
+    //             text: 'error occured! please try again',
+    //             timeout: 2500
+    //           };
+    //           this.$refs.snackbar.activateSnackbar(snackbarData) ;
+    //     });
+    // },
  
   restoreNote(noteId) {
     const noteInput = {
       isDeleted: false,
     };
-    note
-      .restoreNote(noteId, noteInput)
-      .then((data) => {
-        if (data.data.status_code.status_code == 200) {
-       
-          const snackbarData = {
-                text: 'Note moved to trash',
-                timeout: 2500
-              };
-           
-   this.$refs.snackbar.activateSnackbar(snackbarData) ;
-             this.displayAllNotes();
-        }
-      })
-      .catch(
-        (error) => (this.snackbar.appear = true),
-        (this.snackbar.text = 'error while restoring, please try again later')
-      );
-  },
+   },
 } };
 </script>
 

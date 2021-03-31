@@ -71,20 +71,14 @@ export default {
   methods: {
     goToItem(item) {
       if (item.title == 'Trash' || item.title == 'Archieved') {
-        
         this.navBarOption = false;
-        if (item.title == 'Archieved') {
-         
+        if (item.title == 'Archieved') { 
              this.$root.$emit('archieved', this.navBarOption);
         }
-    
-        //this.$refs.dashboard.setDashboardComponent(this.navBarOption)
-        this.$root.$emit('eventing', this.navBarOption);
-        
+        this.$root.$emit('navBarRendering', this.navBarOption);
       } else {
         console.log('this is xcep trash and archieved');
       }
-
       this.$router.push({
         name: item.title
       });
