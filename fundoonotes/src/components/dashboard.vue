@@ -7,12 +7,10 @@
             <v-col>
               <v-app-bar color="white" class="main-bar" fixed elevation="1">
                 <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
-
                 <span class="FundooNotes_img">
                   <img src="../assets/googleKeep.png" />
                 </span>
                 <v-toolbar-title>FundooNotess</v-toolbar-title>
-
                 <div id="top-search-bar">
                   <v-text-field
                     label="Search"
@@ -116,9 +114,6 @@
               </v-main>
             </v-flex>
           </v-row>
-
- 
-
           <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
             {{ snackbar.text }}</v-snackbar
           >

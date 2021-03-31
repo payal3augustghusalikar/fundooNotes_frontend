@@ -1,7 +1,7 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="400" min-height="200">
-      <v-card >
+      <v-card v-click-outside="onClickOutside">
         <v-card-text>
           <v-form >
        <br />
@@ -121,7 +121,7 @@ deleteForever() {
           title: this.editOptions.title,
           description: this.editOptions.description,
         };
-        note
+       return note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
             if (data.data.status_code.status_code == 200) {

@@ -45,56 +45,80 @@
               </v-row>
             </v-list-item>
             <v-list-item></v-list-item>
-            <dialogBox :dialog.sync="note.dialog == true" @displayTrashNotesevent="displayAllNotes" :options="note" :trash="true" />
+            <dialogBox
+              :dialog.sync="note.dialog == true"
+              @displayTrashNotesevent="displayAllNotes"
+              :options="note"
+              :trash="true"
+            />
           </v-card>
         </v-hover>
       </v-flex>
-       <snackbar ref="snackbar" />
+      <snackbar ref="snackbar" />
     </v-layout>
   </v-flex>
 </template>
 
 <script>
-import note from '../services/note.js';
+import note from "../services/note.js";
 import { mapGetters, mapActions } from "vuex";
-import dialogBox from './dialogBox.vue';
-
+import dialogBox from "./dialogBox.vue";
 
 export default {
-  name: 'Trash',
+  name: "Trash",
   components: {
-    dialogBox,
+    dialogBox
   },
 
   data: () => ({
     IconDialog: false,
-    trashNotes: '',
-    allNotesForTrash: '',
+    trashNotes: "",
+    allNotesForTrash: "",
     trash: true,
-    dialog: false,
+    dialog: false
   }),
 
-  
-created() {
+  created() {
     this.getAllNotes();
   },
 
   computed: {
-    ...mapGetters([ "allTrashNotes"]),
-    },
+    ...mapGetters(["allTrashNotes"])
+  },
 
   methods: {
-
- ...mapActions(["getAllNotes"]),
-
-  ...mapActions(["edit"]),
    
-  restoreNote(noteId) {
-    const noteInput = {
-      isDeleted: false,
-    };
-   },
-} };
+  ...mapActions(["showSnack", "getAllNotes"]),
+    restoreNote(noteId) {
+      const noteInput = {
+        isDeleted: false
+      };
+      note
+        .restoreNote(noteId, noteInput)
+        .then(data => {
+          console.log("data", data.data.status_code.status_code == 200)
+          if (data.data.status_code.status_code == 200) {
+
+             this.showSnack({
+              text: "Successfully Restored!",
+              timeout: 3500
+            });
+            this.getAllNotes();
+          }else{this.showSnack({
+            text: "Error, please try again later!",
+            timeout: 3500
+          })}
+           
+        })
+        .catch(
+          this.showSnack({
+            text: "Error, please try again later!",
+            timeout: 3500
+          })
+        );
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

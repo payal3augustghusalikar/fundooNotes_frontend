@@ -1,11 +1,8 @@
-//namespaced: true,
 const state = {
     text: "",
     color: "",
     timeout: "",
 };
-
-//...mapActions("snackbar", ["showSnack"]),
 
 const actions = {
     showSnack({ commit }, payload) {

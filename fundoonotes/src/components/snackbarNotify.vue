@@ -20,12 +20,34 @@ export default {
       timeout: 0
     };
   },
-  created() {
+
+
+  methods: {
+    reset() {
+      console.log("reset")
+return {
+      show: false,
+      text: "",
+      timeout: 0
+    };
+    }
+  },
+
+mounted() {
     this.$store.subscribe((mutation, state) => {
       this.text = state.snackBar.text;
         this.timeout = state.snackBar.timeout;
         this.show = true;
+        this.reset()
     });
-  }
+  },
+
+  // created() {
+  //   this.$store.subscribe((mutation, state) => {
+  //     this.text = state.snackBar.text;
+  //       this.timeout = state.snackBar.timeout;
+  //       this.show = true;
+  //   });
+  // }
 };
 </script>

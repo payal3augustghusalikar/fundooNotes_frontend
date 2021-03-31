@@ -83,32 +83,13 @@ export default {
   },
 
   methods: {
-   
-    ...mapActions(["showSnack", "getAllNotes"]),
-   
-    moveToTrash() {
-      const noteInput = {
-        isDeleted: true
-      };
-      this.trashNote(noteInput, this.singleNote._id)
-        .then(data => {
-          if (data.data.status_code.status_code == 200) {
-          
-            this.showSnack({
-              text: "Moved to trash!",
-             
-              timeout: 3500
-            });
-
-            this.getAllNotes();
-            }
-        })
-        .catch(
-          (this.snackbarText = "Note moved to trash "),
-          (this.Textappear = true)
-        );
-    },
+    ...mapActions(["showSnack", "getAllNotes", "trashNote"]),
   
+    moveToTrash() {
+      console.log("this.singleNote._id", this.singleNote._id)
+      this.trashNote( this.singleNote._id).then( this.getAllNotes())
+    },
+   
     archieve() {
       const noteInput = {
         isArchived: true
@@ -123,6 +104,10 @@ export default {
             });
             this.getAllNotes();
           }
+           this.showSnack({
+            text: "Error, please try again later!",
+            timeout: 3500
+          })
         })
         .catch(
           error => this.showSnack({
@@ -139,6 +124,7 @@ export default {
       note
         .unArchieveNote(noteInput, this.singleNote._id)
         .then(data => {
+          
           if (data.data.status_code.status_code == 200) {
             this.showSnack({
               text: "note unarchieve successfully",
@@ -146,6 +132,10 @@ export default {
             });
             this.getAllNotes();
           }
+           this.showSnack({
+            text: "Error, please try again later!",
+            timeout: 3500
+          })
         })
         .catch(
            error => this.showSnack({
