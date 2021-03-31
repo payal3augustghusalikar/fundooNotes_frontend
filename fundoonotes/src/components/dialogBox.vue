@@ -50,25 +50,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
-      {{ snackbar.text }}</v-snackbar
-    >
-    <noteCards v-show="false" ref="noteCards" />
+   
+   
   </v-layout>
 </template>
 
 <script>
 import cardIcons from './cardIcons';
-//import trashNotes from "./trashNotes";
-import note from '../services/note.js';
 
+import note from '../services/note.js';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
 
    name: 'dialogBox',
   components: {
     cardIcons,
-   // trashNotes
+  
   },
   props: {
     dialog: {
@@ -79,16 +77,14 @@ export default {
   },
   data() {
     return {
-      snackbar: {
-        appear: false,
-        text: '',
-        timeout: 2500,
-      },
       editOptions: this.options,
     };
   },
  
+
   methods: {
+   ...mapActions(["showSnack", "getAllNotes"]),
+
     close() {
       this.dialog = false; 
     },
@@ -98,16 +94,21 @@ deleteForever() {
         .deleteForever(this.editOptions._id)
         .then((data) => {
           if (data.data.status_code.status_code == 200) {
-            (this.snackbar.appear = true),
-              (this.snackbar.text = 'note deleted successfully'),
-                this.$emit('displayTrashNotesevent'),
-             this.close();
-          }    
+             this.showSnack({
+              text: "Deleted Forever!",
+              timeout: 3500
+            })
+            this.getAllNotes();
+            }
+             this.close();     
         })
         .catch(
           (error) => 
-          (this.snackbar.appear = true),
-          (this.snackbar.text = 'error while deleting, please try again later')
+          this.showSnack({
+              text: "Error, Please try again!",
+              timeout: 3500
+            }),
+             this.close()    
         );
     },
 
@@ -123,19 +124,22 @@ deleteForever() {
         note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
-          
             if (data.data.status_code.status_code == 200) {
-              (this.snackbar.appear = true),
-                (this.snackbar.text = 'note updated successfully');
-                this.$refs.noteCards.displayAllNotes();
-                this.close();      
+             this.showSnack({
+              text: "Successfully updated!",
+              timeout: 3500
+            })
+            this.getAllNotes();
+              this.close()    
             }
           })
           .catch(
-            (error) => (this.snackbar.appear = true),
-            (this.snackbar.text =
-              'error while updating, please try again later')
-          );
+            (error) =>  this.showSnack({
+               text: "Error, Please try again!",
+              timeout: 3500
+            }),
+              this.close()    
+          )
       }
     },  
   },

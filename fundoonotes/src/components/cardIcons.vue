@@ -20,16 +20,16 @@
         <span> Change color</span>
       </v-tooltip>
 
-      <v-tooltip v-if="singleNote.isArchived==false" bottom>
+      <v-tooltip v-if="singleNote.isArchived == false" bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-icon  v-bind="attrs" v-on="on" @click="archieve"
+          <v-icon v-bind="attrs" v-on="on" @click="archieve"
             >mdi-download-outline</v-icon
           >
         </template>
         <span>Archieve</span>
       </v-tooltip>
 
-<v-tooltip v-if="singleNote.isArchived==true" bottom>
+      <v-tooltip v-if="singleNote.isArchived == true" bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-icon v-bind="attrs" v-on="on" @click="unArchieve"
             >mdi-download-outline mdi-rotate-180"</v-icon
@@ -54,45 +54,38 @@
           <v-list-item v-on="on">Add label</v-list-item>
         </v-list>
       </v-menu>
-      <dashboard v-show="false" ref="dashboard" />
-      <snackbar ref="snackbar" />
+    
+    
     </v-group>
   </div>
 </template>
 
 <script>
-import note from '../services/note.js';
-import dashboard from './dashboard';
+import note from "../services/note.js";
 import { mapGetters, mapActions } from "vuex";
 export default {
-
-   name: 'cardIcons',
+  name: "cardIcons",
   components: {
-    dashboard
+    
   },
- data: () => ({
+  data: () => ({
     noteInfo: this.singleNote,
     IconDialog: false,
-     snackbarData:'',
-      showAddNote: true
+    showAddNote: true
   }),
   mounted() {
- this.$root.$on('archieved', navBarOption => { 
+    this.$root.$on("archieved", navBarOption => {
       this.showAddNote = navBarOption;
     });
-
   },
   props: {
     singleNote: Object
   },
- 
-  methods: {
 
-//...mapActions(["trashNote"],"snackbar", ["showSnack"]),
-...mapActions({showSnack: ["showSnack"],
-getAllNotes:["getAllNotes"]
-}),
-//...mapActions(["showSnack"]),
+  methods: {
+   
+    ...mapActions(["showSnack", "getAllNotes"]),
+   
     moveToTrash() {
       const noteInput = {
         isDeleted: true
@@ -100,21 +93,22 @@ getAllNotes:["getAllNotes"]
       this.trashNote(noteInput, this.singleNote._id)
         .then(data => {
           if (data.data.status_code.status_code == 200) {
+          
+            this.showSnack({
+              text: "Moved to trash!",
+             
+              timeout: 3500
+            });
 
-            const snackbarData = {
-              text: 'Note moved to trashhhhhhhhhhhh',
-              timeout: 2500
-            };
-            this.$refs.snackbar.activateSnackbar(snackbarData);
-                  this.getAllNotes()
-          } 
+            this.getAllNotes();
+            }
         })
         .catch(
-          (this.snackbarText = 'Note moved to trash '),
+          (this.snackbarText = "Note moved to trash "),
           (this.Textappear = true)
         );
     },
-//...mapActions(["getAllNotes"]),
+  
     archieve() {
       const noteInput = {
         isArchived: true
@@ -122,49 +116,43 @@ getAllNotes:["getAllNotes"]
       note
         .archieveNote(noteInput, this.singleNote._id)
         .then(data => {
-         
-          if (data.data.status_code.status_code == 200) {   
-             this.showSnack({
-                    text: "Successfully Saved!",
-                    color: "success",
-                    timeout: 3500,
-                });
-
-            this.getAllNotes()
-               
+          if (data.data.status_code.status_code == 200) {
+            this.showSnack({
+              text: "Successfully Archieved!",
+              timeout: 3500
+            });
+            this.getAllNotes();
           }
         })
         .catch(
-          error => (this.snackbar.appear = true),
-          (this.snackbar.text = 'error while archieve, please try again later')
-        );
+          error => this.showSnack({
+              text: "Error, Please try again!",           
+              timeout: 3500
+            })
+        )
     },
 
-unArchieve() {
+    unArchieve() {
       const noteInput = {
         isArchived: false
       };
       note
         .unArchieveNote(noteInput, this.singleNote._id)
         .then(data => {
-         
           if (data.data.status_code.status_code == 200) {
-    console.log("data.data.status_code.status_code", data.data.status_code.status_code)
-           
-             this.showSnack({
-
-                    text: 'note unarchieve successfully',
-                   
-                    timeout: 3500,
-                });
-
-                  this.getAllNotes()
+            this.showSnack({
+              text: "note unarchieve successfully",
+              timeout: 3500
+            });
+            this.getAllNotes();
           }
         })
         .catch(
-          error => (this.snackbar.appear = true),
-          (this.snackbar.text = 'error while archieve, please try again later')
-        );
+           error => this.showSnack({
+              text: "Error, Please try again!",           
+              timeout: 3500
+            })
+        )
     }
   }
 };
