@@ -39,34 +39,51 @@ const actions = {
             .getNotes()
             .then(result => {
                 this.result = result.data.data;
-
+                commit("SHOW_MESSAGE", {
+                    text: "Retrived all Notes",
+                    timeout: 2000
+                });
                 commit("setAllNotes", this.result)
-                    // this.showSnack({
-                    //     text: "Successfully Saved!",
-                    //     color: "success",
-                    //     timeout: 3500,
-                    // });
 
             }).catch(error => {
-                console.log("error", error)
+                commit("SHOW_MESSAGE", {
+                    text: "Error while Retriving Notes",
+                    timeout: 2000
+                });
+
             });
     },
 
     addNote({ commit }, noteData) {
         note.createNote(noteData).then(result => {
             this.result = result.data.data;
+            commit("SHOW_MESSAGE", {
+                text: "Successfully added new Note",
+                timeout: 2000
+            });
             commit("newNote", this.result)
         }).catch(error => {
-            console.log("error", error)
+            commit("SHOW_MESSAGE", {
+                text: "Error adding new Note",
+                timeout: 2000
+            });
+
         });
     },
 
     trashNote({ commit }, noteData, id) {
         note.moveToTrash(noteData, id).then(result => {
             this.result = result.data.data;
+            commit("SHOW_MESSAGE", {
+                text: "Moved To trash",
+                timeout: 2000
+            });
             commit("trash", this.result)
         }).catch(error => {
-            console.log("error", error)
+            commit("SHOW_MESSAGE", {
+                text: "Error, please try again!",
+                timeout: 2000
+            });
         });
     }
 };

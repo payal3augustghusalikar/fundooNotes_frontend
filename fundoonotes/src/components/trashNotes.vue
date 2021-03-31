@@ -89,11 +89,6 @@ created() {
 
   ...mapActions(["edit"]),
    
-// const snackbarData = {
-    //             text: 'error occured! please try again',
-    //             timeout: 2500
-    //           };
-    //           this.$refs.snackbar.activateSnackbar(snackbarData) ;
   restoreNote(noteId) {
     const noteInput = {
       isDeleted: false,

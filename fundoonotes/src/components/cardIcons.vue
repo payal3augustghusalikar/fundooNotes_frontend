@@ -89,7 +89,9 @@ export default {
   methods: {
 
 //...mapActions(["trashNote"],"snackbar", ["showSnack"]),
-...mapActions( ["showSnack"]),
+...mapActions({showSnack: ["showSnack"],
+getAllNotes:["getAllNotes"]
+}),
 //...mapActions(["showSnack"]),
     moveToTrash() {
       const noteInput = {
@@ -121,19 +123,14 @@ export default {
         .archieveNote(noteInput, this.singleNote._id)
         .then(data => {
          
-          if (data.data.status_code.status_code == 200) {
-   console.log("data.data.status_code.status_code", data.data.status_code.status_code)
-            //  this.snackbarData = {
-            //   text: 'note archieve successfully',
-            //   timeout: 2500
-            // };
+          if (data.data.status_code.status_code == 200) {   
              this.showSnack({
                     text: "Successfully Saved!",
                     color: "success",
                     timeout: 3500,
                 });
 
-           // this.getAllNotes()
+            this.getAllNotes()
                
           }
         })
@@ -156,16 +153,12 @@ unArchieve() {
            
              this.showSnack({
 
-                    text: "Successfully Saved!",
-                    color: "success",
+                    text: 'note unarchieve successfully',
+                   
                     timeout: 3500,
                 });
 
-            //  this.snackbarData = {
-            //   text: 'note archieve successfully',
-            //   timeout: 2500
-            // };
-                 //  this.getAllNotes()
+                  this.getAllNotes()
           }
         })
         .catch(
