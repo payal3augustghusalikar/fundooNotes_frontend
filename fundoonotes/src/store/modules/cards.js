@@ -9,21 +9,31 @@ const getters = {
 
 const actions = {
     getAllNotes({ commit }) {
-        console.log("inside getAllNotes")
         note
             .getNotes()
             .then(result => {
                 this.result = result.data.data;
-                return allNotes = [...this.result].reverse();
-
+                // const allNotes = [...this.result].reverse();
+                commit("setAllNotes", this.result)
             })
-        commit("setAllNotes", this.allNotes)
+    },
+
+
+
+    addNote({ commit }, noteData) {
+        console.log("inside addNote")
+        note.createNote(noteData).then(result => {
+            this.result = result.data.data;
+            console.log(" this.result ", this.result)
+                // const allNotes = [...this.result].reverse();
+            commit("newNote", this.result)
+        })
     }
 };
+
 const mutations = {
-
-    setAllNotes: (state, notes) => (state.notes = notes)
-
+    setAllNotes: (state, notes) => (state.notes = notes),
+    newNote: (state, noteData) => state.notes.unshift(noteData)
 };
 
 export default {

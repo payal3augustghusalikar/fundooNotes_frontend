@@ -115,6 +115,7 @@ deleteForever() {
           (this.snackbar.text = 'error while deleting, please try again later')
         );
     },
+
     onClickOutside() {
    
       if (this.trash == true) {
@@ -134,8 +135,7 @@ deleteForever() {
               (this.snackbar.appear = true),
                 (this.snackbar.text = 'note updated successfully');
                 this.$refs.noteCards.displayAllNotes();
-                this.close();
-                 
+                this.close();      
             }
           })
           .catch(

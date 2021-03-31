@@ -14,6 +14,8 @@ export default {
      * @returns the response from api calling methods
      */
     createNote(data) {
+        console.log("inside createNote", data)
+
         const noteData = {
             userInput: data,
             endPoint: '/notes'
@@ -26,6 +28,7 @@ export default {
      * @returns the response from api calling methods
      */
     getNotes() {
+        console.log("inside getNotes")
         const noteData = {
             endPoint: '/notes'
         };

@@ -130,12 +130,14 @@
 </template>
 
 <script>
-import note from '../services/note.js';
-import sidenavBar from '../components/sidenavBar.vue';
-import cardIcons from '../components/cardIcons.vue';
-import noteCards from '../components/noteCards.vue';
+import note from "../services/note.js";
+import sidenavBar from "../components/sidenavBar.vue";
+import cardIcons from "../components/cardIcons.vue";
+import noteCards from "../components/noteCards.vue";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
-  name: 'dashboard',
+  name: "dashboard",
   components: {
     sidenavBar,
     cardIcons,
@@ -153,18 +155,18 @@ export default {
   data: () => ({
     snackbar: {
       appear: false,
-      text: '',
+      text: "",
       timeout: 2500
     },
 
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     showIconName: true,
     showBottomCard: false,
-    text: 'take a note...',
+    text: "take a note...",
     cardHeight: 50,
     isActive: true,
-    allNotes: '',
+    allNotes: "",
     showAddNote: true
   }),
   //   beforeMount() {
@@ -174,24 +176,23 @@ export default {
   //   },
 
   mounted() {
-  
     this.displayAllNotes();
- 
+
     // this.$refs.childNote.displayAllNotes();
- 
-    this.$root.$on('eventing', navBarOption => {
-   
+
+    this.$root.$on("eventing", navBarOption => {
       this.showAddNote = navBarOption;
-     
     });
   },
 
   methods: {
+  
+
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = 'take a note...';
-      this.title = '';
-      this.description = '';
+      this.text = "take a note...";
+      this.title = "";
+      this.description = "";
     },
 
     drawer() {
@@ -199,8 +200,7 @@ export default {
     },
 
     displayAllNotes() {
-   
-      // this.$refs.childNote.displayAllNotes();
+      this.$refs.childNote.displayAllNotes();
     },
 
     hide: function() {
@@ -210,31 +210,35 @@ export default {
 
     expandCard() {
       this.showBottomCard = true;
-      this.text = 'title';
+      this.text = "title";
       this.cardHeight = 150;
     },
-
-   
-
+  ...mapActions(["addNote"]),
     creatNewNote() {
+      console.log("inside create")
       let noteData = {
         title: this.title,
         description: this.description
       };
-      note
-        .createNote(noteData)
-        .then(result => {
-          this.snackbar.appear = true;
-          this.snackbar.text = 'note created successfully';
+      this.addNote(noteData);
+      this.$refs.childNote.displayAllNotes();
+      this.hide();
 
-          this.$refs.childNote.displayAllNotes();
-          this.hide();
-        })
-        .catch(error => {
-          this.snackbar.appear = true;
-          this.snackbar.text = 'error occured!! please try again!!';
-          this.hide();
-        });
+      //   note
+      //     .createNote(noteData)
+      //     .then(result => {
+      //       this.snackbar.appear = true;
+      //       this.snackbar.text = 'note created successfully';
+
+      //  this.$refs.childNote.displayAllNotes();
+      //  this.hide();
+      //     })
+      //     .catch(error => {
+      //       this.snackbar.appear = true;
+      //       this.snackbar.text = 'error occured!! please try again!!';
+      //       this.hide();
+      //     });
+      // }
     }
   }
 };

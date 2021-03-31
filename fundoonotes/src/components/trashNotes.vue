@@ -46,8 +46,6 @@
             </v-list-item>
             <v-list-item></v-list-item>
             <dialogBox :dialog.sync="note.dialog == true" @displayTrashNotesevent="displayAllNotes" :options="note" :trash="true" />
-         
-       
           </v-card>
         </v-hover>
       </v-flex>
@@ -92,6 +90,11 @@ export default {
          
         })
         .catch((error) => {  
+           const snackbarData = {
+                text: 'error occured! please try again',
+                timeout: 2500
+              };
+              this.$refs.snackbar.activateSnackbar(snackbarData) ;
         });
     },
  
@@ -108,8 +111,7 @@ export default {
                 text: 'Note moved to trash',
                 timeout: 2500
               };
-              this.displayAllNotes();
-   
+           
    this.$refs.snackbar.activateSnackbar(snackbarData) ;
              this.displayAllNotes();
         }
