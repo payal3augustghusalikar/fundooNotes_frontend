@@ -15,7 +15,7 @@ Vue.use(Router);
 
 function lazyLoad(view) {
     return () =>
-        import (`@/components/${view}.vue`)
+        import (`@/components/${view}.vue`);
 }
 
 export default new Router({

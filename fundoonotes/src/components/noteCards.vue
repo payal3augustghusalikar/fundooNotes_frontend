@@ -28,7 +28,6 @@
             <v-list-item></v-list-item>
             <cardIcons
               v-show="hover == true"
-              @displayActiveNotesevent="displayAllNotes"
               :singleNote="note"
             />
             <v-list-item></v-list-item>
@@ -46,13 +45,13 @@
 </template>
 
 <script>
-import cardIcons from "../components/cardIcons.vue";
-import dialogBox from "./dialogBox.vue";
-import trashNotes from "../components/trashNotes.vue";
-import { mapGetters, mapActions } from "vuex";
+import cardIcons from '../components/cardIcons.vue';
+import dialogBox from './dialogBox.vue';
+import trashNotes from '../components/trashNotes.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: "Note",
+  name: 'Note',
   components: {
     cardIcons,
     dialogBox,
@@ -64,19 +63,19 @@ export default {
   },
   data: () => ({
      allNotes1: '',
-    activeNotes: "",
-    passiveNotes: "",
-    result: "",
+    activeNotes: '',
+    passiveNotes: '',
+    result: '',
     dialog: false,
     snackbar: {
       appear: false,
-      text: "",
+      text: '',
       timeout: 2500
     }
   }),
 
   methods: {
-    ...mapActions(["getAllNotes"]),
+    ...mapActions(['getAllNotes']),
   },
 
   created() {
@@ -84,7 +83,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([ "allActiveNotes"]),
+    ...mapGetters([ 'allActiveNotes']),
     }
 };
 </script>

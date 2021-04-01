@@ -129,14 +129,14 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import sidenavBar from "../components/sidenavBar.vue";
-import cardIcons from "../components/cardIcons.vue";
-import noteCards from "../components/noteCards.vue";
-import { mapGetters, mapActions } from "vuex";
-import snackbarNotify from "../components/snackbarNotify.vue";
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
+import { mapGetters, mapActions } from 'vuex';
+import snackbarNotify from '../components/snackbarNotify.vue';
 export default {
-  name: "dashboard",
+  name: 'dashboard',
   components: {
     sidenavBar,
     cardIcons,
@@ -155,24 +155,24 @@ export default {
   data: () => ({
     snackbar: {
       appear: false,
-      text: "",
+      text: '',
       timeout: 2500
     },
 
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note...",
+    text: 'take a note...',
     cardHeight: 50,
     isActive: true,
-    allNotes: "",
+    allNotes: '',
     showAddNote: false
   }),
  
   mounted() {
     this.displayAllNotes();
-    this.$root.$on("navBarRendering", navBarOption => {
+    this.$root.$on('navBarRendering', navBarOption => {
       this.showAddNote = navBarOption;
     });
   },
@@ -180,9 +180,9 @@ export default {
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
-      this.title = "";
-      this.description = "";
+      this.text = 'take a note...';
+      this.title = '';
+      this.description = '';
     },
 
     drawer() {
@@ -200,10 +200,10 @@ export default {
 
     expandCard() {
       this.showBottomCard = true;
-      this.text = "title";
+      this.text = 'title';
       this.cardHeight = 150;
     },
-  ...mapActions(["addNote"]),
+  ...mapActions(['addNote']),
     creatNewNote() {
       let noteData = {
         title: this.title,

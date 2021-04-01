@@ -60,20 +60,20 @@
 </template>
 
 <script>
-import note from "../services/note.js";
-import { mapGetters, mapActions } from "vuex";
-import dialogBox from "./dialogBox.vue";
+import note from '../services/note.js';
+import { mapGetters, mapActions } from 'vuex';
+import dialogBox from './dialogBox.vue';
 
 export default {
-  name: "Trash",
+  name: 'Trash',
   components: {
     dialogBox
   },
 
   data: () => ({
     IconDialog: false,
-    trashNotes: "",
-    allNotesForTrash: "",
+    trashNotes: '',
+    allNotesForTrash: '',
     trash: true,
     dialog: false
   }),
@@ -83,12 +83,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["allTrashNotes"])
+    ...mapGetters(['allTrashNotes'])
   },
 
   methods: {
    
-  ...mapActions(["showSnack", "getAllNotes"]),
+  ...mapActions(['showSnack', 'getAllNotes']),
     restoreNote(noteId) {
       const noteInput = {
         isDeleted: false
@@ -96,23 +96,23 @@ export default {
       note
         .restoreNote(noteId, noteInput)
         .then(data => {
-          console.log("data", data.data.status_code.status_code == 200)
+          console.log('data', data.data.status_code.status_code == 200);
           if (data.data.status_code.status_code == 200) {
 
              this.showSnack({
-              text: "Successfully Restored!",
+              text: 'Successfully Restored!',
               timeout: 3500
             });
             this.getAllNotes();
           }else{this.showSnack({
-            text: "Error, please try again later!",
+            text: 'Error, please try again later!',
             timeout: 3500
-          })}
+          });}
            
         })
         .catch(
           this.showSnack({
-            text: "Error, please try again later!",
+            text: 'Error, please try again later!',
             timeout: 3500
           })
         );

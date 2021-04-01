@@ -6,32 +6,32 @@ const state = {
 const getters = {
     allActiveNotes: state => {
         return state.notes.filter(note =>
-            (note.isDeleted == false && note.isArchived == false))
+            (note.isDeleted == false && note.isArchived == false));
     },
 
     allArchivedNotes: state => {
         return state.notes.filter(note =>
-            (note.isArchived == true))
+            (note.isArchived == true));
     },
 
     allTrashNotes: state => {
         return state.notes.filter(note =>
-            (note.isDeleted == true))
+            (note.isDeleted == true));
     }
 };
 
 const actions = {
 
     getAllNotes({ commit }) {
-        console.log("inside get all notes")
+        console.log('inside get all notes');
         note
             .getNotes()
             .then(result => {
                 this.result = result.data.data;
-                commit("setAllNotes", this.result)
+                commit('setAllNotes', this.result);
             }).catch(error => {
-                commit("SHOW_MESSAGE", {
-                    text: "Error while Retriving Notes",
+                commit('SHOW_MESSAGE', {
+                    text: 'Error while Retriving Notes',
                     timeout: 2000
                 });
             });
@@ -40,14 +40,14 @@ const actions = {
     addNote({ commit }, noteData) {
         note.createNote(noteData).then(result => {
             this.result = result.data.data;
-            commit("SHOW_MESSAGE", {
-                text: "Successfully added new Note",
+            commit('SHOW_MESSAGE', {
+                text: 'Successfully added new Note',
                 timeout: 2000
             });
-            commit("newNote", this.result)
+            commit('newNote', this.result);
         }).catch(error => {
-            commit("SHOW_MESSAGE", {
-                text: "Error adding new Note",
+            commit('SHOW_MESSAGE', {
+                text: 'Error adding new Note',
                 timeout: 2000
             });
         });
@@ -57,17 +57,17 @@ const actions = {
         const noteInput = {
             isDeleted: true
         };
-        console.log("noteData, id", id, noteInput)
+        console.log('noteData, id', id, noteInput);
         note.moveToTrash(noteInput, id).then(result => {
             this.result = result.data.data;
-            console.log("Moved To trash", result)
-            commit("SHOW_MESSAGE", {
-                text: "Moved To trash",
+            console.log('Moved To trash', result);
+            commit('SHOW_MESSAGE', {
+                text: 'Moved To trash',
                 timeout: 2000
             });
         }).catch(error => {
-            commit("SHOW_MESSAGE", {
-                text: "Error, please try again!",
+            commit('SHOW_MESSAGE', {
+                text: 'Error, please try again!',
                 timeout: 2000
             });
         });
@@ -84,4 +84,4 @@ export default {
     getters,
     actions,
     mutations,
-}
+};

@@ -27,7 +27,7 @@ export default {
      * @returns the response from axios methods
      */
     postWithToken(userData) {
-        console.log("postWithToken")
+        console.log('postWithToken');
         return axios.post(userData.endPoint, userData.userInput, {
             headers: {
                 Authorization: commonHeaders,

@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       show: false,
-      text: "",
+      text: '',
       timeout: 0
     };
   },
@@ -24,10 +24,10 @@ export default {
 
   methods: {
     reset() {
-      console.log("reset")
+      console.log('reset');
 return {
       show: false,
-      text: "",
+      text: '',
       timeout: 0
     };
     }
@@ -38,7 +38,7 @@ mounted() {
       this.text = state.snackBar.text;
         this.timeout = state.snackBar.timeout;
         this.show = true;
-        this.reset()
+        this.reset();
     });
   },
 

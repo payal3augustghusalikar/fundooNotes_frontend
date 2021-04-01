@@ -37,7 +37,6 @@
         </template>
         <span>unArchieve</span>
       </v-tooltip>
-
       <v-menu>
         <template v-slot:activator="{ on: menu, attrs }">
           <v-tooltip bottom>
@@ -54,17 +53,15 @@
           <v-list-item v-on="on">Add label</v-list-item>
         </v-list>
       </v-menu>
-    
-    
     </v-group>
   </div>
 </template>
 
 <script>
-import note from "../services/note.js";
-import { mapGetters, mapActions } from "vuex";
+import note from '../services/note.js';
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: "cardIcons",
+  name: 'cardIcons',
   components: {
     
   },
@@ -74,7 +71,7 @@ export default {
     showAddNote: true
   }),
   mounted() {
-    this.$root.$on("archieved", navBarOption => {
+    this.$root.$on('archieved', navBarOption => {
       this.showAddNote = navBarOption;
     });
   },
@@ -83,11 +80,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(["showSnack", "getAllNotes", "trashNote"]),
+    ...mapActions(['showSnack', 'getAllNotes', 'trashNote']),
   
     moveToTrash() {
-      console.log("this.singleNote._id", this.singleNote._id)
-      this.trashNote( this.singleNote._id).then( this.getAllNotes())
+      console.log('this.singleNote._id', this.singleNote._id);
+      this.trashNote( this.singleNote._id).then( this.getAllNotes());
     },
    
     archieve() {
@@ -99,22 +96,22 @@ export default {
         .then(data => {
           if (data.data.status_code.status_code == 200) {
             this.showSnack({
-              text: "Successfully Archieved!",
+              text: 'Successfully Archieved!',
               timeout: 3500
             });
             this.getAllNotes();
           }
            this.showSnack({
-            text: "Error, please try again later!",
+            text: 'Error, please try again later!',
             timeout: 3500
-          })
+          });
         })
         .catch(
           error => this.showSnack({
-              text: "Error, Please try again!",           
+              text: 'Error, Please try again!',           
               timeout: 3500
             })
-        )
+        );
     },
 
     unArchieve() {
@@ -127,22 +124,22 @@ export default {
           
           if (data.data.status_code.status_code == 200) {
             this.showSnack({
-              text: "note unarchieve successfully",
+              text: 'note unarchieve successfully',
               timeout: 3500
             });
             this.getAllNotes();
           }
            this.showSnack({
-            text: "Error, please try again later!",
+            text: 'Error, please try again later!',
             timeout: 3500
-          })
+          });
         })
         .catch(
            error => this.showSnack({
-              text: "Error, Please try again!",           
+              text: 'Error, Please try again!',           
               timeout: 3500
             })
-        )
+        );
     }
   }
 };

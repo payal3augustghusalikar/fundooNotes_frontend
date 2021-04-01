@@ -39,7 +39,7 @@
 <script>
 import note from '../services/note.js';
 import cardIcons from '../components/cardIcons.vue';
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Archieved',
@@ -59,11 +59,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters([ "allArchivedNotes"]),
+    ...mapGetters([ 'allArchivedNotes']),
     },
 
   methods: {
- ...mapActions(["getAllNotes"]),
+ ...mapActions(['getAllNotes']),
    },
 };
 </script>

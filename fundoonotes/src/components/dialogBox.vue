@@ -59,7 +59,7 @@
 import cardIcons from './cardIcons';
 
 import note from '../services/note.js';
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
@@ -83,7 +83,7 @@ export default {
  
 
   methods: {
-   ...mapActions(["showSnack", "getAllNotes"]),
+   ...mapActions(['showSnack', 'getAllNotes']),
 
     close() {
       this.dialog = false; 
@@ -95,9 +95,9 @@ deleteForever() {
         .then((data) => {
           if (data.data.status_code.status_code == 200) {
              this.showSnack({
-              text: "Deleted Forever!",
+              text: 'Deleted Forever!',
               timeout: 3500
-            })
+            });
             this.getAllNotes();
             }
              this.close();     
@@ -105,7 +105,7 @@ deleteForever() {
         .catch(
           (error) => 
           this.showSnack({
-              text: "Error, Please try again!",
+              text: 'Error, Please try again!',
               timeout: 3500
             }),
              this.close()    
@@ -126,20 +126,20 @@ deleteForever() {
           .then((data) => {
             if (data.data.status_code.status_code == 200) {
              this.showSnack({
-              text: "Successfully updated!",
+              text: 'Successfully updated!',
               timeout: 3500
-            })
+            });
             this.getAllNotes();
-              this.close()    
+              this.close();    
             }
           })
           .catch(
             (error) =>  this.showSnack({
-               text: "Error, Please try again!",
+               text: 'Error, Please try again!',
               timeout: 3500
             }),
               this.close()    
-          )
+          );
       }
     },  
   },
