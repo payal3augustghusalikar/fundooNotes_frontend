@@ -63,13 +63,10 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'cardIcons',
   components: {
-    
+ 
   },
   data: () => ({
-  //  noteInfo: this.singleNote,
-  
     showAddNote: true,
-    //check: this.singleNote
   }),
   mounted() {
     this.$root.$on('archieved', navBarOption => {

@@ -5,6 +5,7 @@
         v-for="note in allTrashNotes"
         v-bind:key="note._id"
         md3
+        id="trash"
         class="mr-5 mb-10"
       >
         <v-hover v-slot="{ hover }">
@@ -13,7 +14,7 @@
             outlined
             :class="{ 'on-hover': hover }"
           >
-            <v-card-title>{{ note.title }} </v-card-title>
+            <v-card-title id="trashh">{{ note.title }} </v-card-title>
             <v-list-item class="v-list">{{ note.description }}</v-list-item>
 
             <v-list-item>
@@ -73,6 +74,7 @@ export default {
   data: () => ({
     IconDialog: false,
     trashNotes: '',
+   
     trash: true,
     dialog: false
   }),
@@ -102,7 +104,7 @@ export default {
             });
             this.getAllNotes();
           }else{this.showSnack({
-            text: 'Error, please try again later!',
+            text: 'Error , please try again later!',
             timeout: 3500
           });}  
         })

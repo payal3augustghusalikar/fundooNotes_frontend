@@ -34,7 +34,8 @@
             <v-flex>
               <v-main>
                 <v-container class="main">
-                  <div class="takeNote" v-if="showAddNote">
+                <!--  <div class="takeNote" v-if="showAddNote"> -->
+                <div class="takeNote" v-if="navBarOption"> 
                     <v-card
                       class="mx-auto my-12 note-card window"
                       elevation="8"
@@ -109,8 +110,8 @@
 
                   <div class="allCards">
                     <router-view></router-view>
-                    <noteCards v-if="showAddNote" ref="childNote" />
-                  
+                    <!--<noteCards v-if="showAddNote" ref="childNote" /> -->
+                  <noteCards v-if="navBarOption" ref="childNote" />
                   </div>
                 </v-container>
               </v-main>

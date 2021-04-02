@@ -118,7 +118,6 @@ export default {
 isPasswordNotReset: false,
    isPasswordReset: false,
     sending: false,
-   
   }),
 
   validations: {

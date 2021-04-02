@@ -18,8 +18,7 @@ function lazyLoad(view) {
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'register',
             component: register,
@@ -40,27 +39,27 @@ export default new Router({
             name: 'dashboard',
             component: dashboard,
             children: [{
-                        path: '/notes',
-                        name: 'Note',
-                        // component: noteCards,
-                        component: lazyLoad('noteCards')
-                    },
-                    {
-                        path: '/trash',
-                        name: 'Trash',
-                        component: trashNotes,
-                        
-                    },
-                    
-                    {
-                        path: '/archieved',
-                        name: 'Archieved',
-                        component: archieved,
-                       
-                    },
+                    path: '/notes',
+                    name: 'Note',
+                    // component: noteCards,
+                    component: lazyLoad('noteCards')
+                },
+                {
+                    path: '/trash',
+                    name: 'Trash',
+                    component: trashNotes,
 
-                ]
-               
+                },
+
+                {
+                    path: '/archieved',
+                    name: 'Archieved',
+                    component: archieved,
+
+                },
+
+            ]
+
         },
         {
             path: '/forgotpassword',
