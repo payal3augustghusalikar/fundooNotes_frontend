@@ -12,7 +12,7 @@ import { shallowMount, createLocalVue, mount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 import Vuelidate from 'vuelidate';
 import Vuex from 'vuex'
-import snackbar from '../../src/components/snackbar.vue';
+import snackbar from '../../src/components/snackbarNotify.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuetify);
@@ -50,5 +50,6 @@ describe('snackbar.vue', () => {
     it('has a button', () => {
         expect(wrapper.contains('md-button')).toBe(true);
     });
+
 
 });

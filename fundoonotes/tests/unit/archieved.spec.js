@@ -46,6 +46,4 @@ describe('archieved.vue', () => {
         console.log("wrapper ", wrapper)
         expect(wrapper.html()).toBeTruthy();
     });
-
-
 })
