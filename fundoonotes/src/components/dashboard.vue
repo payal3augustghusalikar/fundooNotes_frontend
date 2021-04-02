@@ -121,12 +121,9 @@
             </v-flex>
           </v-row>
 
-          
          <snackbarNotify />
-          
 
         </v-card>
-
       </v-app>
     </div>
   </v-flex>
@@ -177,7 +174,6 @@ export default {
   }),
  
   mounted() {
-   // this.displayAllNotes();
     this.$root.$on('navBarRendering', navBarOption => {
 
       this.showAddNote = navBarOption;
