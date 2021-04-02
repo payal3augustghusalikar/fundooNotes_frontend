@@ -9,7 +9,7 @@
       >
         <v-hover v-slot="{ hover }">
           <v-card
-            class="mx-auto v-list  singleCard card-container"
+            class="mx-auto singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
           >
@@ -47,7 +47,7 @@
             <v-list-item></v-list-item>
             <dialogBox
               :dialog.sync="note.dialog == true"
-              @displayTrashNotesevent="displayAllNotes"
+            
               :options="note"
               :trash="true"
             />
@@ -73,7 +73,7 @@ export default {
   data: () => ({
     IconDialog: false,
     trashNotes: '',
-    allNotesForTrash: '',
+    allTrashNotes: this.allTrashNotes,
     trash: true,
     dialog: false
   }),
@@ -96,9 +96,7 @@ export default {
       note
         .restoreNote(noteId, noteInput)
         .then(data => {
-          console.log('data', data.data.status_code.status_code == 200);
           if (data.data.status_code.status_code == 200) {
-
              this.showSnack({
               text: 'Successfully Restored!',
               timeout: 3500
@@ -107,8 +105,7 @@ export default {
           }else{this.showSnack({
             text: 'Error, please try again later!',
             timeout: 3500
-          });}
-           
+          });}  
         })
         .catch(
           this.showSnack({

@@ -98,7 +98,8 @@
                           <v-button
                             type="submit"
                             class="close"
-                            @click="creatNewNote"
+                          ref='close'
+                            @click="createNewNote"
                             >Close</v-button
                           >
                         </v-row>
@@ -107,20 +108,17 @@
                   </div>
 
                   <div class="allCards">
-                    <noteCards v-if="showAddNote" ref="childNote" />
                     <router-view></router-view>
+                    <noteCards v-if="showAddNote" ref="childNote" />
+                  
                   </div>
                 </v-container>
               </v-main>
             </v-flex>
           </v-row>
-          <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
-            {{ snackbar.text }}</v-snackbar
-          >
+          
          <snackbarNotify />
-          <v-snackbar v-model="Textappear" :timeout="2500">
-            {{ snackbarText }}</v-snackbar
-          >
+          
         </v-card>
 
       </v-app>
@@ -171,7 +169,7 @@ export default {
   }),
  
   mounted() {
-    this.displayAllNotes();
+   // this.displayAllNotes();
     this.$root.$on('navBarRendering', navBarOption => {
       this.showAddNote = navBarOption;
     });
@@ -189,9 +187,9 @@ export default {
       this.showIconName = !this.showIconName;
     },
 
-    displayAllNotes() {
-      this.$refs.childNote.displayAllNotes();
-    },
+    // displayAllNotes() {
+    //   this.$refs.childNote.displayAllNotes();
+    // },
 
     hide: function() {
       this.showBottomCard = false;
@@ -204,7 +202,8 @@ export default {
       this.cardHeight = 150;
     },
   ...mapActions(['addNote']),
-    creatNewNote() {
+  
+    createNewNote() {
       let noteData = {
         title: this.title,
         description: this.description

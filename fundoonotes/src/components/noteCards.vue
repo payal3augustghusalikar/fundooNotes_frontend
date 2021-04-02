@@ -37,17 +37,14 @@
      
        </v-flex>
     </v-layout>
-    <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
-      {{ snackbar.text }}</v-snackbar
-    >
-    <trashNotes v-show="false" :passiveNotes="passiveNotes" />
+
   </v-flex>
 </template>
 
 <script>
 import cardIcons from '../components/cardIcons.vue';
 import dialogBox from './dialogBox.vue';
-import trashNotes from '../components/trashNotes.vue';
+
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -55,7 +52,7 @@ export default {
   components: {
     cardIcons,
     dialogBox,
-    trashNotes
+   
   },
 
   props: {

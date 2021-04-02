@@ -8,9 +8,7 @@ import dashboard from '../components/dashboard.vue';
 import noteCards from '../components/noteCards.vue';
 import trashNotes from '../components/trashNotes.vue';
 import archieved from '../components/archieved.vue';
-//import snackbar from '../components/snackbar.vue';
 
-//import labels from '../components/trash.vue';
 Vue.use(Router);
 
 function lazyLoad(view) {
@@ -21,11 +19,11 @@ function lazyLoad(view) {
 export default new Router({
     mode: 'history',
     routes: [
-        // {
-        //     path: '*/*',
-        //     name: 'register',
-        //     component: register,
-        // },
+        {
+            path: '/',
+            name: 'register',
+            component: register,
+        },
 
         {
             path: '/register',
@@ -50,25 +48,20 @@ export default new Router({
                     {
                         path: '/trash',
                         name: 'Trash',
-                        // component: trashNotes,
-                        component: lazyLoad('trashNotes')
+                        component: trashNotes,
+                        
                     },
-                    // {
-                    //     path: 'labels',
-                    //     name: 'labels',
-                    //     component: labels,
-                    // },
+                    
                     {
                         path: '/archieved',
                         name: 'Archieved',
-                        // component: archieved,
-                        component: lazyLoad('archieved')
+                        component: archieved,
+                       
                     },
 
                 ]
-                // }
+               
         },
-        //  },
         {
             path: '/forgotpassword',
             name: 'forgotPassword',

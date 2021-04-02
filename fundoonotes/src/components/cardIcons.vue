@@ -66,9 +66,10 @@ export default {
     
   },
   data: () => ({
-    noteInfo: this.singleNote,
-    IconDialog: false,
-    showAddNote: true
+  //  noteInfo: this.singleNote,
+  
+    showAddNote: true,
+    //check: this.singleNote
   }),
   mounted() {
     this.$root.$on('archieved', navBarOption => {
@@ -83,7 +84,6 @@ export default {
     ...mapActions(['showSnack', 'getAllNotes', 'trashNote']),
   
     moveToTrash() {
-      console.log('this.singleNote._id', this.singleNote._id);
       this.trashNote( this.singleNote._id).then( this.getAllNotes());
     },
    

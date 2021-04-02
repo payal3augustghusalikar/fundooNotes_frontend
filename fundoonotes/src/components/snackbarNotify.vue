@@ -24,7 +24,6 @@ export default {
 
   methods: {
     reset() {
-      console.log('reset');
 return {
       show: false,
       text: '',
@@ -41,13 +40,5 @@ mounted() {
         this.reset();
     });
   },
-
-  // created() {
-  //   this.$store.subscribe((mutation, state) => {
-  //     this.text = state.snackBar.text;
-  //       this.timeout = state.snackBar.timeout;
-  //       this.show = true;
-  //   });
-  // }
 };
 </script>
