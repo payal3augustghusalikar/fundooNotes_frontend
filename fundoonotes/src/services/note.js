@@ -49,7 +49,7 @@ export default {
      * @returns the response from api calling methods
      */
     moveToTrash(noteInput, noteId) {
-        console.log("moveToTrash")
+        console.log('noteInput', noteInput, noteId);
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/delete/' + noteId
@@ -73,7 +73,6 @@ export default {
      * @returns the response from api calling methods
      */
     archieveNote(noteInput, noteId) {
-        console.log("inside archive")
         const noteData = {
             userInput: noteInput,
             endPoint: '/notes/archive/' + noteId

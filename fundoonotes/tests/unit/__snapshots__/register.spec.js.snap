@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`register.vue html should render correctly 1`] = `
+<div>
+  <form novalidate="novalidate" class="md-layout jc-center register">
+    <md-card class="md-layout-item md-size-50 md-small-size-120 overflow-y overflow-x ">
+      <div class="md-layout md-gutter">
+        <div class="md-layout-item md-small-size-100">
+          <md-card-header>
+            <md-card-title>
+              <fundootitle-stub></fundootitle-stub>
+            </md-card-title>
+            <v-card-title>
+              Create your Account
+            </v-card-title>
+          </md-card-header>
+          <md-card-content>
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item md-small-size-100">
+                <md-field class=""><label for="first-name">First Name</label>
+                  <md-input autocomplete="off" label="First name"></md-input> <span class="md-error">The first name is required</span>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-50">
+                <md-field class=""><label for="last-name">Last Name</label>
+                  <md-input name="last-name" autocomplete="off" outline="" dense=""></md-input> <span class="md-error">The last name is required</span>
+                </md-field>
+              </div>
+            </div>
+            <md-field class=""><label for="email">Email</label>
+              <md-input type="email" name="email" autocomplete="off"></md-input> <span class="md-error">The email is required</span>
+            </md-field>
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item md-small-size-100">
+                <md-field class=""><label for="password">Password</label>
+                  <md-input name="password" type="password"></md-input> <span class="md-error">The password is required</span>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100">
+                <md-field class=""><label for="cpassword">Confirm</label>
+                  <md-input name="cpassword" type="password"></md-input> <span class="md-error">The confirm password is required</span>
+                </md-field>
+              </div>
+            </div>
+            <p class="password-hint">
+              Use 8 or more characters with a mix of letters, numbers &amp;
+              symbols
+            </p>
+          </md-card-content>
+          <!---->
+          <md-card-content>
+            <md-card-actions><span><router-link-stub to="/login" tag="a" ariacurrentvalue="page" event="click">sign in instead</router-link-stub></span>
+              <v-spacer></v-spacer>
+              <md-button type="submit" class="md-raised md-primary">Next</md-button>
+            </md-card-actions>
+          </md-card-content>
+        </div>
+        <div class="md-layout md-small-size-50">
+          <figure class="account-img"><img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+            <figcaption class="oEvHdd">
+              One account. All of Google working for you.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+      <md-snackbar>The user was saved with success please
+        login!</md-snackbar>
+      <md-snackbar>Error Occured please try again!</md-snackbar>
+    </md-card>
+  </form>
+</div>
+`;

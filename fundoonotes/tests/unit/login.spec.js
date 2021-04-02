@@ -1,3 +1,14 @@
+/*************************************************************************
+ *
+ *
+ * @file : login.spec.js
+ * purpose : to test login component
+ * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
+ * @version : 1.0
+ * @since : 05/03/2021
+ *
+ **************************************************************************/
+
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import fundooTitle from '../../src/components/fundooTitle.vue';
 import login from '../../src/pages/login.vue';

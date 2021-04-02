@@ -7,12 +7,10 @@
             <v-col>
               <v-app-bar color="white" class="main-bar" fixed elevation="1">
                 <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
-
                 <span class="FundooNotes_img">
                   <img src="../assets/googleKeep.png" />
                 </span>
                 <v-toolbar-title>FundooNotess</v-toolbar-title>
-
                 <div id="top-search-bar">
                   <v-text-field
                     label="Search"
@@ -36,7 +34,8 @@
             <v-flex>
               <v-main>
                 <v-container class="main">
-                  <div class="takeNote" v-if="showAddNote">
+                <!--  <div class="takeNote" v-if="showAddNote"> -->
+                <div class="takeNote" v-if="navBarOption"> 
                     <v-card
                       class="mx-auto my-12 note-card window"
                       elevation="8"
@@ -100,7 +99,8 @@
                           <v-button
                             type="submit"
                             class="close"
-                            @click="creatNewNote"
+                          ref='close'
+                            @click="createNewNote"
                             >Close</v-button
                           >
                         </v-row>
@@ -110,8 +110,10 @@
 
 
                   <div class="allCards">
-                    <noteCards v-if="showAddNote" ref="childNote" />
                     <router-view></router-view>
+
+                    <!--<noteCards v-if="showAddNote" ref="childNote" /> -->
+                  <noteCards v-if="navBarOption" ref="childNote" />
 
                   </div>
                 </v-container>
@@ -119,37 +121,37 @@
             </v-flex>
           </v-row>
 
-          <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
+          
+         <snackbarNotify />
+          
 
-            {{ snackbar.text }}</v-snackbar
-          >
-          <snackbar ref="snackbar" />
-          <v-snackbar v-model="Textappear" :timeout="2500">
-            {{ snackbarText }}</v-snackbar
-          >
         </v-card>
+
       </v-app>
     </div>
   </v-flex>
 </template>
 
 <script>
-import note from "../services/note.js";
-import sidenavBar from "../components/sidenavBar.vue";
-import cardIcons from "../components/cardIcons.vue";
-import noteCards from "../components/noteCards.vue";
+import note from '../services/note.js';
+import sidenavBar from '../components/sidenavBar.vue';
+import cardIcons from '../components/cardIcons.vue';
+import noteCards from '../components/noteCards.vue';
+import { mapGetters, mapActions } from 'vuex';
+import snackbarNotify from '../components/snackbarNotify.vue';
 export default {
-  name: "dashboard",
+  name: 'dashboard',
   components: {
     sidenavBar,
     cardIcons,
-    noteCards
+    noteCards,
+    snackbarNotify
   },
 
   props: {
-    // navBarOption: {
-    //   default: true
-    // },
+    navBarOption: {
+      default: true
+    },
     Textappear: Boolean,
     snackbarText: String
   },
@@ -157,40 +159,28 @@ export default {
   data: () => ({
     snackbar: {
       appear: false,
-      text: "",
+      text: '',
       timeout: 2500
     },
 
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     showIconName: true,
     showBottomCard: false,
-    text: "take a note...",
+    text: 'take a note...',
     cardHeight: 50,
     isActive: true,
-    allNotes: "",
 
-    showAddNote: true
+    allNotes: '',
+    showAddNote: false
 
   }),
-  //   beforeMount() {
-  //     this.navBarOption;
-  //     console.log("this.navBarOption", this.navBarOption);
-  //     // this.displayAllNotes();
-  //   },
-
+ 
   mounted() {
+   // this.displayAllNotes();
+    this.$root.$on('navBarRendering', navBarOption => {
 
-    console.log("on dashboard");
-    this.displayAllNotes();
-    console.log("this.navBarOption on dashboard", this.navBarOption);
-    // this.$refs.childNote.displayAllNotes();
-    //   console.log(" this.snackbars", this.Textappear, this.snackbarText);
-
-    this.$root.$on("eventing", navBarOption => {
-      console.log("showAddNote", navBarOption);
       this.showAddNote = navBarOption;
-      console.log("showAddNote", this.showAddNote);
     });
 
   },
@@ -198,19 +188,18 @@ export default {
   methods: {
     resetCard: function() {
       this.cardHeight = 50;
-      this.text = "take a note...";
-      this.title = "";
-      this.description = "";
+      this.text = 'take a note...';
+      this.title = '';
+      this.description = '';
     },
 
     drawer() {
       this.showIconName = !this.showIconName;
     },
 
-    displayAllNotes() {
-      console.log("insidde dashboard");
-      // this.$refs.childNote.displayAllNotes();
-    },
+    // displayAllNotes() {
+    //   this.$refs.childNote.displayAllNotes();
+    // },
 
     hide: function() {
       this.showBottomCard = false;
@@ -219,39 +208,21 @@ export default {
 
     expandCard() {
       this.showBottomCard = true;
-      this.text = "title";
+      this.text = 'title';
       this.cardHeight = 150;
     },
-
-    //  setDashboardComponent(navBarOption) {
-    //    console.log("setDashboardComponent",this.navBarOption )
-    //       this.showAddNote = this.navBarOption;
-
-    //     },
-
-    creatNewNote() {
+  ...mapActions(['addNote']),
+  
+    createNewNote() {
       let noteData = {
         title: this.title,
         description: this.description
       };
-      note
-        .createNote(noteData)
 
-        .then(result => {
+      this.addNote(noteData);
+     // this.$refs.childNote.displayAllNotes();
+      this.hide();
 
-          this.snackbar.appear = true;
-          this.snackbar.text = "note created successfully";
-
-          this.$refs.childNote.displayAllNotes();
-          this.hide();
-        })
-
-        .catch(error => {
-
-          this.snackbar.appear = true;
-          this.snackbar.text = "error occured!! please try again!!";
-          this.hide();
-        });
     }
   }
 };

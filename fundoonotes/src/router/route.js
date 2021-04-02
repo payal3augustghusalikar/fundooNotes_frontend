@@ -8,18 +8,21 @@ import dashboard from '../components/dashboard.vue';
 import noteCards from '../components/noteCards.vue';
 import trashNotes from '../components/trashNotes.vue';
 import archieved from '../components/archieved.vue';
-import snackbar from '../components/snackbar.vue';
 
-//import labels from '../components/trash.vue';
 Vue.use(Router);
+
+function lazyLoad(view) {
+    return () =>
+        import (`@/components/${view}.vue`);
+}
+
 export default new Router({
     mode: 'history',
-    routes: [
-        // {
-        //     path: '*/*',
-        //     name: 'register',
-        //     component: register,
-        // },
+    routes: [{
+            path: '/',
+            name: 'register',
+            component: register,
+        },
 
         {
             path: '/register',
@@ -35,35 +38,29 @@ export default new Router({
             path: '/dashboard/',
             name: 'dashboard',
             component: dashboard,
-            // children: {
-            //     path: '/snackbar',
-            //     name: 'snackbar',
-            //     component: snackbar,
             children: [{
-                        path: '/notes',
-                        name: 'Note',
-                        component: noteCards,
-                    },
-                    {
-                        path: '/trash',
-                        name: 'Trash',
-                        component: trashNotes,
-                    },
-                    // {
-                    //     path: 'labels',
-                    //     name: 'labels',
-                    //     component: labels,
-                    // },
-                    {
-                        path: '/archieved',
-                        name: 'Archieved',
-                        component: archieved,
-                    },
+                    path: '/notes',
+                    name: 'Note',
+                    // component: noteCards,
+                    component: lazyLoad('noteCards')
+                },
+                {
+                    path: '/trash',
+                    name: 'Trash',
+                    component: trashNotes,
 
-                ]
-                // }
+                },
+
+                {
+                    path: '/archieved',
+                    name: 'Archieved',
+                    component: archieved,
+
+                },
+
+            ]
+
         },
-        //  },
         {
             path: '/forgotpassword',
             name: 'forgotPassword',

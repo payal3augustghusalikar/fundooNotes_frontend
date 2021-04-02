@@ -5,9 +5,11 @@
     "scripts": {
         "serve": "vue-cli-service serve --port 2002",
         "build": "vue-cli-service build",
+        "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
+        "@vue/test-utils": "^1.1.3",
         "axios": "^0.21.1",
         "core-js": "^3.6.5",
         "dotenv": "^8.2.0",
@@ -23,11 +25,13 @@
         "@babel/polyfill": "^7.11.5",
         "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-plugin-eslint": "~4.5.0",
+        "@vue/cli-plugin-unit-jest": "~4.5.0",
+        "@vue/cli-plugin-vuex": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
+        "@vue/test-utils": "^1.0.3",
         "babel-eslint": "^10.1.0",
         "bootstrap": "^4.5.2",
         "eslint": "^6.8.0",
-
         "eslint-plugin-vue": "^6.2.2",
         "mutationobserver-shim": "^0.3.7",
         "popper.js": "^1.16.1",
@@ -50,9 +54,18 @@
         "parserOptions": {
             "parser": "babel-eslint"
         },
-
         "rules": {},
-        "overrides": [{
+        "overrides": [
+            {
+                "files": [
+                    "**/__tests__/*.{j,t}s?(x)",
+                    "**/tests/unit/**/*.spec.{j,t}s?(x)"
+                ],
+                "env": {
+                    "jest": true
+                }
+            },
+            {
                 "files": [
                     "**/__tests__/*.{j,t}s?(x)",
                     "**/tests/unit/**/*.spec.{j,t}s?(x)"

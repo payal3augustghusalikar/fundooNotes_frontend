@@ -1,3 +1,12 @@
+/*************************************************************************
+ * @file : register.spec.js
+ * purpose : to test register component
+ * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
+ * @version : 1.0
+ * @since : 05/03/2021
+ *
+ **************************************************************************/
+
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import fundooTitle from '../../src/components/fundooTitle.vue';
 import register from '../../src/pages/register.vue';
@@ -13,6 +22,7 @@ describe('register.vue', () => {
         localVue.use(VueMaterial);
         localVue.use(Vuelidate);
         wrapper = shallowMount(register, localVue);
+        console.log("wrapper :", wrapper)
     });
 
     it('givenPage_ifFundooTitleIsPresent_shouldReturnTrue', () => {
@@ -121,32 +131,4 @@ describe('register.vue', () => {
         wrapper.vm.form.cpassword = 'AAAAA';
         expect(wrapper.vm.$v.form.cpassword.$invalid).toBe(true);
     });
-
-    // it('inGivenlastName_whenNotPresent_shouldEvaluateFalse', () => {
-    //     wrapper.vm.form.lastName = '';
-    //     expect(wrapper.vm.$v.form.lastName.required).toBe(true);
-    // });
-
-    // it('inGivenpassword_whenNotPresent_shouldEvaluateFalse', () => {
-    //     wrapper.vm.password = '';
-    //     expect(wrapper.vm.$v.password.required).toBe(false);
-    // });
-
-    // it('inGivenpassword_whenNotPresent_shouldEvaluateFalse', () => {
-    //     wrapper.vm.password = '';
-    //     expect(wrapper.vm.$v.password.invalid).toBe(true);
-    // });
-
-    // it('inGivenCpassword_whenNotPresent_shouldEvaluateFalse', () => {
-    //     wrapper.vm.Cpassword = '';
-    //     expect(wrapper.vm.$v.Cpassword.required).toBe(false);
-    // });
-
-    // it('inGivenCpassword_whenNotPresent_shouldEvaluateFalse', () => {
-    //     wrapper.vm.Cpassword = '';
-    //     expect(wrapper.vm.$v.Cpassword.invalid).toBe(true);
-    // });
-
-
-
 });

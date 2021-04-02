@@ -2,14 +2,14 @@
   <v-flex>
     <v-layout class="noteCards" row wrap>
       <v-flex
-        v-for="note in trashNotes"
+        v-for="note in allTrashNotes"
         v-bind:key="note._id"
         md3
         class="mr-5 mb-10"
       >
         <v-hover v-slot="{ hover }">
           <v-card
-            class="mx-auto v-list"
+            class="mx-auto singleCard card-container"
             outlined
             :class="{ 'on-hover': hover }"
           >
@@ -45,86 +45,76 @@
               </v-row>
             </v-list-item>
             <v-list-item></v-list-item>
-            <dialogBox :dialog.sync="note.dialog == true" @displayTrashNotesevent="displayAllNotes" :options="note" :trash="true" />
-         
-       
+            <dialogBox
+              :dialog.sync="note.dialog == true"
+            
+              :options="note"
+              :trash="true"
+            />
           </v-card>
         </v-hover>
       </v-flex>
-       <snackbar ref="snackbar" />
+      <snackbar ref="snackbar" />
     </v-layout>
   </v-flex>
 </template>
 
 <script>
-import note from "../services/note.js";
-
-import dialogBox from "./dialogBox.vue";
+import note from '../services/note.js';
+import { mapGetters, mapActions } from 'vuex';
+import dialogBox from './dialogBox.vue';
 
 export default {
-  name: "Trash",
+  name: 'Trash',
   components: {
-    dialogBox,
+    dialogBox
   },
 
   data: () => ({
     IconDialog: false,
-    trashNotes: "",
-    allNotesForTrash: "",
+    trashNotes: '',
     trash: true,
-    dialog: false,
+    dialog: false
   }),
 
-  mounted() {
-    this.displayAllNotes();
+  created() {
+    this.getAllNotes();
+  },
+
+  computed: {
+    ...mapGetters(['allTrashNotes'])
   },
 
   methods: {
-    displayAllNotes() {
-      console.log("inside trash display")
-       note
-        .getNotes()
-        .then((result) => {
-          this.result = result.data.data;
-          this.allNotes = [...this.result].reverse();
-          this.trashNotes = this.allNotes.filter(
-            (note) => note.isDeleted == true
-          );
-         
+   
+  ...mapActions(['showSnack', 'getAllNotes']),
+    restoreNote(noteId) {
+      const noteInput = {
+        isDeleted: false
+      };
+      note
+        .restoreNote(noteId, noteInput)
+        .then(data => {
+          if (data.data.status_code.status_code == 200) {
+             this.showSnack({
+              text: 'Successfully Restored!',
+              timeout: 3500
+            });
+            this.getAllNotes();
+          }else{this.showSnack({
+            text: 'Error, please try again later!',
+            timeout: 3500
+          });}  
         })
-        .catch((error) => {  
-        });
-    },
- 
-  restoreNote(noteId) {
-    const noteInput = {
-      isDeleted: false,
-    };
-    note
-      .restoreNote(noteId, noteInput)
-      .then((data) => {
-        if (data.data.status_code.status_code == 200) {
-          console.log(data.data)
-          const snackbarData = {
-                text: 'Note moved to trash',
-                timeout: 2500
-              };
-              this.displayAllNotes()
-     console.log(this.snackbarData)
-   this.$refs.snackbar.activateSnackbar(snackbarData) ;
-
-          // (this.snackbar.appear = true),
-          //   (this.snackbar.text = "note restore successfully"),
-            // this.close();
-             this.displayAllNotes()
-        }
-      })
-      .catch(
-        (error) => (this.snackbar.appear = true),
-        (this.snackbar.text = "error while restoring, please try again later")
-      );
-  },
-} }
+        .catch(
+          this.showSnack({
+            text: 'Error, please try again later!',
+            timeout: 3500
+          })
+        );
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

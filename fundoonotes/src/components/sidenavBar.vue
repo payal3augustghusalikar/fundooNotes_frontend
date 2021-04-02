@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import router from "../router/route.js";
-import dashboard from "./dashboard.vue";
+import router from '../router/route.js';
+import dashboard from './dashboard.vue';
 export default {
-  name: "sidenavBar",
+  name: 'sidenavBar',
   components: {
     dashboard
   },
@@ -42,52 +42,43 @@ export default {
 
     sideNavBar: [
       {
-        title: "Note",
-        icon: "mdi-lightbulb-outline"
+        title: 'Note',
+        icon: 'mdi-lightbulb-outline'
       },
       {
-        title: "Reminders",
-        icon: "mdi mdi-bell-outline"
+        title: 'Reminders',
+        icon: 'mdi mdi-bell-outline'
       },
       {
-        title: "Label",
-        icon: " mdi-label-outline"
+        title: 'Label',
+        icon: ' mdi-label-outline'
       },
       {
-        title: "Edit labels",
-        icon: "mdi-pencil-outline"
+        title: 'Edit labels',
+        icon: 'mdi-pencil-outline'
       },
       {
-        title: "Archieved",
-        icon: "mdi-download-outline"
+        title: 'Archieved',
+        icon: 'mdi-download-outline'
       },
       {
-        title: "Trash",
-        icon: "mdi-delete-outline"
+        title: 'Trash',
+        icon: 'mdi-delete-outline'
       }
     ]
   }),
 
   methods: {
     goToItem(item) {
-      if (item.title == "Trash" || item.title == "Archieved") {
-        // console.log(
-        //   "condition, ",
-        //   item.title == "Trash" || item.title == "Archieved"
-        // );
+      if (item.title == 'Trash' || item.title == 'Archieved') {
         this.navBarOption = false;
-        if (item.title == "Archieved") {
-          console.log("condition this.navBarOption, ", this.navBarOption);
-             this.$root.$emit("archieved", this.navBarOption);
+        if (item.title == 'Archieved') { 
+             this.$root.$emit('archieved', this.navBarOption);
         }
-        console.log("condition this.navBarOption, ", this.navBarOption);
-        //this.$refs.dashboard.setDashboardComponent(this.navBarOption)
-        this.$root.$emit("eventing", this.navBarOption);
-        
+        this.$root.$emit('navBarRendering', this.navBarOption);
       } else {
-        console.log("this is xcep trash and archieved");
+        console.log('this is xcep trash and archieved');
       }
-
       this.$router.push({
         name: item.title
       });

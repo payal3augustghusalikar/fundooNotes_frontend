@@ -1,7 +1,7 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="400" min-height="200">
-      <v-card >
+      <v-card v-click-outside="onClickOutside">
         <v-card-text>
           <v-form >
        <br />
@@ -50,25 +50,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar.appear" :timeout="snackbar.timeout">
-      {{ snackbar.text }}</v-snackbar
-    >
-    <noteCards v-show="false" ref="noteCards" />
+   
    
   </v-layout>
 </template>
 
 <script>
-import cardIcons from "./cardIcons";
-//import trashNotes from "./trashNotes";
-import note from "../services/note.js";
+import cardIcons from './cardIcons';
+
+import note from '../services/note.js';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
    name: 'dialogBox',
   components: {
     cardIcons,
-   // trashNotes
+  
   },
   props: {
     dialog: {
@@ -79,78 +77,71 @@ export default {
   },
   data() {
     return {
-      snackbar: {
-        appear: false,
-        text: "",
-        timeout: 2500,
-      },
       editOptions: this.options,
     };
   },
  
-// watch: {
-//     dialog(val) {
-//         val || this.close();
-//     },
-// },
 
   methods: {
+   ...mapActions(['showSnack', 'getAllNotes']),
+
     close() {
-      console.log("inside close")
       this.dialog = false; 
     },
+
 deleteForever() {   
-  console.log("delete forever ")
       note
         .deleteForever(this.editOptions._id)
         .then((data) => {
           if (data.data.status_code.status_code == 200) {
-            (this.snackbar.appear = true),
-              (this.snackbar.text = "note deleted successfully"),
-                this.$emit('displayTrashNotesevent'),
-             this.close();
-          //   this.$refs.trashNotes.displayAllNotes()
-          }
-           
+             this.showSnack({
+              text: 'Deleted Forever!',
+              timeout: 3500
+            });
+            this.getAllNotes();
+            }
+             this.close();     
         })
         .catch(
           (error) => 
-          (this.snackbar.appear = true),
-          (this.snackbar.text = "error while deleting, please try again later")
+          this.showSnack({
+              text: 'Error, Please try again!',
+              timeout: 3500
+            }),
+             this.close()    
         );
     },
+
     onClickOutside() {
-      console.log("onClickOutside start")
       if (this.trash == true) {
-        console.log("trash")
-         this.deleteForever()
+         this.deleteForever();
       }
        else if (this.editOptions.title && this.editOptions.description) {
         const noteInput = {
           title: this.editOptions.title,
           description: this.editOptions.description,
         };
-        note
+       return note
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
-            console.log("this.dialog in dialogbox",this.dialog)
             if (data.data.status_code.status_code == 200) {
-              (this.snackbar.appear = true),
-                (this.snackbar.text = "note updated successfully")
-                this.$refs.noteCards.displayAllNotes()
-                this.close();
-                   console.log("onClickOutside end")
+             this.showSnack({
+              text: 'Successfully updated!',
+              timeout: 3500
+            });
+            this.getAllNotes();
+              this.close();    
             }
           })
           .catch(
-            (error) => (this.snackbar.appear = true),
-            (this.snackbar.text =
-              "error while updating, please try again later")
+            (error) =>  this.showSnack({
+               text: 'Error, Please try again!',
+              timeout: 3500
+            }),
+              this.close()    
           );
       }
-    },
-
-    
+    },  
   },
 };
 </script>
