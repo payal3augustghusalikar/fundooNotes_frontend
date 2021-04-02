@@ -1,7 +1,7 @@
 /*************************************************************************
  *
  *
- * @file : dashboard.spec.js
+ * @file : archieved.spec.js
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0
  * @since : 05/03/2021

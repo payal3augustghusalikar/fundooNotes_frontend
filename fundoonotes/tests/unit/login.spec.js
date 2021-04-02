@@ -1,7 +1,7 @@
 /*************************************************************************
  *
  *
- * @file : cardicons.spec.js
+ * @file : login.spec.js
  * purpose : to test login component
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0

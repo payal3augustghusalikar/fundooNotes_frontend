@@ -1,3 +1,12 @@
+/*************************************************************************
+ * @file : trashNotes.spec.js
+ * purpose : to test trashNotes component
+ * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
+ * @version : 1.0
+ * @since : 05/03/2021
+ *
+ **************************************************************************/
+
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import trashNotes from '../../src/components/trashNotes'

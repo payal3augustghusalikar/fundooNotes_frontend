@@ -1,7 +1,7 @@
 /*************************************************************************
  *
  *
- * @file : cardicons.spec.js
+ * @file : dialogBox.spec.js
  * purpose : to test dialogBox component
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0

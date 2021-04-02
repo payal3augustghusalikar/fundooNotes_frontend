@@ -1,7 +1,7 @@
 /*************************************************************************
  *
  *
- * @file : cardicons.spec.js
+ * @file : forgotPassword.spec.js
  * purpose : to test forgotPassword component
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0

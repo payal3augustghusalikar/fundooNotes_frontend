@@ -1,7 +1,7 @@
  /*************************************************************************
   *
   *
-  * @file : cardicons.spec.js
+  * @file : noteCards.spec.js
   * purpose : to test noteCards component
   * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
   * @version : 1.0

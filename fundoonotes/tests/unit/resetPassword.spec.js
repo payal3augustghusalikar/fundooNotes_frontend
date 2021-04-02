@@ -1,5 +1,5 @@
 /*************************************************************************
- * @file : cardicons.spec.js
+ * @file : resetPassword.spec.js
  * purpose : to test resetPassword component
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0

@@ -1,5 +1,5 @@
 /*************************************************************************
- * @file : cardicons.spec.js
+ * @file : register.spec.js
  * purpose : to test register component
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0

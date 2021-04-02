@@ -1,5 +1,5 @@
 /*************************************************************************
- * @file : cardicons.spec.js
+ * @file : snackBar.spec.js
  * purpose : to test snackBar component
  * @author : payal Ghusalikar<payalghiusalikar9@gmail.com>
  * @version : 1.0
