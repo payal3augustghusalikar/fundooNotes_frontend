@@ -2,6 +2,7 @@ import note from '../../services/note.js';
 
 const state = {
     notes: [],
+    navBarOption: Boolean
 };
 const getters = {
     allActiveNotes: state => {
@@ -22,6 +23,13 @@ const getters = {
 
 const actions = {
 
+
+    changeAddNote({ commit }) {
+        console.log("inside change addNote")
+        this.navBarOption = false
+        commit("changeAddNote", this.navBarOption)
+    },
+
     getAllNotes({ commit }) {
         console.log('inside get all notes');
         note
@@ -30,10 +38,10 @@ const actions = {
                 this.result = result.data.data;
                 commit('setAllNotes', this.result);
             }).catch(error => {
-                commit('SHOW_MESSAGE', {
-                    text: 'Error while Retriving Notes',
-                    timeout: 2000
-                });
+                // commit('SHOW_MESSAGE', {
+                //     text: 'Error while Retriving Notes',
+                //     timeout: 2000
+                // });
             });
     },
 
@@ -47,7 +55,7 @@ const actions = {
             commit('newNote', this.result);
         }).catch(error => {
             commit('SHOW_MESSAGE', {
-                text: 'Error adding new Note',
+                text: 'Error while adding new Note',
                 timeout: 2000
             });
         });
@@ -58,16 +66,17 @@ const actions = {
             isDeleted: true
         };
         console.log('noteData, id', id, noteInput);
-        note.moveToTrash(noteInput, id).then(result => {
+        return note.moveToTrash(noteInput, id).then(result => {
             this.result = result.data.data;
             console.log('Moved To trash', result);
             commit('SHOW_MESSAGE', {
                 text: 'Moved To trash',
                 timeout: 2000
             });
+            console.log("get all")
         }).catch(error => {
             commit('SHOW_MESSAGE', {
-                text: 'Error, please try again!',
+                text: 'Error, while trashing!',
                 timeout: 2000
             });
         });
@@ -77,6 +86,7 @@ const actions = {
 const mutations = {
     setAllNotes: (state, notes) => (state.notes = notes),
     newNote: (state, noteData) => state.notes.unshift(noteData),
+    changeAddNote: (state, navBarOption) => (state.navBarOption = navBarOption),
 };
 
 export default {

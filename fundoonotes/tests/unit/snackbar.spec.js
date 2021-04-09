@@ -44,12 +44,10 @@ describe('snackbar.vue', () => {
     });
 
     it('has data', () => {
-        expect(typeof register.data).toBe('function');
+        expect(typeof snackbar.data).toBe('function');
     });
 
-    it('has a button', () => {
-        expect(wrapper.contains('md-button')).toBe(true);
-    });
+
 
 
 });

@@ -20,14 +20,14 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-
-    <dashboard v-show="false" ref="dashboard" />
+    <dashboard v-show="false" ref="dashboard" :navBarOption="this.navBarOption" />
   </div>
 </template>
 
 <script>
 import router from '../router/route.js';
 import dashboard from './dashboard.vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'sidenavBar',
   components: {
@@ -37,8 +37,9 @@ export default {
   props: {
     showIconName: Boolean
   },
+
   data: () => ({
-    navBarOption: true,
+    //navBarOption: true,
 
     sideNavBar: [
       {
@@ -67,21 +68,38 @@ export default {
       }
     ]
   }),
-
+ 
+ mounted() {
+      this.changeAddNote()
+ },
   methods: {
+     ...mapActions(['changeAddNote']),
     goToItem(item) {
       if (item.title == 'Trash' || item.title == 'Archieved') {
         this.navBarOption = false;
-        if (item.title == 'Archieved') { 
-             this.$root.$emit('archieved', this.navBarOption);
-        }
-        this.$root.$emit('navBarRendering', this.navBarOption);
+ //console.log(" this.changeAddNote")
+     this.changeAddNote()
+        this.$router.push({
+        name: item.title
+          
+      });
+   
+     
+        
+        // if (item.title == 'Archieved') { 
+        //     // this.$root.$emit('archieved', this.navBarOption);
+        // }
+       // this.$root.$emit('navBarRendering', this.navBarOption);
       } else {
+          this.navBarOption = true;
         console.log('this is xcep trash and archieved');
-      }
-      this.$router.push({
+        this.$router.push({
         name: item.title
       });
+      }
+      // this.$router.push({
+      //   name: item.title
+      // });
     }
   }
 };

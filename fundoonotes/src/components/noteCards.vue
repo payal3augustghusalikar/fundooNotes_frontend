@@ -34,25 +34,24 @@
             <dialogBox :dialog.sync="note.dialog == true" :options="note" />
           </v-card>
         </v-hover>
-     
        </v-flex>
+         <dashboard v-show="false" :navBarOption="this.navBarOption" />
     </v-layout>
-
   </v-flex>
 </template>
 
 <script>
 import cardIcons from '../components/cardIcons.vue';
 import dialogBox from './dialogBox.vue';
-
+import dashboard from '../components/cardIcons.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Note',
   components: {
     cardIcons,
-    dialogBox,
-   
+    dialogBox, 
+    dashboard
   },
 
   props: {
@@ -68,7 +67,8 @@ export default {
       appear: false,
       text: '',
       timeout: 2500
-    }
+    },
+    navBarOption:true
   }),
 
   methods: {

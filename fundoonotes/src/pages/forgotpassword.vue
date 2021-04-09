@@ -2,7 +2,7 @@
   <div>
     <form
       novalidate
-      class="md-layout jc-center login"
+      class="md-layout jc-center forgot"
       @submit.prevent="validateUser"
     >
       <md-card
@@ -140,5 +140,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import url("../scss/login.scss");
+@import url("../scss/forgotPassword.scss");
 </style>

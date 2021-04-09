@@ -54,7 +54,8 @@
           </v-card>
         </v-hover>
       </v-flex>
-      <snackbar ref="snackbar" />
+     
+       <dashboard v-show="false" :navBarOption="navBarOption" />
     </v-layout>
   </v-flex>
 </template>
@@ -63,18 +64,20 @@
 import note from '../services/note.js';
 import { mapGetters, mapActions } from 'vuex';
 import dialogBox from './dialogBox.vue';
-
+import dashboard from '../components/cardIcons.vue';
 export default {
   name: 'Trash',
   components: {
-    dialogBox
+    dialogBox,
+    dashboard
   },
 
   data: () => ({
     IconDialog: false,
     trashNotes: '',
     trash: true,
-    dialog: false
+    dialog: false,
+    navBarOption:false
   }),
 
   created() {
@@ -102,7 +105,7 @@ export default {
             });
             this.getAllNotes();
           }else{this.showSnack({
-            text: 'Error, please try again later!',
+            text: 'Error for restore, please try again later!',
             timeout: 3500
           });}  
         })

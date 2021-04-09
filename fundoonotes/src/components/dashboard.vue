@@ -35,7 +35,7 @@
               <v-main>
                 <v-container class="main">
                 <!--  <div class="takeNote" v-if="showAddNote"> -->
-                <div class="takeNote" v-if="navBarOption"> 
+                <div class="takeNote" v-if="navBarOption==true"> 
                     <v-card
                       class="mx-auto my-12 note-card window"
                       elevation="8"
@@ -111,7 +111,7 @@
                   <div class="allCards">
                     <router-view></router-view>
                     <!--<noteCards v-if="showAddNote" ref="childNote" /> -->
-                  <noteCards v-if="navBarOption" ref="childNote" />
+                  <noteCards v-if="navBarOption==true" ref="childNote" />
                   </div>
                 </v-container>
               </v-main>
@@ -141,19 +141,18 @@ export default {
   },
 
   props: {
-    navBarOption: {
-      default: true
-    },
+   navBarOption:Boolean,
+    
     Textappear: Boolean,
     snackbarText: String
   },
 
   data: () => ({
-    snackbar: {
-      appear: false,
-      text: '',
-      timeout: 2500
-    },
+    // snackbar: {
+    //   appear: false,
+    //   text: '',
+    //   timeout: 2500
+    // },
 
     title: '',
     description: '',
@@ -163,12 +162,28 @@ export default {
     cardHeight: 50,
     isActive: true,
     allNotes: '',
-    showAddNote: false
+    showAddNote: false,
+    navBarOption: true
   }),
- 
-  mounted() {
-    this.$root.$on('navBarRendering', navBarOption => {
-      this.showAddNote = navBarOption;
+
+//  mounted() {
+//     // this.$root.$on('navBarRendering', navBarOption => {
+//     //   this.showAddNote = navBarOption;
+//     // });
+//     console.log("nave,", this.navBarOption)
+//   },
+
+
+mounted() {
+    this.$store.subscribe((mutation, state) => {
+      console.log(mutation.type === "navBarOption")
+      console.log("mutation.type for note", mutation.type)
+       this.navBarOption=false
+      if (mutation.type === "navBarOption") {
+        console.log("add note display")
+      
+       }
+        //this.reset();
     });
   },
 
@@ -198,8 +213,8 @@ export default {
       this.text = 'title';
       this.cardHeight = 150;
     },
-  ...mapActions(['addNote']),
-  
+
+   ...mapActions(['addNote']),
     createNewNote() {
       let noteData = {
         title: this.title,

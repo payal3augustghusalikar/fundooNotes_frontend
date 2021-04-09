@@ -24,20 +24,24 @@ export default {
 
   methods: {
     reset() {
-return {
-      show: false,
-      text: '',
-      timeout: 0
-    };
+       this.show =false,
+      this.text= '',
+      this.timeout= 0
+    
     }
   },
 
 mounted() {
     this.$store.subscribe((mutation, state) => {
+      console.log(mutation.type === "snackBar/SHOW_MESSAGE", mutation.type === "snackbar/SHOW_MESSAGE")
+      console.log("mutation.type", mutation.type)
+      if (mutation.type === "snackbar" || mutation.type ===  "SHOW_MESSAGE") {
+        console.log("snackbar display")
       this.text = state.snackBar.text;
-        this.timeout = state.snackBar.timeout;
+        this.timeout = 2500
         this.show = true;
-        this.reset();
+       }
+        //this.reset();
     });
   },
 };

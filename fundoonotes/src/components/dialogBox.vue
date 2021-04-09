@@ -1,7 +1,7 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="400" min-height="200">
-      <v-card v-click-outside="onClickOutside">
+      <v-card >
         <v-card-text>
           <v-form >
        <br />
@@ -43,6 +43,9 @@
          <br />
         <v-card-actions>
           <v-spacer></v-spacer>
+           <v-btn v-if="!trash" color="darken-1" flat @click="onClickOutside"
+            >Update</v-btn
+          >
           <v-btn v-if="trash" color="darken-1" flat @click="deleteForever"
             >Yes</v-btn
           >
@@ -83,8 +86,8 @@ export default {
  
 
   methods: {
-   ...mapActions(['showSnack', 'getAllNotes']),
-
+   ...mapActions(['getAllNotes']),
+...mapActions("snackbar", ["showSnack"]),
     close() {
       this.dialog = false; 
     },
@@ -98,14 +101,15 @@ deleteForever() {
               text: 'Deleted Forever!',
               timeout: 3500
             });
-            this.getAllNotes();
+             setTimeout( this.getAllNotes(), 4000);
+              this.close();    
             }
-             this.close();     
+             
         })
         .catch(
           (error) => 
           this.showSnack({
-              text: 'Error, Please try again!',
+              text: 'Error, while deleting, Please try again!',
               timeout: 3500
             }),
              this.close()    
@@ -125,17 +129,18 @@ deleteForever() {
           .updateNote(noteInput, this.editOptions._id)
           .then((data) => {
             if (data.data.status_code.status_code == 200) {
+              console.log("updated")
              this.showSnack({
               text: 'Successfully updated!',
               timeout: 3500
             });
-            this.getAllNotes();
+            setTimeout( this.getAllNotes(), 6000);
               this.close();    
             }
           })
           .catch(
             (error) =>  this.showSnack({
-               text: 'Error, Please try again!',
+               text: 'Error while updating, Please try again!',
               timeout: 3500
             }),
               this.close()    

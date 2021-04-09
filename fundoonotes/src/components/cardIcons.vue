@@ -28,11 +28,10 @@
         </template>
         <span>Archieve</span>
       </v-tooltip>
-
       <v-tooltip v-if="singleNote.isArchived == true" bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-icon v-bind="attrs" v-on="on" @click="unArchieve"
-            >mdi-download-outline mdi-rotate-180"</v-icon
+            >present_to_all</v-icon
           >
         </template>
         <span>unArchieve</span>
@@ -80,8 +79,9 @@ export default {
   methods: {
     ...mapActions(['showSnack', 'getAllNotes', 'trashNote']),
   
-    moveToTrash() {
-      this.trashNote( this.singleNote._id).then( this.getAllNotes());
+   async moveToTrash() {
+      
+      console.log("get allhhh", await this.trashNote( this.singleNote._id)) 
     },
    
     archieve() {
@@ -98,14 +98,14 @@ export default {
             });
             this.getAllNotes();
           }
-           this.showSnack({
-            text: 'Error, please try again later!',
-            timeout: 3500
-          });
+          //  this.showSnack({
+          //   text: 'Error archieving, please try again later!',
+          //   timeout: 3500
+          // });
         })
         .catch(
           error => this.showSnack({
-              text: 'Error, Please try again!',           
+              text: 'archive error, Please try again!',           
               timeout: 3500
             })
         );
@@ -126,14 +126,14 @@ export default {
             });
             this.getAllNotes();
           }
-           this.showSnack({
-            text: 'Error, please try again later!',
-            timeout: 3500
-          });
+          //  this.showSnack({
+          //   text: 'Error, please try again later!',
+          //   timeout: 3500
+          // });
         })
         .catch(
            error => this.showSnack({
-              text: 'Error, Please try again!',           
+              text: 'unarchive Error, Please try again!',           
               timeout: 3500
             })
         );
